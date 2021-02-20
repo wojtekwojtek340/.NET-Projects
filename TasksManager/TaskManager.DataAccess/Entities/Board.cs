@@ -6,10 +6,7 @@ namespace TaskManager.DataAccess.Entities
     public class Board
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public Employee Employee { get; set; }
+        public int BoardId { get; set; }
 
         [Required]
         public ICollection<Assignment> ToBePlanned { get; set; }
@@ -28,5 +25,11 @@ namespace TaskManager.DataAccess.Entities
 
         [Required]
         public ICollection<Assignment> Canceled { get; set; }
+
+        [Required]
+        public int EmployeeId { get; set; }
+
+        [Required]
+        public Employee Employee { get; set; }
     }
 }

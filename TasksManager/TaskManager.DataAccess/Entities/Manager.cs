@@ -5,7 +5,7 @@ namespace TaskManager.DataAccess.Entities
     public class Manager
     {
         [Key]
-        public int Id { get; set; }
+        public int ManagerId { get; set; }
 
         [Required]
         public string Login { get; set; }
@@ -18,6 +18,7 @@ namespace TaskManager.DataAccess.Entities
 
         [Required]
         public string Surname { get; set; }
+
 
         [Required]
         public Company Company { get; set; }

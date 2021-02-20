@@ -5,12 +5,12 @@ namespace TaskManager.DataAccess.Entities
     public class Comment
     {
         [Key]
-        public int Id { get; set; }
+        public int CommentId { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]        
-        public Assignment Task { get; set; }
+        public Assignment Assignment { get; set; }
     }
 }

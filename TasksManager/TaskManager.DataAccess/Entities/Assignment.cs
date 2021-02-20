@@ -7,7 +7,7 @@ namespace TaskManager.DataAccess.Entities
     public class Assignment
     {
         [Key]
-        public int Id { get; set; }
+        public int AssignmentId { get; set; }
 
         [Required]
         public string Tilte { get; set; }
@@ -28,12 +28,9 @@ namespace TaskManager.DataAccess.Entities
         public Customer Customer { get; set; }
 
         [Required]
-        public ICollection<Comment> CommentsList { get; set; }
-
-        [Required]
-        public int BoardId { get; set; }
-
-        [Required]
         public Board Board { get; set; }
+
+        [Required]
+        public ICollection<Comment> CommentsList { get; set; }       
     }
 }

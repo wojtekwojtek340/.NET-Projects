@@ -13,9 +13,3 @@ C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TaskManager.DataAccess.runtimeconfig.dev.json
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.csprojAssemblyReference.cache
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.genruntimeconfig.cache
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\appsettings.Development.json
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\appsettings.json
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TasksManager.exe
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TasksManager.dll
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TasksManager.pdb
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.csproj.CopyComplete

@@ -6,12 +6,12 @@ namespace TaskManager.DataAccess.Entities
     public class Customer
     {
         [Key]
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         [Required]
-        public ICollection<Assignment> TasksList { get; set; }
+        public ICollection<Assignment> AssignmentList { get; set; }
     }
 }

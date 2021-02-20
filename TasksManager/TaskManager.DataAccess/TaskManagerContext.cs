@@ -17,5 +17,25 @@ namespace TaskManager.DataAccess
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manager>()
+                .HasOne(a => a.Company)
+                .WithOne(b => b.Manager)
+                .HasForeignKey<Manager>(b => b.ManagerId);
+
+            modelBuilder.Entity<Employee>()
+            .HasOne(a => a.Board)
+            .WithOne(b => b.Employee)
+            .HasForeignKey<Employee>(b => b.EmployeeId);
+
+            modelBuilder.Entity<Assignment>()
+            .HasOne(a => a.Board)
+            .WithMany(b => b.ToBePlanned);
+        }
+
     }
+
+
 }

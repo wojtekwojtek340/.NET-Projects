@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess
 {
@@ -13,8 +14,10 @@ namespace TaskManager.DataAccess
         public TaskManagerContext CreateDbContext(string[] args)
         {
             var optionsBuildier = new DbContextOptionsBuilder<TaskManagerContext>();
-            optionsBuildier.UseSqlServer("Data Source = DESKTOP - TH6F0L5; Initial Catalog = TaskManagerDb; Integrated Security = True");
+            optionsBuildier.UseSqlServer("Server=DESKTOP-TH6F0L5;Initial Catalog=TaskManagerDb;User ID=TaskManager;password=adminadmin;Integrated Security=True;Trusted_Connection=True;");
             return new TaskManagerContext(optionsBuildier.Options);
         }
-    }
+
+
+    }       
 }
