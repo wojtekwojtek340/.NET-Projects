@@ -4,15 +4,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.DataAccess.Entities
 {
-    public class Assignment
+    public enum AssignmentStatus
     {
-        [Key]
-        public int AssignmentId { get; set; }
-
+        ToBePlanned,
+        Planned,
+        InProgress,
+        Completed,
+        Suspended,
+        Canceled
+    }
+    public class Assignment : EntityBase
+    {
         [Required]
+        [MaxLength(200)]
         public string Tilte { get; set; }
 
         [Required]
+        [MaxLength(500)]
         public string Description { get; set; }       
 
         [Required]
@@ -25,12 +33,21 @@ namespace TaskManager.DataAccess.Entities
         public DateTime DeadlineTime { get; set; }
 
         [Required]
+        public int CustomerId { get; set; }
+
+        [Required]
         public Customer Customer { get; set; }
+
+        [Required]
+        public int BoardId { get; set; }
 
         [Required]
         public Board Board { get; set; }
 
         [Required]
-        public ICollection<Comment> CommentsList { get; set; }       
+        public List<Comment> CommentsList { get; set; }
+
+        [Required]
+        public AssignmentStatus AssignmentStatus { get; set; }
     }
 }

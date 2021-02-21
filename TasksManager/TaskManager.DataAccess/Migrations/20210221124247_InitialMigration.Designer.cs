@@ -10,7 +10,7 @@ using TaskManager.DataAccess;
 namespace TaskManager.DataAccess.Migrations
 {
     [DbContext(typeof(TaskManagerContext))]
-    [Migration("20210220225328_InitialMigration")]
+    [Migration("20210221124247_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,27 +23,15 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Assignment", b =>
                 {
-                    b.Property<int>("AssignmentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AssignmentStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("BoardId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BoardId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BoardId2")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BoardId3")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BoardId4")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BoardId5")
                         .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
@@ -54,7 +42,8 @@ namespace TaskManager.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -64,21 +53,12 @@ namespace TaskManager.DataAccess.Migrations
 
                     b.Property<string>("Tilte")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("AssignmentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BoardId");
-
-                    b.HasIndex("BoardId1");
-
-                    b.HasIndex("BoardId2");
-
-                    b.HasIndex("BoardId3");
-
-                    b.HasIndex("BoardId4");
-
-                    b.HasIndex("BoardId5");
 
                     b.HasIndex("CustomerId");
 
@@ -87,7 +67,7 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Board", b =>
                 {
-                    b.Property<int>("BoardId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -95,14 +75,14 @@ namespace TaskManager.DataAccess.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.HasKey("BoardId");
+                    b.HasKey("Id");
 
                     b.ToTable("Boards");
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -112,9 +92,10 @@ namespace TaskManager.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AssignmentId");
 
@@ -123,42 +104,52 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Company", b =>
                 {
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
-                    b.HasKey("CompanyId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId")
+                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BoardId")
                         .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
@@ -166,20 +157,27 @@ namespace TaskManager.DataAccess.Migrations
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Password")
+                        .HasMaxLength(200)
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardId")
+                        .IsUnique();
 
                     b.HasIndex("CompanyId");
 
@@ -188,25 +186,35 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Manager", b =>
                 {
-                    b.Property<int>("ManagerId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Password")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("ManagerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Managers");
                 });
@@ -214,30 +222,10 @@ namespace TaskManager.DataAccess.Migrations
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Assignment", b =>
                 {
                     b.HasOne("TaskManager.DataAccess.Entities.Board", "Board")
-                        .WithMany("ToBePlanned")
+                        .WithMany("AssignmentList")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", null)
-                        .WithMany("Canceled")
-                        .HasForeignKey("BoardId1");
-
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", null)
-                        .WithMany("Completed")
-                        .HasForeignKey("BoardId2");
-
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", null)
-                        .WithMany("InProgress")
-                        .HasForeignKey("BoardId3");
-
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", null)
-                        .WithMany("Planned")
-                        .HasForeignKey("BoardId4");
-
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", null)
-                        .WithMany("Suspended")
-                        .HasForeignKey("BoardId5");
 
                     b.HasOne("TaskManager.DataAccess.Entities.Customer", "Customer")
                         .WithMany("AssignmentList")
@@ -261,32 +249,32 @@ namespace TaskManager.DataAccess.Migrations
                     b.Navigation("Assignment");
                 });
 
+            modelBuilder.Entity("TaskManager.DataAccess.Entities.Company", b =>
+                {
+                    b.HasOne("TaskManager.DataAccess.Entities.Manager", "Manager")
+                        .WithOne("Company")
+                        .HasForeignKey("TaskManager.DataAccess.Entities.Company", "ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Employee", b =>
                 {
+                    b.HasOne("TaskManager.DataAccess.Entities.Board", "Board")
+                        .WithOne("Employee")
+                        .HasForeignKey("TaskManager.DataAccess.Entities.Employee", "BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TaskManager.DataAccess.Entities.Company", "Company")
                         .WithMany("EmployeesList")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskManager.DataAccess.Entities.Board", "Board")
-                        .WithOne("Employee")
-                        .HasForeignKey("TaskManager.DataAccess.Entities.Employee", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Board");
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("TaskManager.DataAccess.Entities.Manager", b =>
-                {
-                    b.HasOne("TaskManager.DataAccess.Entities.Company", "Company")
-                        .WithOne("Manager")
-                        .HasForeignKey("TaskManager.DataAccess.Entities.Manager", "ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Company");
                 });
@@ -298,33 +286,26 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Board", b =>
                 {
-                    b.Navigation("Canceled");
-
-                    b.Navigation("Completed");
+                    b.Navigation("AssignmentList");
 
                     b.Navigation("Employee")
                         .IsRequired();
-
-                    b.Navigation("InProgress");
-
-                    b.Navigation("Planned");
-
-                    b.Navigation("Suspended");
-
-                    b.Navigation("ToBePlanned");
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Company", b =>
                 {
                     b.Navigation("EmployeesList");
-
-                    b.Navigation("Manager")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Customer", b =>
                 {
                     b.Navigation("AssignmentList");
+                });
+
+            modelBuilder.Entity("TaskManager.DataAccess.Entities.Manager", b =>
+                {
+                    b.Navigation("Company")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

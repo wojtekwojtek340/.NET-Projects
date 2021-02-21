@@ -2,23 +2,26 @@
 
 namespace TaskManager.DataAccess.Entities
 {
-    public class Manager
+    public class Manager : EntityBase
     {
-        [Key]
-        public int ManagerId { get; set; }
-
         [Required]
+        [MaxLength(200)]
         public string Login { get; set; }
 
         [Required]
-        public int Password { get; set; }
+        [MaxLength(200)]
+        public string Password { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public string Surname { get; set; }
 
+        [Required]
+        public int CompanyId { get; set; }
 
         [Required]
         public Company Company { get; set; }

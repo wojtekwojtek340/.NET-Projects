@@ -2,25 +2,32 @@
 
 namespace TaskManager.DataAccess.Entities
 {
-    public class Employee
+    public class Employee : EntityBase
     {
-        [Key]
-        public int EmployeeId { get; set; }
-
         [Required]
+        [MaxLength(200)]
         public string Login { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public int Password { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public string Surname { get; set; }
 
         [Required]
+        public int CompanyId { get; set; }
+
+        [Required]
         public Company Company { get; set; }
+
+        [Required]
+        public int BoardId { get; set; }
 
         [Required]
         public Board Board { get; set; }

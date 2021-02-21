@@ -2,13 +2,14 @@
 
 namespace TaskManager.DataAccess.Entities
 {
-    public class Comment
+    public class Comment : EntityBase
     {
-        [Key]
-        public int CommentId { get; set; }
+        [Required]
+        [MaxLength(400)]
+        public string Description { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public int AssignmentId { get; set; }
 
         [Required]        
         public Assignment Assignment { get; set; }

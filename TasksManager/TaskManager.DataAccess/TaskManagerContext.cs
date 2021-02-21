@@ -3,7 +3,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess
 {
-    class TaskManagerContext : DbContext
+    public class TaskManagerContext : DbContext
     {
         public TaskManagerContext(DbContextOptions<TaskManagerContext> opt) : base(opt)
         {
@@ -20,22 +20,15 @@ namespace TaskManager.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Board>()
+                .HasOne(a => a.Employee)
+                .WithOne(b => b.Board)
+                .HasForeignKey<Employee>(b => b.BoardId);
+
             modelBuilder.Entity<Manager>()
                 .HasOne(a => a.Company)
                 .WithOne(b => b.Manager)
-                .HasForeignKey<Manager>(b => b.ManagerId);
-
-            modelBuilder.Entity<Employee>()
-            .HasOne(a => a.Board)
-            .WithOne(b => b.Employee)
-            .HasForeignKey<Employee>(b => b.EmployeeId);
-
-            modelBuilder.Entity<Assignment>()
-            .HasOne(a => a.Board)
-            .WithMany(b => b.ToBePlanned);
+                .HasForeignKey<Company>(b => b.ManagerId);
         }
-
     }
-
-
 }

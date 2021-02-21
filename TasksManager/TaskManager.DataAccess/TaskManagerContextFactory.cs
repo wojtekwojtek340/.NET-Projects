@@ -9,7 +9,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess
 {
-    class TaskManagerContextFactory : IDesignTimeDbContextFactory<TaskManagerContext>
+    public class TaskManagerContextFactory : IDesignTimeDbContextFactory<TaskManagerContext>
     {
         public TaskManagerContext CreateDbContext(string[] args)
         {

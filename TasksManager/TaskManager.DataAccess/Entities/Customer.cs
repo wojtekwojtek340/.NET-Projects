@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.DataAccess.Entities
 {
-    public class Customer
+    public class Customer : EntityBase
     {
-        [Key]
-        public int CustomerId { get; set; }
-
         [Required]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         [Required]
-        public ICollection<Assignment> AssignmentList { get; set; }
+        public List<Assignment> AssignmentList { get; set; }
     }
 }
