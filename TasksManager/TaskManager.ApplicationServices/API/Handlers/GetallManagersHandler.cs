@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,32 +7,30 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers
 {
-    public class GetManagersHandler : IRequestHandler<GetManagersRequest, GetManagersResponse>
+    public class GetallManagersHandler : IRequestHandler<GetAllManagersRequest, GetAllManagersResponse>
     {
         private readonly IRepository<Manager> managerRepository;
+        private readonly IMapper mapper;
 
-        public GetManagersHandler(IRepository<DataAccess.Entities.Manager> managerRepository)
+        public GetallManagersHandler(IRepository<DataAccess.Entities.Manager> managerRepository, IMapper mapper)
         {
             this.managerRepository = managerRepository;
+            this.mapper = mapper;
         }
 
-        public Task<GetManagersResponse> Handle(GetManagersRequest request, CancellationToken cancellationToken)
+        public Task<GetAllManagersResponse> Handle(GetAllManagersRequest request, CancellationToken cancellationToken)
         {
             var managers = managerRepository.GetAll();
 
-            var domainManagers = managers.Select(x => new Domain.Models.Manager()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Surname = x.Surname
-            });
+            var domainManagers = mapper.Map<IEnumerable<ManagerDto>>(managers);            
 
-            var response = new GetManagersResponse()
+            var response = new GetAllManagersResponse()
             {
                 Data = domainManagers.ToList()
             };

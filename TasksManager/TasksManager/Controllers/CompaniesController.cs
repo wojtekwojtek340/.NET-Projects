@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,17 @@ namespace TasksManager.Controllers
     public class CompaniesController : ControllerBase
     {
         private readonly IMediator mediator;
+        private readonly IMapper mapper;
 
-        public CompaniesController(IMediator mediator)
+        public CompaniesController(IMediator mediator, IMapper mapper)
         {
             this.mediator = mediator;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllCompanies([FromQuery] GetCompaniesRequest request)
+        public async Task<IActionResult> GetAllCompanies([FromQuery] GetAllCompaniesRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,23 @@ using TaskManager.DataAccess;
 
 namespace TaskManager.ApplicationServices.API.Handlers
 {
-    public class GetCompaniesHandler : IRequestHandler<GetCompaniesRequest, GetCompaniesResponse>
+    public class GetAllCompaniesHandler : IRequestHandler<GetAllCompaniesRequest, GetAllCompaniesResponse>
     {
         private readonly IRepository<DataAccess.Entities.Company> companyRepository;
+        private readonly IMapper mapper;
 
-        public GetCompaniesHandler(IRepository<DataAccess.Entities.Company> companyRepository)
+        public GetAllCompaniesHandler(IRepository<DataAccess.Entities.Company> companyRepository, IMapper mapper)
         {
             this.companyRepository = companyRepository;
+            this.mapper = mapper;
         }
-        public Task<GetCompaniesResponse> Handle(GetCompaniesRequest request, CancellationToken cancellationToken)
+        public Task<GetAllCompaniesResponse> Handle(GetAllCompaniesRequest request, CancellationToken cancellationToken)
         {
             var companies = this.companyRepository.GetAll();
 
-            var domainCompanies = companies.Select(x => new Domain.Models.Company()
-            {
-                Id = x.Id,
-                Description = x.Description
-            });
+            var domainCompanies = mapper.Map<IEnumerable<CompanyDto>>(companies);
 
-            var response = new GetCompaniesResponse()
+            var response = new GetAllCompaniesResponse()
             { 
                 Data = domainCompanies.ToList()
             };

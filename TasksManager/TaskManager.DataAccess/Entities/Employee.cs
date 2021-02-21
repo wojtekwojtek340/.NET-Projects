@@ -10,7 +10,7 @@ namespace TaskManager.DataAccess.Entities
 
         [Required]
         [MaxLength(200)]
-        public int Password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [MaxLength(200)]
