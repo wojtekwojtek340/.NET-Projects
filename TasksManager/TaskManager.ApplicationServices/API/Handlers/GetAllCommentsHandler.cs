@@ -13,7 +13,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers
 {
-    class GetAllCommentsHandler : IRequestHandler<GetAllCommentsRequest, GetAllCommentsResponse>
+    public class GetAllCommentsHandler : IRequestHandler<GetAllCommentsRequest, GetAllCommentsResponse>
     {
         private readonly IRepository<Comment> commentsRepository;
         private readonly IMapper mapper;

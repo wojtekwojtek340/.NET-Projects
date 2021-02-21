@@ -29,5 +29,15 @@ namespace TasksManager.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpGet]
+        [Route("{assignmentId}")]
+
+        public async Task<IActionResult> GetAsignmentById([FromQuery] GetAssignmentByIdRequest request, int assignmentId)
+        {
+            request = new GetAssignmentByIdRequest(assignmentId);
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }

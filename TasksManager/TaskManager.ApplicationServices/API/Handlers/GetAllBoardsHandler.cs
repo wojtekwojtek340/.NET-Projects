@@ -13,7 +13,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers
 {
-    class GetAllBoardsHandler : IRequestHandler<GetAllBoardsRequest, GetAllBoardsResponse>
+    public class GetAllBoardsHandler : IRequestHandler<GetAllBoardsRequest, GetAllBoardsResponse>
     {
         private readonly IRepository<Board> boardsRepository;
         private readonly IMapper mapper;

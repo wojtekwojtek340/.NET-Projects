@@ -17,7 +17,5 @@ namespace TaskManager.DataAccess
             optionsBuildier.UseSqlServer("Server=DESKTOP-TH6F0L5;Initial Catalog=TaskManagerDb;User ID=TaskManager;password=adminadmin;Integrated Security=True;Trusted_Connection=True;");
             return new TaskManagerContext(optionsBuildier.Options);
         }
-
-
     }       
 }

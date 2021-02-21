@@ -13,28 +13,31 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers
 {
-    public class GetAllAssignmentsHandler : IRequestHandler<GetAllAssignmentsRequest, GetAllAssignmentsResponse>
+    public class GetAssignmentByIdHandler : IRequestHandler<GetAssignmentByIdRequest, GetAssignmentByIdResponse>
     {
         private readonly IRepository<Assignment> assignmentRepository;
         private readonly IMapper mapper;
 
-        public GetAllAssignmentsHandler(IRepository<DataAccess.Entities.Assignment> assignmentRepository, IMapper mapper)
+        public GetAssignmentByIdHandler(IRepository<DataAccess.Entities.Assignment> assignmentRepository, IMapper mapper)
         {
             this.assignmentRepository = assignmentRepository;
             this.mapper = mapper;
         }
-        public Task<GetAllAssignmentsResponse> Handle(GetAllAssignmentsRequest request, CancellationToken cancellationToken)
+        public Task<GetAssignmentByIdResponse> Handle(GetAssignmentByIdRequest request, CancellationToken cancellationToken)
         {
-            var assignment = assignmentRepository.GetAll();
 
-            var domainAssignments = mapper.Map<IEnumerable<AssignmentDto>>(assignment);
+            var assignment = assignmentRepository.GetById(request.assignmentId);       
+           
+            var domainAssignment = mapper.Map<AssignmentDto>(assignment);
 
-            var response = new GetAllAssignmentsResponse()
+            var response = new GetAssignmentByIdResponse()
             {
-                Data = domainAssignments.ToList()
+                Data = domainAssignment
             };
 
             return Task.FromResult(response);
+
+
         }
     }
 }
