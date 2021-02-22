@@ -16,7 +16,8 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
         Canceled
     }
     public class AssignmentDto
-    {       
+    {
+        
         public int Id { get; set; }
         public string Tilte { get; set; }
         public string Description { get; set; }

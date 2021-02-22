@@ -25,7 +25,7 @@ namespace TaskManager.ApplicationServices.API.Handlers
         }
         public Task<GetAllAssignmentsResponse> Handle(GetAllAssignmentsRequest request, CancellationToken cancellationToken)
         {
-            var assignment = assignmentRepository.GetAll();
+            var assignment = assignmentRepository.GetAll();           
 
             var domainAssignments = mapper.Map<IEnumerable<AssignmentDto>>(assignment);
 
