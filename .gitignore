@@ -4,10 +4,5 @@ TasksManager/TaskManager.DataAccess/obj/
 TasksManager/TaskManager.DataAccess/bin/
 TasksManager/TaskManager.ApplicationServices/obj/
 TasksManager/TaskManager.ApplicationServices/bin/
-VerumPostManager/VerumPostManager/obj/
-VerumPostManager/VerumPostManager/bin/
-VerumPostManager/VerumPostManager.DataAccess/obj/
-VerumPostManager/VerumPostManager.DataAccess/bin/
-VerumPostManager/VerumPostManager.Domain/obj/
-VerumPostManager/VerumPostManager.Domain/bin/
+
 

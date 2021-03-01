@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.Entities;
 
@@ -16,12 +16,10 @@ namespace TasksManager.Controllers
     public class ManagersController : ControllerBase
     {
         private readonly IMediator mediator;
-        private readonly IMapper mapper;
 
-        public ManagersController(IMediator mediator, IMapper mapper)
+        public ManagersController(IMediator mediator)
         {
             this.mediator = mediator;
-            this.mapper = mapper;
         }
 
         [HttpGet]

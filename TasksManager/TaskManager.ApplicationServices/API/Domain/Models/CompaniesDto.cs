@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TaskManager.ApplicationServices.API.Domain.Models
+{
+    public class CompaniesDto
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public List<EmployesDto> EmployeesList { get; set; }
+        public int ManagerId { get; set; }
+        public ManagersDto Manager { get; set; }
+    }
+}

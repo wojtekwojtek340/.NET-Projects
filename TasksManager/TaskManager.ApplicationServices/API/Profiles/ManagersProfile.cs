@@ -13,8 +13,12 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public ManagersProfile()
         {
-            CreateMap<Manager, ManagerDto>();
-            CreateMap<ManagerDto, Manager>();
+            CreateMap<Manager, Domain.Models.ManagersDto>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))
+                .ForMember(x => x.CompanyId, y => y.MapFrom(z => z.CompanyId))
+                .ForMember(x => x.Company, y => y.MapFrom(z => z.Company));
         }
     }
 }

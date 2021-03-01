@@ -13,8 +13,12 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public CommentsProfile()
         {
-            CreateMap<Comment, CommentDto>();
-            CreateMap<CommentDto, Comment>();
+            CreateMap<Comment, Domain.Models.CommentsDto>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
+                .ForMember(x => x.AssignmentId, y => y.MapFrom(z => z.AssignmentId))
+                .ForMember(x => x.Assignment, y => y.MapFrom(z => z.Assignment));
+
         }
     }
 }

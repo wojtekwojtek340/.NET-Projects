@@ -13,8 +13,10 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public CustomersProfile()
         {
-            CreateMap<Customer, CustomerDto>();
-            CreateMap<CustomerDto, Customer>();
+            CreateMap<Customer, Domain.Models.CustomersDto>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList));
         }
     }
 }

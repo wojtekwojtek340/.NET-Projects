@@ -11,16 +11,16 @@ namespace TaskManager.DataAccess
     public class Repository<T> : IRepository<T> where T : EntityBase
     {
         private readonly TaskManagerContext context;
-        private DbSet<T> entities;
+        private readonly DbSet<T> entities;
 
         public Repository(TaskManagerContext context)
         {
             this.context = context;
             entities = context.Set<T>();
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            T entity = entities.Find(id);
+            T entity = await entities.FindAsync(id);
 
             if (entity == null)
             {
@@ -28,20 +28,20 @@ namespace TaskManager.DataAccess
             }
 
             entities.Remove(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return entities.AsEnumerable();
+            return await entities.ToListAsync();
         }
 
-        public T GetById(int id)
+        public async ValueTask<T> GetById(int id)
         {
-            return entities.SingleOrDefault(s => s.Id == id);
+            return await entities.FindAsync(id);
         }
 
-        public void Insert(T entity)
+        public Task Insert(T entity)
         {
             if(entity == null)
             {
@@ -49,10 +49,10 @@ namespace TaskManager.DataAccess
             }
 
             entities.Add(entity);
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public Task Update(T entity)
         {
             if (entity == null)
             {
@@ -60,7 +60,7 @@ namespace TaskManager.DataAccess
             }
 
             entities.Update(entity);
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
     }
 }

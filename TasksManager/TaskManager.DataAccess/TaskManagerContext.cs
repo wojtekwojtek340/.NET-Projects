@@ -5,11 +5,7 @@ namespace TaskManager.DataAccess
 {
     public class TaskManagerContext : DbContext
     {
-        public TaskManagerContext(DbContextOptions<TaskManagerContext> opt) : base(opt)
-        {
-
-        }
-
+        public TaskManagerContext(DbContextOptions<TaskManagerContext> opt) : base(opt) {}
         public DbSet<Board> Boards { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Company> Companies { get; set; }

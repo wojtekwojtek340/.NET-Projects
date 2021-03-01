@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Domain.Assignments;
 
 namespace TasksManager.Controllers
 {  
@@ -14,12 +14,10 @@ namespace TasksManager.Controllers
     public class AssignmentsController : ControllerBase
     {
         private readonly IMediator mediator;
-        private readonly IMapper mapper;
 
-        public AssignmentsController(IMediator mediator, IMapper mapper)
+        public AssignmentsController(IMediator mediator)
         {
             this.mediator = mediator;
-            this.mapper = mapper;
         }
 
         [HttpGet]

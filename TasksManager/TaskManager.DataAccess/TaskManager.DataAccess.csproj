@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +15,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CQRS\Commands\Boards\" />
+    <Folder Include="CQRS\Commands\Comments\" />
+    <Folder Include="CQRS\Commands\Companies\" />
+    <Folder Include="CQRS\Commands\Customers\" />
+    <Folder Include="CQRS\Commands\Employees\" />
+    <Folder Include="CQRS\Commands\Managers\" />
   </ItemGroup>
 
 </Project>

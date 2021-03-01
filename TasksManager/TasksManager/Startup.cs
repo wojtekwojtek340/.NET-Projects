@@ -14,7 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Profiles;
 using TaskManager.DataAccess;
+using TaskManager.DataAccess.CQRS;
 
 namespace TasksManager
 {
@@ -30,7 +32,10 @@ namespace TasksManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddTransient<IQueryExecutor, QueryExecutor>();
+            services.AddTransient<ICommandExecutor, CommandExecutor>();
+
+            services.AddAutoMapper(typeof(AssgnmentsProfile).Assembly);
 
             services.AddMediatR(typeof(ResponseBase<>));
 
