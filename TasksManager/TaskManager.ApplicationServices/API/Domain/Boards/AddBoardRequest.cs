@@ -10,7 +10,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
     public class AddBoardRequest : IRequest<AddBoardResponse>
     {
-        //public List<Assignment> AssignmentList { get; set; }
+        //public List<Assignment> AssignmentList { get; set; }          
         public int EmployeeId { get; set; }
 
         //public Employee Employee { get; set; }

@@ -16,10 +16,10 @@ namespace TaskManager.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Board>()
-                .HasOne(a => a.Employee)
-                .WithOne(b => b.Board)
-                .HasForeignKey<Employee>(b => b.BoardId);
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.Board)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<Board>(b => b.EmployeeId);
 
             modelBuilder.Entity<Manager>()
                 .HasOne(a => a.Company)

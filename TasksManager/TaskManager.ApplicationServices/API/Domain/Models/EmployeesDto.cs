@@ -13,7 +13,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
         public string Surname { get; set; } 
         public int CompanyId { get; set; }
         public CompaniesDto Company { get; set; }
-        public int BoardId { get; set; }
         public BoardsDto Board { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Employees
         public string Surname { get; set; }
         public int CompanyId { get; set; }
        // public Company Company { get; set; }
-        public int BoardId { get; set; }
+        //public int BoardId { get; set; }
 
         //public Board Board { get; set; }
     }

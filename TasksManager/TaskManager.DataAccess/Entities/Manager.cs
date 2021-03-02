@@ -21,9 +21,6 @@ namespace TaskManager.DataAccess.Entities
         public string Surname { get; set; }
 
         [Required]
-        public int CompanyId { get; set; }
-
-        [Required]
         public Company Company { get; set; }
     }
 }

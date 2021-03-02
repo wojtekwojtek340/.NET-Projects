@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
@@ -13,8 +14,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Managers
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int CompanyId { get; set; }
-
         //public Company Company { get; set; }
     }
 }

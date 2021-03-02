@@ -16,8 +16,7 @@ namespace TaskManager.ApplicationServices.API.Profiles
         {
             CreateMap<Board, BoardsDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList))
-                .ForMember(x => x.EmployeeId, y => y.MapFrom(z => z.EmployeeId))
+                .ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList))             
                 .ForMember(x => x.Employee, y => y.MapFrom(z => z.Employee));
 
             CreateMap<AddBoardRequest, Board>()

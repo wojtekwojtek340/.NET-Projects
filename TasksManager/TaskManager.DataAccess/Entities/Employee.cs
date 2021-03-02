@@ -27,9 +27,6 @@ namespace TaskManager.DataAccess.Entities
         public Company Company { get; set; }
 
         [Required]
-        public int BoardId { get; set; }
-
-        [Required]
         public Board Board { get; set; }
     }
 }

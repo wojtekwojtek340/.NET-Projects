@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManager.DataAccess;
 
 namespace TaskManager.DataAccess.Migrations
 {
     [DbContext(typeof(TaskManagerContext))]
-    partial class TaskManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20210302150447_RemoveCompanyIDAndEmployeeId")]
+    partial class RemoveCompanyIDAndEmployeeId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,13 +72,7 @@ namespace TaskManager.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
 
                     b.ToTable("Boards");
                 });
@@ -150,6 +146,9 @@ namespace TaskManager.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BoardId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -174,6 +173,9 @@ namespace TaskManager.DataAccess.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BoardId")
+                        .IsUnique();
 
                     b.HasIndex("CompanyId");
 
@@ -231,17 +233,6 @@ namespace TaskManager.DataAccess.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("TaskManager.DataAccess.Entities.Board", b =>
-                {
-                    b.HasOne("TaskManager.DataAccess.Entities.Employee", "Employee")
-                        .WithOne("Board")
-                        .HasForeignKey("TaskManager.DataAccess.Entities.Board", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Comment", b =>
                 {
                     b.HasOne("TaskManager.DataAccess.Entities.Assignment", "Assignment")
@@ -266,11 +257,19 @@ namespace TaskManager.DataAccess.Migrations
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Employee", b =>
                 {
+                    b.HasOne("TaskManager.DataAccess.Entities.Board", "Board")
+                        .WithOne("Employee")
+                        .HasForeignKey("TaskManager.DataAccess.Entities.Employee", "BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TaskManager.DataAccess.Entities.Company", "Company")
                         .WithMany("EmployeesList")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Board");
 
                     b.Navigation("Company");
                 });
@@ -283,6 +282,9 @@ namespace TaskManager.DataAccess.Migrations
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Board", b =>
                 {
                     b.Navigation("AssignmentList");
+
+                    b.Navigation("Employee")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Company", b =>
@@ -293,12 +295,6 @@ namespace TaskManager.DataAccess.Migrations
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Customer", b =>
                 {
                     b.Navigation("AssignmentList");
-                });
-
-            modelBuilder.Entity("TaskManager.DataAccess.Entities.Employee", b =>
-                {
-                    b.Navigation("Board")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TaskManager.DataAccess.Entities.Manager", b =>
