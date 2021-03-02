@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain.Models;
 
-namespace TaskManager.ApplicationServices.API.Domain.Employees
+namespace TaskManager.ApplicationServices.API.Domain.Customers
 {
-    public class GetAllEmployesResponse : ResponseBase<List<EmployesDto>>
+    public class AddCustomerResponse : ResponseBase<CustomersDto>
     {
     }
 }

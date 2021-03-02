@@ -10,7 +10,6 @@ namespace TaskManager.DataAccess.CQRS
     public class CommandExecutor : ICommandExecutor
     {
         private readonly TaskManagerContext context;
-
         public CommandExecutor(TaskManagerContext context)
         {
             this.context = context;

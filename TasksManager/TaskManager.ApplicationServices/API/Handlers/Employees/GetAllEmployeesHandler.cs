@@ -15,7 +15,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers.Employees
 {
-    public class GetAllEmployeesHandler : IRequestHandler<GetAllEmployesRequest, GetAllEmployesResponse>
+    public class GetAllEmployeesHandler : IRequestHandler<GetAllEmployeesRequest, GetAllEmployeesResponse>
     {
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
@@ -24,12 +24,12 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
         }
-        public async Task<GetAllEmployesResponse> Handle(GetAllEmployesRequest request, CancellationToken cancellationToken)
+        public async Task<GetAllEmployeesResponse> Handle(GetAllEmployeesRequest request, CancellationToken cancellationToken)
         {
             var query = new GetEmployeesQuery();
             var employes = await queryExecutor.Execute(query);
-            var mappedEmployes = mapper.Map<List<EmployesDto>>(employes);        
-            var response = new GetAllEmployesResponse()
+            var mappedEmployes = mapper.Map<List<EmployeesDto>>(employes);        
+            var response = new GetAllEmployeesResponse()
             {
                 Data = mappedEmployes
             };

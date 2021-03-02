@@ -20,12 +20,19 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        
+        [Route("")]        
         public async Task<IActionResult> GetAllBoards([FromQuery] GetAllBoardsRequest request)
         {
             var response = await mediator.Send(request);
             return this.Ok(response);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddBoard([FromQuery] AddBoardRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
         }
     }
 }

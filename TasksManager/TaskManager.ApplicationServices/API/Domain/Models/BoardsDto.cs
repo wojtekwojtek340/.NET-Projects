@@ -11,6 +11,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
         public int Id { get; set; }
         public List<AssignmentsDto> AssignmentList { get; set; }
         public int EmployeeId { get; set; }
-        public EmployesDto Employee { get; set; }
+        public EmployeesDto Employee { get; set; }
     }
 }

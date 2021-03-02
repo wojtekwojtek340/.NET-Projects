@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Models
 {
-    public class EmployesDto
+    public class EmployeesDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

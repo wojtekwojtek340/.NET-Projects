@@ -26,5 +26,13 @@ namespace TasksManager.Controllers
             var response = await mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddComment([FromQuery] AddCommentRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

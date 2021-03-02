@@ -22,10 +22,18 @@ namespace TasksManager.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllEmployes([FromQuery] GetAllEmployesRequest request)
+        public async Task<IActionResult> GetAllEmployes([FromQuery] GetAllEmployeesRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddEmployee([FromQuery] AddEmployeeRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
         }
     }
 }

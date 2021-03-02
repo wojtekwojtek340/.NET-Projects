@@ -10,7 +10,6 @@ namespace TaskManager.DataAccess.CQRS
     public class QueryExecutor : IQueryExecutor
     {
         private readonly TaskManagerContext context;
-
         public QueryExecutor(TaskManagerContext context)
         {
             this.context = context;

@@ -30,5 +30,13 @@ namespace TasksManager.Controllers
             return this.Ok(response);
 
         }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddManager([FromQuery] AddManagerRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

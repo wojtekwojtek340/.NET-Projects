@@ -37,5 +37,13 @@ namespace TasksManager.Controllers
             var response = await this.mediator.Send(request);            
             return this.Ok(response);
         }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddAssignment([FromQuery] AddAssignmentRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public List<EmployesDto> EmployeesList { get; set; }
+        public List<EmployeesDto> EmployeesList { get; set; }
         public int ManagerId { get; set; }
         public ManagersDto Manager { get; set; }
     }
