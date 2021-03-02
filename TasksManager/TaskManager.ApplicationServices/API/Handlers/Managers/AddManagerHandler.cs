@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
             var managerFromDb = await commandExecutor.Execute(command);
             return new AddManagerResponse()
             {
-                Data = mapper.Map<ManagersDto>(managerFromDb)
+                Data = mapper.Map<ManagerDto>(managerFromDb)
             };
         }
     }

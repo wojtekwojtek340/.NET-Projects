@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Customers
 {
-    public class GetCustomerByIdResponse : ResponseBase<CustomersDto>
+    public class GetCustomerByIdResponse : ResponseBase<CustomerDto>
     {
     }
 }

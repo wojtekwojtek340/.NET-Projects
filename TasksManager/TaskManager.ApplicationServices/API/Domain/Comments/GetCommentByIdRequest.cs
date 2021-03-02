@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
     public class GetCommentByIdRequest : IRequest<GetCommentByIdResponse>
     {
+        public int CommentId { get; set; }
     }
 }

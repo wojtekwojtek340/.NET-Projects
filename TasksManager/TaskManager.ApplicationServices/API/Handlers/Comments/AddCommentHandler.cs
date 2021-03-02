@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
             var commentFromDb = await commandExecutor.Execute(command);
             return new AddCommentResponse()
             {
-                Data = mapper.Map<CommentsDto>(commentFromDb)
+                Data = mapper.Map<CommentDto>(commentFromDb)
             };
         }
     }

@@ -28,7 +28,19 @@ namespace TasksManager.Controllers
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);
+        }
 
+        [HttpGet]
+        [Route("{managerId}")]
+
+        public async Task<IActionResult> GetManagerById([FromRoute] int managerId)
+        {
+            var request = new GetManagerByIdRequest
+            {
+                ManagerId = managerId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
         }
 
         [HttpPost]

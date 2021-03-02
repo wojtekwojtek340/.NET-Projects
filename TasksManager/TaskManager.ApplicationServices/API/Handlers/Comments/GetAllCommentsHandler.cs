@@ -29,12 +29,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
         {
             var query = new GetCommentsQuery();
             var comments = await queryExecutor.Execute(query);
-            var mappedComments = mapper.Map<List<CommentsDto>>(comments);
-            var response = new GetAllCommentsResponse()
+            var mappedComments = mapper.Map<List<CommentDto>>(comments);
+            return new GetAllCommentsResponse()
             {
                 Data = mappedComments
             };
-            return response;
         }
     }
 }

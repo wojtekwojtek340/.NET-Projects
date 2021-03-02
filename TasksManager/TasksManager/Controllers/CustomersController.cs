@@ -27,6 +27,19 @@ namespace TasksManager.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{customerId}")]
+
+        public async Task<IActionResult> GetCustomerById([FromRoute] int customerId)
+        {
+            var request = new GetCustomerByIdRequest
+            {
+                CustomerId = customerId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddCustomer([FromQuery] AddCustomerRequest request)

@@ -30,6 +30,19 @@ namespace TasksManager.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{companyId}")]
+
+        public async Task<IActionResult> GetCompanyById([FromRoute] int companyId)
+        {
+            var request = new GetCompanyByIdRequest
+            {
+                CompanyId = companyId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddCompany([FromQuery] AddCompanyRequest request)

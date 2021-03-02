@@ -27,6 +27,19 @@ namespace TasksManager.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{commentId}")]
+
+        public async Task<IActionResult> GetCommentById([FromRoute] int commentId)
+        {
+            var request = new GetCommentByIdRequest
+            {
+                CommentId = commentId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddComment([FromQuery] AddCommentRequest request)

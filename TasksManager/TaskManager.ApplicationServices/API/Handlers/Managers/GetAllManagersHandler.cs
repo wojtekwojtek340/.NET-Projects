@@ -28,12 +28,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         {
             var query = new GetManagersQuery();
             var managers = await queryExecutor.Execute(query);
-            var mappednManagers = mapper.Map<List<ManagersDto>>(managers);          
-            var response = new GetAllManagersResponse()
+            var mappednManagers = mapper.Map<List<ManagerDto>>(managers);          
+            return new GetAllManagersResponse()
             {
                 Data = mappednManagers
             };
-            return response;
         }
     }
 }

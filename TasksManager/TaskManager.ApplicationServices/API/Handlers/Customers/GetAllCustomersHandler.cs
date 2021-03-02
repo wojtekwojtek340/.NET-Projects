@@ -29,12 +29,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
         {
             var query = new GetCustomersQuery();
             var customers = await queryExecutor.Execute(query);
-            var mappedCustomers = mapper.Map<List<CustomersDto>>(customers);
-            var response = new GetAllCustomersResponse()
+            var mappedCustomers = mapper.Map<List<CustomerDto>>(customers);
+            return new GetAllCustomersResponse()
             {
                 Data = mappedCustomers
             };
-            return response;
         }
     }
 }

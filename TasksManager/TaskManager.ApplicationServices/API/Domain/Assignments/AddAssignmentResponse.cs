@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class AddAssignmentResponse : ResponseBase<AssignmentsDto>
+    public class AddAssignmentResponse : ResponseBase<AssignmentDto>
     {
     }
 }

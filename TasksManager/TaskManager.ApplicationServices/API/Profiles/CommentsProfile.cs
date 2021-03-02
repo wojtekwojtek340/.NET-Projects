@@ -14,7 +14,7 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public CommentsProfile()
         {
-            CreateMap<Comment, CommentsDto>()
+            CreateMap<Comment, CommentDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
                 .ForMember(x => x.AssignmentId, y => y.MapFrom(z => z.AssignmentId))

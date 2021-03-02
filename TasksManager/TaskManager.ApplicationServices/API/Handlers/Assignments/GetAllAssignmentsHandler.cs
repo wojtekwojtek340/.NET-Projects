@@ -29,12 +29,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
         {
             var query = new GetAssignmentsQuery();
             var assignments = await queryExecutor.Execute(query);
-            var mappedAssignments = mapper.Map<List<AssignmentsDto>>(assignments);
-            var response = new GetAllAssignmentsResponse()
+            var mappedAssignments = mapper.Map<List<AssignmentDto>>(assignments);
+            return new GetAllAssignmentsResponse()
             {
                 Data = mappedAssignments
             };
-            return response;
         }
     }
 }

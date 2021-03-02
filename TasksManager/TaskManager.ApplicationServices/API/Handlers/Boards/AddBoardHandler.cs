@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Boards
             var boardFromDb = await commandExecutor.Execute(command);
             return new AddBoardResponse()
             {
-                Data = mapper.Map<BoardsDto>(boardFromDb)
+                Data = mapper.Map<BoardDto>(boardFromDb)
             };
         }
     }

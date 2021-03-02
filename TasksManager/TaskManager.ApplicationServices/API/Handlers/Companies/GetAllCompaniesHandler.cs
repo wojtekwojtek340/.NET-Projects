@@ -28,12 +28,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
         {
             var query = new GetCompaniesQuery();
             var companies = await queryExecutor.Execute(query);
-            var mappedCompanies = mapper.Map<List<CompaniesDto>>(companies);
-            var response = new GetAllCompaniesResponse()
+            var mappedCompanies = mapper.Map<List<CompanyDto>>(companies);
+            return new GetAllCompaniesResponse()
             { 
                 Data = mappedCompanies
             };    
-            return response;
         }
     }
 }

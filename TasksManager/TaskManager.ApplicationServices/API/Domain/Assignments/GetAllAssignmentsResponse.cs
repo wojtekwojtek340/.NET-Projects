@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class GetAllAssignmentsResponse : ResponseBase<List<AssignmentsDto>>
+    public class GetAllAssignmentsResponse : ResponseBase<List<AssignmentDto>>
     {
     }
 }

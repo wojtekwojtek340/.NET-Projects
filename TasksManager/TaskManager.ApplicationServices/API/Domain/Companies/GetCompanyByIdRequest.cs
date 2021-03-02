@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Companies
 {
     public class GetCompanyByIdRequest : IRequest<GetCompanyByIdResponse>
     {
+        public int CompanyId { get; set; }
     }
 }

@@ -10,10 +10,32 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
 {
     public class GetEmployeesQuery : QueryBase<List<Employee>>
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public override async Task<List<Employee>> Execute(TaskManagerContext context)
         {
-            var employees = await context.Employees.ToListAsync();
-            return employees;
+            if(Name != null && Surname != null)
+            {
+                var employees = await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).ToListAsync();
+                return employees;
+            }
+            else if(Name == null && Surname != null)
+            {
+                var employees = await context.Employees.Where(x => x.Surname == Surname).ToListAsync();
+                return employees;
+            }
+            else if (Name != null && Surname == null)
+            {
+                var employees = await context.Employees.Where(x => x.Name == Name).ToListAsync();
+                return employees;
+            }
+            else
+            {
+                var employees = await context.Employees.ToListAsync();
+                return employees;
+            }
+
+            
         }
     }
 }

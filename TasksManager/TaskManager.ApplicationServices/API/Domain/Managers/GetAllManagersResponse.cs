@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
-    public class GetAllManagersResponse : ResponseBase<List<ManagersDto>>
+    public class GetAllManagersResponse : ResponseBase<List<ManagerDto>>
     {
     }
 }

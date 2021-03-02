@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
             var companyFromDb = await commandExecutor.Execute(command);
             return new AddCompanyResponse()
             {
-                Data = mapper.Map<CompaniesDto>(companyFromDb)
+                Data = mapper.Map<CompanyDto>(companyFromDb)
             };
         }
     }

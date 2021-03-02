@@ -9,34 +9,34 @@ using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain.Assignments;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
+using TaskManager.DataAccess.CQRS;
+using TaskManager.DataAccess.CQRS.Queries.Assignments;
 using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers.Assignments
 {
     public class GetAssignmentByIdHandler : IRequestHandler<GetAssignmentByIdRequest, GetAssignmentByIdResponse>
     {
-        private readonly IRepository<Assignment> assignmentRepository;
         private readonly IMapper mapper;
+        private readonly IQueryExecutor queryExecutor;
 
-        public GetAssignmentByIdHandler(IRepository<DataAccess.Entities.Assignment> assignmentRepository, IMapper mapper)
+        public GetAssignmentByIdHandler(IMapper mapper, IQueryExecutor queryExecutor)
         {
-            this.assignmentRepository = assignmentRepository;
             this.mapper = mapper;
+            this.queryExecutor = queryExecutor;
         }
         public async Task<GetAssignmentByIdResponse> Handle(GetAssignmentByIdRequest request, CancellationToken cancellationToken)
         {
-            var assignment = await assignmentRepository.GetById(request.assignmentId);       
-           
-            var mappedAssignment = mapper.Map<AssignmentsDto>(assignment);
-
-            var response = new GetAssignmentByIdResponse()
+            var query = new GetAssignmentQuery()
+            {
+                Id = request.AssignmentId
+            };
+            var assignment = await queryExecutor.Execute(query);         
+            var mappedAssignment = mapper.Map<AssignmentDto>(assignment);
+            return new GetAssignmentByIdResponse()
             {
                 Data = mappedAssignment
             };
-
-            return response;
-
-
         }
     }
 }

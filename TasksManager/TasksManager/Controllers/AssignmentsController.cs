@@ -31,9 +31,12 @@ namespace TasksManager.Controllers
         [HttpGet]
         [Route("{assignmentId}")]
 
-        public async Task<IActionResult> GetAsignmentById([FromQuery] GetAssignmentByIdRequest request, int assignmentId)
+        public async Task<IActionResult> GetAsignmentById([FromRoute] int assignmentId)
         {
-            request = new GetAssignmentByIdRequest(assignmentId);
+            var request = new GetAssignmentByIdRequest
+            {
+                AssignmentId = assignmentId
+            };
             var response = await this.mediator.Send(request);            
             return this.Ok(response);
         }

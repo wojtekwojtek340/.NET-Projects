@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
     public class GetEmployeeByIdRequest : IRequest<GetEmployeeByIdResponse>
     {
+        public int EmployeeId { get; set; }
     }
 }

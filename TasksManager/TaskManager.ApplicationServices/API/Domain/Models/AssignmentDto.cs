@@ -15,7 +15,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
         Suspended,
         Canceled
     }
-    public class AssignmentsDto
+    public class AssignmentDto
     {       
         public int Id { get; set; }
         public string Tilte { get; set; }
@@ -24,10 +24,10 @@ namespace TaskManager.ApplicationServices.API.Domain.Models
         public DateTime EndTime { get; set; }
         public DateTime DeadlineTime { get; set; }
         public int CustomerId { get; set; }
-        public CustomersDto Customer { get; set; }
+        public CustomerDto Customer { get; set; }
         public int BoardId { get; set; }
-        public BoardsDto Board { get; set; }
-        public List<CommentsDto> CommentsList { get; set; }
+        public BoardDto Board { get; set; }
+        public List<CommentDto> CommentsList { get; set; }
         public AssignmentStatus AssignmentStatus { get; set; }
 
     }

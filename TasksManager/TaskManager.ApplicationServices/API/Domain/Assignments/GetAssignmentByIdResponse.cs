@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class GetAssignmentByIdResponse :ResponseBase<AssignmentsDto>
+    public class GetAssignmentByIdResponse :ResponseBase<AssignmentDto>
     {
     }
 }

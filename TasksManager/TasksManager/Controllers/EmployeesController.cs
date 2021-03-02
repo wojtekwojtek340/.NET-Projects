@@ -11,11 +11,11 @@ namespace TasksManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EmployesController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public EmployesController(IMediator mediator)
+        public EmployeesController(IMediator mediator)
         {
             this.mediator = mediator;
         }
@@ -24,6 +24,19 @@ namespace TasksManager.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllEmployes([FromQuery] GetAllEmployeesRequest request)
         {
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{employeeId}")]
+
+        public async Task<IActionResult> GetEmployeeById([FromRoute] int employeeId)
+        {
+            var request = new GetEmployeeByIdRequest
+            {
+                EmployeeId = employeeId
+            };
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }

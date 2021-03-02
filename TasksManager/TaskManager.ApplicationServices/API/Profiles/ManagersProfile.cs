@@ -14,7 +14,7 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public ManagersProfile()
         {
-            CreateMap<Manager, ManagersDto>()
+            CreateMap<Manager, ManagerDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))               
@@ -25,6 +25,7 @@ namespace TaskManager.ApplicationServices.API.Profiles
                 .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname));               
+
         }
     }
 }

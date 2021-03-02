@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
-    public class GetBoardByIdResponse : ResponseBase<BoardsDto>
+    public class GetBoardByIdResponse : ResponseBase<BoardDto>
     {
 
     }

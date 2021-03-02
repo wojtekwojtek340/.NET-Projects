@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
     public class GetManagerByIdRequest : IRequest<GetManagerByIdResponse>
     {
+        public int ManagerId { get; set; }
     }
 }

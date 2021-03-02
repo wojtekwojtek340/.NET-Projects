@@ -26,14 +26,17 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
         }
         public async Task<GetAllEmployeesResponse> Handle(GetAllEmployeesRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetEmployeesQuery();
+            var query = new GetEmployeesQuery()
+            {
+                Name = request.Name,
+                Surname = request.Surname
+            };
             var employes = await queryExecutor.Execute(query);
-            var mappedEmployes = mapper.Map<List<EmployeesDto>>(employes);        
-            var response = new GetAllEmployeesResponse()
+            var mappedEmployes = mapper.Map<List<EmployeeDto>>(employes);        
+            return new GetAllEmployeesResponse()
             {
                 Data = mappedEmployes
-            };
-            return response;           
+            };       
         }
     }
 }

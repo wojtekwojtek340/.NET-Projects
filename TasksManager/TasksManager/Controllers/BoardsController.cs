@@ -27,6 +27,19 @@ namespace TasksManager.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{boardId}")]
+
+        public async Task<IActionResult> GetBoardById([FromRoute] int boardId)
+        {
+            var request = new GetBoardByIdRequest
+            {
+                BoardId = boardId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddBoard([FromQuery] AddBoardRequest request)
@@ -34,5 +47,6 @@ namespace TasksManager.Controllers
             var response = await mediator.Send(request);
             return Ok(response);
         }
+
     }
 }

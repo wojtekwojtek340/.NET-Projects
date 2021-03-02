@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
             var employeeFromDb = await commandExecutor.Execute(command);
             return new AddEmployeeResponse()
             {
-                Data = mapper.Map<EmployeesDto>(employeeFromDb)
+                Data = mapper.Map<EmployeeDto>(employeeFromDb)
             };
         }
     }

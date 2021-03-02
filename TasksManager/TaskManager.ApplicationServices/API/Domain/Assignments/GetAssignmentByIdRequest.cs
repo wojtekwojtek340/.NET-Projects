@@ -9,15 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
     public class GetAssignmentByIdRequest : IRequest<GetAssignmentByIdResponse>
     {
-        public readonly int assignmentId;
-
-        public GetAssignmentByIdRequest()
-        {
-
-        }
-        public GetAssignmentByIdRequest(int assignmentId)
-        {
-            this.assignmentId = assignmentId;
-        }
+        public int AssignmentId { get; set; }
     }
 }

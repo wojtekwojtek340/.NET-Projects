@@ -32,7 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
             var assignmentFromDb = await this.commandExecutor.Execute(command);
             return new AddAssignmentResponse()
             {
-                Data = mapper.Map<AssignmentsDto>(assignmentFromDb)
+                Data = mapper.Map<AssignmentDto>(assignmentFromDb)
             };
         }
     }

@@ -30,12 +30,12 @@ namespace TaskManager.ApplicationServices.API.Handlers.Boards
         {
             var query = new GetBoardsQuery();
             var boards = await queryExecutor.Execute(query);
-            var mappedBoards = mapper.Map<List<BoardsDto>>(boards);
-            var response = new GetAllBoardsResponse()
+            var mappedBoards = mapper.Map<List<BoardDto>>(boards);
+            return  new GetAllBoardsResponse()
             {
                 Data = mappedBoards
             };
-            return response;
+
         }
     }
 }

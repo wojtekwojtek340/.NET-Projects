@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class GetCommentByIdResponse : ResponseBase<CommentsDto>
+    public class GetCommentByIdResponse : ResponseBase<CommentDto>
     {
     }
 }

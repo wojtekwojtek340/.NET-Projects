@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Models
 {
-    public class CommentsDto
+    public class BoardDto
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public int AssignmentId { get; set; }
-        public AssignmentsDto Assignment { get; set; }
+        public List<AssignmentDto> AssignmentList { get; set; }
+        public int EmployeeId { get; set; }
+        public EmployeeDto Employee { get; set; }
     }
 }

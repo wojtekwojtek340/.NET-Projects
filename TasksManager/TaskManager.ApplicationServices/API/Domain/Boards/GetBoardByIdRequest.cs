@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
     public class GetBoardByIdRequest : IRequest<GetBoardByIdResponse>
     {
+        public int BoardId { get; set; }
     }
 }

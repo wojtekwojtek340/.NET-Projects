@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
-    public class AddEmployeeResponse : ResponseBase<EmployeesDto>
+    public class AddEmployeeResponse : ResponseBase<EmployeeDto>
     {
     }
 }

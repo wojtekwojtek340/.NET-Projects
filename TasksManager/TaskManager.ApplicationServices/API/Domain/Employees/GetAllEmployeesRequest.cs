@@ -9,5 +9,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
     public class GetAllEmployeesRequest : IRequest<GetAllEmployeesResponse>
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
     }
 }

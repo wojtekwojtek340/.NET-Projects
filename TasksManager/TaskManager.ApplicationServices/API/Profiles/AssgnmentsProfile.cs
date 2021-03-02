@@ -14,7 +14,7 @@ namespace TaskManager.ApplicationServices.API.Profiles
     {
         public AssgnmentsProfile()
         {
-            CreateMap<Assignment, AssignmentsDto>()
+            CreateMap<Assignment, AssignmentDto>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Tilte, y => y.MapFrom(z => z.Tilte))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
