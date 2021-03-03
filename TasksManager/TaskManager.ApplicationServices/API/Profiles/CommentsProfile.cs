@@ -24,7 +24,14 @@ namespace TaskManager.ApplicationServices.API.Profiles
                 // .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
                 .ForMember(x => x.AssignmentId, y => y.MapFrom(z => z.AssignmentId));
-                //.ForMember(x => x.Assignment, y => y.MapFrom(z => z.Assignment));
+            //.ForMember(x => x.Assignment, y => y.MapFrom(z => z.Assignment));
+
+            CreateMap<PutCommentByIdRequest, Comment>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                // .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
+                .ForMember(x => x.AssignmentId, y => y.MapFrom(z => z.AssignmentId));
+            //.ForMember(x => x.Assignment, y => y.MapFrom(z => z.Assignment));
 
         }
     }

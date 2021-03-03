@@ -21,8 +21,14 @@ namespace TaskManager.ApplicationServices.API.Profiles
 
             CreateMap<AddCustomerRequest, Customer>()
                 //.ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
-                .ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList));
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
+            //.ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList));
+
+            CreateMap<PutCustomerByIdRequest, Customer>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                //.ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
+                //.ForMember(x => x.AssignmentList, y => y.MapFrom(z => z.AssignmentList));
         }
     }
 }

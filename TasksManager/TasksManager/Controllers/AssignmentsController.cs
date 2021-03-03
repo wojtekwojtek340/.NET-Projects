@@ -48,5 +48,26 @@ namespace TasksManager.Controllers
             var response = await mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{assignmentId}")]
+
+        public async Task<IActionResult> DeleteAssignmentById([FromRoute] int assignmentId)
+        {
+            var request = new DeleteAssignmentByIdRequest
+            {
+                AssignmentId = assignmentId
+            };
+            var response = await mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> PutAssignmentById([FromQuery] PutAssignmentByIdRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

@@ -50,5 +50,26 @@ namespace TasksManager.Controllers
             var response = await mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{companyId}")]
+
+        public async Task<IActionResult> DeleteCompanyById([FromRoute] int companyId)
+        {
+            var request = new DeleteCompanyByIdRequest
+            {
+                CompanyId = companyId
+            };
+            var response = await mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> PutCompanyById([FromQuery] PutCompanyByIdRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

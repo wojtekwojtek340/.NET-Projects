@@ -47,5 +47,26 @@ namespace TasksManager.Controllers
             var response = await mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{commentId}")]
+
+        public async Task<IActionResult> DeleteCommentById([FromRoute] int commentId)
+        {
+            var request = new DeleteCommentByIdRequest
+            {
+                CommentId = commentId
+            };
+            var response = await mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> PutCommentById([FromQuery] PutCommentByIdRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
     }
 }

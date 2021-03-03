@@ -12,6 +12,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Customers
     {
         public string Name { get; set; }
         
-        public List<Assignment> AssignmentList { get; set; }
+        //public List<Assignment> AssignmentList { get; set; }
     }
 }

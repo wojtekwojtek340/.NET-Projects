@@ -48,5 +48,26 @@ namespace TasksManager.Controllers
             return Ok(response);
         }
 
+        [HttpDelete]
+        [Route("{boardId}")]
+
+        public async Task<IActionResult> DeleteBoardById([FromRoute] int boardId)
+        {
+            var request = new DeleteBoardByIdRequest
+            {
+                BoardId = boardId
+            };
+            var response = await mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> PutBoardById([FromQuery] PutBoardByIdRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
     }
 }

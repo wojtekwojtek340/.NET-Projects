@@ -30,9 +30,21 @@ namespace TaskManager.ApplicationServices.API.Profiles
                 .ForMember(x => x.Login, y => y.MapFrom(z => z.Login))
                 .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
                 .ForMember(x => x.CompanyId, y => y.MapFrom(z => z.CompanyId));
-                //.ForMember(x => x.Company, y => y.MapFrom(z => z.Company))
-                //.ForMember(x => x.BoardId, y => y.MapFrom(z => z.BoardId));
-                //.ForMember(x => x.Board, y => y.MapFrom(z => z.Board));
+            //.ForMember(x => x.Company, y => y.MapFrom(z => z.Company))
+            //.ForMember(x => x.BoardId, y => y.MapFrom(z => z.BoardId));
+            //.ForMember(x => x.Board, y => y.MapFrom(z => z.Board));
+
+
+            CreateMap<PutEmployeeByIdRequest, Employee>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))
+                .ForMember(x => x.Login, y => y.MapFrom(z => z.Login))
+                .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
+                .ForMember(x => x.CompanyId, y => y.MapFrom(z => z.CompanyId));
+            //.ForMember(x => x.Company, y => y.MapFrom(z => z.Company))
+            //.ForMember(x => x.BoardId, y => y.MapFrom(z => z.BoardId));
+            //.ForMember(x => x.Board, y => y.MapFrom(z => z.Board));
         }
     }
 }
