@@ -12,7 +12,8 @@ namespace TaskManager.DataAccess.CQRS.Queries.Comments
     {
         public override async Task<List<Comment>> Execute(TaskManagerContext context)
         {
-            var comments = await context.Comments.ToListAsync();
+            var comments = await context.Comments.Include(x => x.Assignment).ToListAsync();
+            comments.ForEach(x => x.Assignment.CommentsList = null);
             return comments;
         }
     }

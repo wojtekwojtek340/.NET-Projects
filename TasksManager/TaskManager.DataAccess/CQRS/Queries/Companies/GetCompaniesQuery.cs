@@ -12,7 +12,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Companies
     {
         public override async Task<List<Company>> Execute(TaskManagerContext context)
         {
-            var companies = await context.Companies.ToListAsync();
+            var companies = await context.Companies.Include(x => x.EmployeesList).Include(x => x.Manager).ToListAsync();
             return companies;
         }
     }

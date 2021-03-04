@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,8 @@ namespace TaskManager.DataAccess.CQRS.Commands.Companies
         {
             await context.Companies.AddAsync(Parameter);
             await context.SaveChangesAsync();
-            return Parameter;
+            var response = await context.Companies.Include(x => x.Manager).FirstOrDefaultAsync(x => x.Id == Parameter.Id);
+            return response;
         }
     }
 }

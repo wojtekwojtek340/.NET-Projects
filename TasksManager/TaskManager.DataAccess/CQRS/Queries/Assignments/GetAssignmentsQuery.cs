@@ -12,7 +12,13 @@ namespace TaskManager.DataAccess.CQRS.Queries.Assignments
     {
         public override async Task<List<Assignment>> Execute(TaskManagerContext context)
         {
-            var assignments = await context.Assignments.ToListAsync();
+            var assignments = await context.Assignments
+                .Include(x => x.Customer)
+                .Include(x => x.Board.Employee)
+                .Include(x => x.CommentsList)
+                .ToListAsync();
+            assignments.ForEach(x => x.Customer.AssignmentList = null);
+            assignments.ForEach(x => x.Board.AssignmentList = null);
             return assignments;
         }
     }

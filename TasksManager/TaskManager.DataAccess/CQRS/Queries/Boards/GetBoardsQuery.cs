@@ -12,7 +12,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Boards
     {
         public override async Task<List<Board>> Execute(TaskManagerContext context)
         {
-            var boards = await context.Boards.ToListAsync();
+            var boards = await context.Boards.Include(x => x.AssignmentList).Include(x => x.Employee).ToListAsync();
             return boards;
         }
     }

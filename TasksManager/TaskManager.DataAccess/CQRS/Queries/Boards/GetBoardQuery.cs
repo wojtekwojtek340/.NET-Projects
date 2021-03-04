@@ -13,7 +13,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Boards
         public int Id { get; set; }
         public override async Task<Board> Execute(TaskManagerContext context)
         {
-            var board = await context.Boards.FindAsync(Id);
+            var board = await context.Boards.Include(x => x.AssignmentList).Include(x => x.Employee).SingleOrDefaultAsync(x => x.Id == Id);
             return board;
         }
     }

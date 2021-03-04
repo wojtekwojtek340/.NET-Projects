@@ -13,7 +13,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Customers
         public int Id { get; set; }
         public override async Task<Customer> Execute(TaskManagerContext context)
         {
-            var customer = await context.Customers.FindAsync(Id);
+            var customer = await context.Customers.Include(x => x.AssignmentList).SingleOrDefaultAsync(x => x.Id == Id);
             return customer;
         }
     }

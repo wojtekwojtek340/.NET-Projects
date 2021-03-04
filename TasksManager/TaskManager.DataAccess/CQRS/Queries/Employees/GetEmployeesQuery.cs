@@ -16,22 +16,22 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
         {
             if(Name != null && Surname != null)
             {
-                var employees = await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).ToListAsync();
+                var employees = await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
                 return employees;
             }
             else if(Name == null && Surname != null)
             {
-                var employees = await context.Employees.Where(x => x.Surname == Surname).ToListAsync();
+                var employees = await context.Employees.Where(x => x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
                 return employees;
             }
             else if (Name != null && Surname == null)
             {
-                var employees = await context.Employees.Where(x => x.Name == Name).ToListAsync();
+                var employees = await context.Employees.Where(x => x.Name == Name).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
                 return employees;
             }
             else
             {
-                var employees = await context.Employees.ToListAsync();
+                var employees = await context.Employees.Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
                 return employees;
             }
 

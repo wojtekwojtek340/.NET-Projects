@@ -12,9 +12,9 @@ namespace TaskManager.DataAccess.CQRS.Queries.Managers
     {
         public override async Task<List<Manager>> Execute(TaskManagerContext context)
         {
-            var managers = await context.Managers.Include(x => x.Company).ToListAsync();
+            var managers = await context.Managers
+                .Include(x => x.Company.EmployeesList).ToListAsync();
 
-            managers.ForEach(x => x.Company.Manager = null);
 
             return managers;
         }

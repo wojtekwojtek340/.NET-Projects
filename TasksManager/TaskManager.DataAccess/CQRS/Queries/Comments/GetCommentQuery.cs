@@ -13,7 +13,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Comments
         public int Id { get; set; }
         public override async Task<Comment> Execute(TaskManagerContext context)
         {
-            var comment = await context.Comments.FindAsync(Id);
+            var comment = await context.Comments.Include(x => x.Assignment).SingleOrDefaultAsync(x => x.Id == Id);
             return comment;
         }
     }

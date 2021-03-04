@@ -7,8 +7,8 @@ namespace TaskManager.DataAccess.Entities
     {
         [Required]
         [MaxLength(400)]
-        public string Description { get; set; }      
-
+        public string Description { get; set; }  
+        
         [Required]
         public List<Employee> EmployeesList { get; set; }
 

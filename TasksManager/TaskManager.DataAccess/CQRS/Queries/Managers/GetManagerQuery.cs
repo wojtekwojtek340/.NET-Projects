@@ -13,7 +13,10 @@ namespace TaskManager.DataAccess.CQRS.Queries.Managers
         public int Id { get; set; }
         public override async Task<Manager> Execute(TaskManagerContext context)
         {
-            var manager = await context.Managers.FindAsync(Id);
+            var manager = await context.Managers
+                .Include(x => x.Company.EmployeesList)
+                .SingleOrDefaultAsync(x => x.Id == Id);
+            
             return manager;
         }
     }
