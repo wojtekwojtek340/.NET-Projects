@@ -10,8 +10,22 @@ namespace TaskManager.DataAccess.CQRS.Queries.Assignments
 {
     public class GetAssignmentsQuery : QueryBase<List<Assignment>>
     {
+        public int? customerId { get; set; }
         public override async Task<List<Assignment>> Execute(TaskManagerContext context)
         {
+            if(customerId != null)
+            {
+                var assignments2 = await context.Assignments                    
+                    .Include(x => x.Customer)
+                    .Include(x => x.Board.Employee)
+                    .Include(x => x.CommentsList)
+                    .Where(x => x.CustomerId == customerId)
+                    .ToListAsync();
+                assignments2.ForEach(x => x.Customer.AssignmentList = null);
+                assignments2.ForEach(x => x.Board.AssignmentList = null);
+                return assignments2;
+            }
+
             var assignments = await context.Assignments
                 .Include(x => x.Customer)
                 .Include(x => x.Board.Employee)

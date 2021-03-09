@@ -40,8 +40,6 @@ namespace TasksManager
 
             services.AddMediatR(typeof(ResponseBase<>));
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
             services.AddDbContext<TaskManagerContext>(opt => opt.UseSqlServer(this.Configuration.GetConnectionString("TaskManagerDbConnection")));
 
             

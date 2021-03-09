@@ -9,5 +9,6 @@ namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
     public class GetAllAssignmentsRequest : IRequest<GetAllAssignmentsResponse>
     {
+        public int? customerId { get; set; }
     }
 }

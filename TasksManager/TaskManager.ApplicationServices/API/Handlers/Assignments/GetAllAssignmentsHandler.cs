@@ -27,7 +27,10 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
         }
         public async Task<GetAllAssignmentsResponse> Handle(GetAllAssignmentsRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetAssignmentsQuery();
+            var query = new GetAssignmentsQuery()
+            {
+                customerId = request.customerId
+            };
             var assignments = await queryExecutor.Execute(query);
             var mappedAssignments = mapper.Map<List<AssignmentDto>>(assignments);
             return new GetAllAssignmentsResponse()
