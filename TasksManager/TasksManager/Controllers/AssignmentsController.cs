@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,10 @@ namespace TasksManager.Controllers
     {
         private readonly IMediator mediator;
 
-        public AssignmentsController(IMediator mediator)
+        public AssignmentsController(IMediator mediator, ILogger<AssignmentsController> logger)
         {
             this.mediator = mediator;
+            logger.LogInformation("we are in Books");
         }
 
         [HttpGet]

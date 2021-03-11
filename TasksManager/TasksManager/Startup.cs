@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Profiles;
+using TaskManager.ApplicationServices.API.Validators.Assignments;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
 
@@ -33,6 +35,8 @@ namespace TasksManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddAssignmentRequestValidator>());
+
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
 
