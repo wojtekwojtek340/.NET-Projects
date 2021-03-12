@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain.Assignments;
+using TaskManager.ApplicationServices.Components.OpenWeather;
 
 namespace TasksManager.Controllers
 {  

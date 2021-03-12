@@ -8,10 +8,11 @@ using TaskManager.ApplicationServices.API.Domain.Managers;
 
 namespace TaskManager.ApplicationServices.API.Validators.Managers
 {
-    public class AddManagerRequestValidator : AbstractValidator<AddManagerRequest>
+    public class PutManagerByIdRequestValidator : AbstractValidator<PutManagerByIdRequest>
     {
-        public AddManagerRequestValidator()
+        public PutManagerByIdRequestValidator()
         {
+
         }
     }
 }

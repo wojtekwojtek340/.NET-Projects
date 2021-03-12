@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Profiles;
 using TaskManager.ApplicationServices.API.Validators.Assignments;
+using TaskManager.ApplicationServices.Components.OpenWeather;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
 
@@ -37,8 +38,11 @@ namespace TasksManager
         {
             services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddAssignmentRequestValidator>());
 
+
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
+
+            services.AddTransient<IWeatherConnector, WeatherConnector>();
 
             services.AddAutoMapper(typeof(AssgnmentsProfile).Assembly);
 
@@ -46,6 +50,7 @@ namespace TasksManager
 
             services.AddDbContext<TaskManagerContext>(opt => opt.UseSqlServer(this.Configuration.GetConnectionString("TaskManagerDbConnection")));
 
+            
             
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

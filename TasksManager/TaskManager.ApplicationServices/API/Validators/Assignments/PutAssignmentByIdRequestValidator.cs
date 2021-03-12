@@ -8,9 +8,9 @@ using TaskManager.ApplicationServices.API.Domain.Assignments;
 
 namespace TaskManager.ApplicationServices.API.Validators.Assignments
 {
-    public class AddAssignmentRequestValidator : AbstractValidator<AddAssignmentRequest>
+    public class PutAssignmentByIdRequestValidator : AbstractValidator<PutAssignmentByIdRequest>
     {
-        public AddAssignmentRequestValidator()
+        public PutAssignmentByIdRequestValidator()
         {
 
         }

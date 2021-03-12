@@ -14,25 +14,22 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
         public string Surname { get; set; }
         public override async Task<List<Employee>> Execute(TaskManagerContext context)
         {
-            if(Name != null && Surname != null)
+            if (Name != null && Surname != null)
             {
-                var employees = await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
-                return employees;
+                return await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
             }
             else if(Name == null && Surname != null)
             {
-                var employees = await context.Employees.Where(x => x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
-                return employees;
+                return  await context.Employees.Where(x => x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
             }
             else if (Name != null && Surname == null)
             {
-                var employees = await context.Employees.Where(x => x.Name == Name).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
-                return employees;
+                return await context.Employees.Where(x => x.Name == Name).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
             }
             else
             {
-                var employees = await context.Employees.Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
-                return employees;
+                return await context.Employees.Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
+
             }
 
             
