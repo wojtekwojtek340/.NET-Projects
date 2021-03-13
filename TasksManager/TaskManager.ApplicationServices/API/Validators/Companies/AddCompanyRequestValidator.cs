@@ -12,7 +12,8 @@ namespace TaskManager.ApplicationServices.API.Validators.Companies
     {
         public AddCompanyRequestValidator()
         {
-
+            this.RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(400);
+            this.RuleFor(x => x.ManagerId).NotEmpty().NotNull();
         }
     }
 }

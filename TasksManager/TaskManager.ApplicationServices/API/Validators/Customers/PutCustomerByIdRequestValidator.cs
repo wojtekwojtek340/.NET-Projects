@@ -12,7 +12,8 @@ namespace TaskManager.ApplicationServices.API.Validators.Customers
     {
         public PutCustomerByIdRequestValidator()
         {
-
+            this.RuleFor(x => x.Name).NotEmpty().NotNull().MaximumLength(200);
+            this.RuleFor(x => x.Id).NotNull().NotEmpty();
         }
     }
 }

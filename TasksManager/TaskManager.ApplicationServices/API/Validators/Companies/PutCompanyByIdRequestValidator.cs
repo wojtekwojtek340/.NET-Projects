@@ -12,7 +12,9 @@ namespace TaskManager.ApplicationServices.API.Validators.Companies
     {
         public PutCompanyByIdRequestValidator()
         {
-
+            this.RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(400);
+            this.RuleFor(x => x.ManagerId).NotEmpty().NotNull();
+            this.RuleFor(x => x.Id).NotNull().NotEmpty();
         }
     }
 }

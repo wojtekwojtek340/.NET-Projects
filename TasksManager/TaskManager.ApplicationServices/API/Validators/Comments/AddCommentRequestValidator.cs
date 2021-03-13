@@ -12,7 +12,8 @@ namespace TaskManager.ApplicationServices.API.Validators.Comments
     {
         public AddCommentRequestValidator()
         {
-
+            this.RuleFor(x => x.AssignmentId).NotEmpty().NotNull();
+            this.RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(400);
         }
     }
 }

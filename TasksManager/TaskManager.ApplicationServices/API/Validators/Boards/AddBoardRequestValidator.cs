@@ -12,7 +12,7 @@ namespace TaskManager.ApplicationServices.API.Validators.Boards
     {
         public AddBoardRequestValidator()
         {
-
+            this.RuleFor(x => x.EmployeeId).NotNull().NotEmpty();
         }
     }
 }

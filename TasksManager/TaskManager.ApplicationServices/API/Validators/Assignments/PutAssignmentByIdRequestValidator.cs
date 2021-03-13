@@ -12,7 +12,20 @@ namespace TaskManager.ApplicationServices.API.Validators.Assignments
     {
         public PutAssignmentByIdRequestValidator()
         {
+            this.RuleFor(x => x.Id).NotNull().NotEmpty();
 
+            this.RuleFor(x => x.Description).MaximumLength(500).NotNull().NotEmpty();
+            this.RuleFor(x => x.Tilte).MaximumLength(200).NotNull().NotEmpty();
+
+
+            this.RuleFor(x => x.BoardId).NotNull().NotEmpty();
+            this.RuleFor(x => x.CustomerId).NotNull().NotEmpty();
+
+            this.RuleFor(x => x.AssignmentStatus).IsInEnum().NotNull();
+
+            this.RuleFor(x => x.DeadlineTime).NotNull().NotEmpty();
+            this.RuleFor(x => x.EndTime).NotNull().NotEmpty();
+            this.RuleFor(x => x.StartTime).NotNull().NotEmpty();
         }
     }
 }

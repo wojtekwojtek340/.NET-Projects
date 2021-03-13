@@ -12,7 +12,9 @@ namespace TaskManager.ApplicationServices.API.Validators.Comments
     {
         public PutCommentByIdRequestValidator()
         {
-
+            this.RuleFor(x => x.AssignmentId).NotEmpty().NotNull();
+            this.RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(400);
+            this.RuleFor(x => x.Id).NotEmpty().NotNull();
         }
     }
 }

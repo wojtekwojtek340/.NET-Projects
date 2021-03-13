@@ -32,14 +32,10 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("{assignmentId}")]
+        [Route("{AssignmentId}")]
 
-        public async Task<IActionResult> GetAsignmentById([FromRoute] int assignmentId)
+        public async Task<IActionResult> GetAsignmentById([FromRoute] GetAssignmentByIdRequest request)
         {
-            var request = new GetAssignmentByIdRequest
-            {
-                AssignmentId = assignmentId
-            };
             var response = await this.mediator.Send(request);            
             return this.Ok(response);
         }
@@ -53,14 +49,9 @@ namespace TasksManager.Controllers
         }
 
         [HttpDelete]
-        [Route("{assignmentId}")]
-
-        public async Task<IActionResult> DeleteAssignmentById([FromRoute] int assignmentId)
+        [Route("{AssignmentId}")]
+        public async Task<IActionResult> DeleteAssignmentById([FromRoute] DeleteAssignmentByIdRequest request)
         {
-            var request = new DeleteAssignmentByIdRequest
-            {
-                AssignmentId = assignmentId
-            };
             var response = await mediator.Send(request);
             return this.Ok(response);
         }

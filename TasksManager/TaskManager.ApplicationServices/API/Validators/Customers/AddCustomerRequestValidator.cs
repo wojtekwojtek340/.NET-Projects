@@ -12,7 +12,7 @@ namespace TaskManager.ApplicationServices.API.Validators.Customers
     {
         public AddCustomerRequestValidator()
         {
-
+            this.RuleFor(x => x.Name).NotEmpty().NotNull().MaximumLength(200);
         }
     }
 }

@@ -50,14 +50,9 @@ namespace TasksManager.Controllers
         }
 
         [HttpDelete]
-        [Route("{employeeId}")]
-
-        public async Task<IActionResult> DeleteEmployeeById([FromRoute] int employeeId)
+        [Route("{EmployeeId}")]
+        public async Task<IActionResult> DeleteEmployeeById([FromRoute] DeleteEmployeeByIdRequest request)
         {
-            var request = new DeleteEmployeeByIdRequest
-            {
-                EmployeeId = employeeId
-            };
             var response = await mediator.Send(request);
             return this.Ok(response);
         }
