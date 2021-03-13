@@ -10,55 +10,47 @@ namespace TasksManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CustomersController : ControllerBase
+    public class CustomersController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public CustomersController(IMediator mediator)
+        public CustomersController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllCustomers([FromQuery] GetAllCustomersRequest request)
+        public Task<IActionResult> GetAllCustomers([FromQuery] GetAllCustomersRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllCustomersRequest, GetAllCustomersResponse>(request);
         }
 
         [HttpGet]
         [Route("{CustomerId}")]
 
-        public async Task<IActionResult> GetCustomerById([FromRoute] GetCustomerByIdRequest request)
-        {           
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+        public Task<IActionResult> GetCustomerById([FromRoute] GetCustomerByIdRequest request)
+        {
+            return this.HandleRequest<GetCustomerByIdRequest, GetCustomerByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddCustomer([FromQuery] AddCustomerRequest request)
+        public Task<IActionResult> AddCustomer([FromQuery] AddCustomerRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddCustomerRequest, AddCustomerResponse>(request);
         }
 
         [HttpDelete]
         [Route("{CustomerId}")]
 
-        public async Task<IActionResult> DeleteCustomerById([FromRoute] DeleteCustomerByIdRequest request)
-        {           
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+        public Task<IActionResult> DeleteCustomerById([FromRoute] DeleteCustomerByIdRequest request)
+        {
+            return this.HandleRequest<DeleteCustomerByIdRequest, DeleteCustomerByIdResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> PutCustomerById([FromQuery] PutCustomerByIdRequest request)
+        public Task<IActionResult> PutCustomerById([FromQuery] PutCustomerByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<PutCustomerByIdRequest, PutCustomerByIdResponse>(request);
         }
     }
 }

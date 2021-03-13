@@ -10,54 +10,46 @@ namespace TasksManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CommentsController : ControllerBase
+    public class CommentsController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public CommentsController(IMediator mediator)
+        public CommentsController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllComments([FromQuery] GetAllCommentsRequest request)
+        public Task<IActionResult> GetAllComments([FromQuery] GetAllCommentsRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllCommentsRequest, GetAllCommentsResponse>(request);
         }
 
         [HttpGet]
         [Route("{CommentId}")]
 
-        public async Task<IActionResult> GetCommentById([FromRoute] GetCommentByIdRequest request)
+        public Task<IActionResult> GetCommentById([FromRoute] GetCommentByIdRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetCommentByIdRequest, GetCommentByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddComment([FromQuery] AddCommentRequest request)
+        public Task<IActionResult> AddComment([FromQuery] AddCommentRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddCommentRequest, AddCommentResponse>(request);
         }
 
         [HttpDelete]
         [Route("{CommentId}")]
-        public async Task<IActionResult> DeleteCommentById([FromRoute] DeleteCommentByIdRequest request)
+        public Task<IActionResult> DeleteCommentById([FromRoute] DeleteCommentByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteCommentByIdRequest, DeleteCommentByIdResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> PutCommentById([FromQuery] PutCommentByIdRequest request)
+        public Task<IActionResult> PutCommentById([FromQuery] PutCommentByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<PutCommentByIdRequest, PutCommentByIdResponse>(request);
         }
     }
 }

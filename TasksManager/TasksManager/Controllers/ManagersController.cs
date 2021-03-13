@@ -13,54 +13,46 @@ namespace TasksManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ManagersController : ControllerBase
+    public class ManagersController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public ManagersController(IMediator mediator)
+        public ManagersController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllManagers([FromQuery] GetAllManagersRequest request)
+        public Task<IActionResult> GetAllManagers([FromQuery] GetAllManagersRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllManagersRequest, GetAllManagersResponse>(request);
         }
 
         [HttpGet]
         [Route("{ManagerId}")]
-        public async Task<IActionResult> GetManagerById([FromRoute] GetManagerByIdRequest request)
+        public Task<IActionResult> GetManagerById([FromRoute] GetManagerByIdRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetManagerByIdRequest, GetManagerByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddManager([FromQuery] AddManagerRequest request)
+        public Task<IActionResult> AddManager([FromQuery] AddManagerRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddManagerRequest, AddManagerResponse>(request);
         }
 
         [HttpDelete]
         [Route("{ManagerId}")]
 
-        public async Task<IActionResult> DeleteManagerById([FromRoute] DeleteManagerByIdRequest request)
+        public Task<IActionResult> DeleteManagerById([FromRoute] DeleteManagerByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteManagerByIdRequest, DeleteManagerByIdResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> PutManagerById([FromQuery] PutManagerByIdRequest request)
+        public Task<IActionResult> PutManagerById([FromQuery] PutManagerByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<PutManagerByIdRequest, PutManagerByIdResponse>(request);
         }
     }
 }

@@ -10,55 +10,47 @@ namespace TasksManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BoardsController : ControllerBase
+    public class BoardsController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public BoardsController(IMediator mediator)
+        public BoardsController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]        
-        public async Task<IActionResult> GetAllBoards([FromQuery] GetAllBoardsRequest request)
+        public Task<IActionResult> GetAllBoards([FromQuery] GetAllBoardsRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllBoardsRequest, GetAllBoardsResponse>(request);
         }
 
         [HttpGet]
         [Route("{BoardId}")]
 
-        public async Task<IActionResult> GetBoardById([FromRoute] GetBoardByIdRequest request)
-        {            
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+        public Task<IActionResult> GetBoardById([FromRoute] GetBoardByIdRequest request)
+        {
+            return this.HandleRequest<GetBoardByIdRequest, GetBoardByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddBoard([FromQuery] AddBoardRequest request)
+        public Task<IActionResult> AddBoard([FromQuery] AddBoardRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddBoardRequest, AddBoardResponse>(request);
         }
 
         [HttpDelete]
         [Route("{BoardId}")]
 
-        public async Task<IActionResult> DeleteBoardById([FromRoute] DeleteBoardByIdRequest request)
+        public Task<IActionResult> DeleteBoardById([FromRoute] DeleteBoardByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteBoardByIdRequest, DeleteBoardByIdResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> PutBoardById([FromQuery] PutBoardByIdRequest request)
+        public Task<IActionResult> PutBoardById([FromQuery] PutBoardByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<PutBoardByIdRequest, PutBoardByIdResponse>(request);
         }
 
     }

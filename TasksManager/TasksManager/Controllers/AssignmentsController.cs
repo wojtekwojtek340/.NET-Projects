@@ -13,55 +13,46 @@ namespace TasksManager.Controllers
 {  
     [ApiController]
     [Route("[controller]")]
-    public class AssignmentsController : ControllerBase
+    public class AssignmentsController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-
-        public AssignmentsController(IMediator mediator, ILogger<AssignmentsController> logger)
+        public AssignmentsController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
-            logger.LogInformation("we are in Books");
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllAssignments([FromQuery] GetAllAssignmentsRequest request)
+        public Task<IActionResult> GetAllAssignments([FromQuery] GetAllAssignmentsRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllAssignmentsRequest, GetAllAssignmentsResponse>(request);
         }
 
         [HttpGet]
         [Route("{AssignmentId}")]
 
-        public async Task<IActionResult> GetAsignmentById([FromRoute] GetAssignmentByIdRequest request)
+        public Task<IActionResult> GetAsignmentById([FromRoute] GetAssignmentByIdRequest request)
         {
-            var response = await this.mediator.Send(request);            
-            return this.Ok(response);
+            return this.HandleRequest<GetAssignmentByIdRequest, GetAssignmentByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddAssignment([FromQuery] AddAssignmentRequest request)
+        public Task<IActionResult> AddAssignment([FromQuery] AddAssignmentRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddAssignmentRequest, AddAssignmentResponse>(request);
         }
 
         [HttpDelete]
         [Route("{AssignmentId}")]
-        public async Task<IActionResult> DeleteAssignmentById([FromRoute] DeleteAssignmentByIdRequest request)
+        public Task<IActionResult> DeleteAssignmentById([FromRoute] DeleteAssignmentByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteAssignmentByIdRequest, DeleteAssignmentByIdResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> PutAssignmentById([FromQuery] PutAssignmentByIdRequest request)
+        public Task<IActionResult> PutAssignmentById([FromQuery] PutAssignmentByIdRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<PutAssignmentByIdRequest, PutAssignmentByIdResponse>(request);
         }
     }
 }
