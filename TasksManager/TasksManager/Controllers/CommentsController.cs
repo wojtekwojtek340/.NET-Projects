@@ -28,14 +28,10 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("{commentId}")]
+        [Route("{CommentId}")]
 
-        public async Task<IActionResult> GetCommentById([FromRoute] int commentId)
+        public async Task<IActionResult> GetCommentById([FromRoute] GetCommentByIdRequest request)
         {
-            var request = new GetCommentByIdRequest
-            {
-                CommentId = commentId
-            };
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
@@ -49,14 +45,9 @@ namespace TasksManager.Controllers
         }
 
         [HttpDelete]
-        [Route("{commentId}")]
-
-        public async Task<IActionResult> DeleteCommentById([FromRoute] int commentId)
+        [Route("{CommentId}")]
+        public async Task<IActionResult> DeleteCommentById([FromRoute] DeleteCommentByIdRequest request)
         {
-            var request = new DeleteCommentByIdRequest
-            {
-                CommentId = commentId
-            };
             var response = await mediator.Send(request);
             return this.Ok(response);
         }

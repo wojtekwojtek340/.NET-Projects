@@ -28,14 +28,10 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("{boardId}")]
+        [Route("{BoardId}")]
 
-        public async Task<IActionResult> GetBoardById([FromRoute] int boardId)
-        {
-            var request = new GetBoardByIdRequest
-            {
-                BoardId = boardId
-            };
+        public async Task<IActionResult> GetBoardById([FromRoute] GetBoardByIdRequest request)
+        {            
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
@@ -49,14 +45,10 @@ namespace TasksManager.Controllers
         }
 
         [HttpDelete]
-        [Route("{boardId}")]
+        [Route("{BoardId}")]
 
-        public async Task<IActionResult> DeleteBoardById([FromRoute] int boardId)
+        public async Task<IActionResult> DeleteBoardById([FromRoute] DeleteBoardByIdRequest request)
         {
-            var request = new DeleteBoardByIdRequest
-            {
-                BoardId = boardId
-            };
             var response = await mediator.Send(request);
             return this.Ok(response);
         }

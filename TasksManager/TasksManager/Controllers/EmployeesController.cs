@@ -29,14 +29,9 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("{employeeId}")]
-
-        public async Task<IActionResult> GetEmployeeById([FromRoute] int employeeId)
+        [Route("{EmployeeId}")]
+        public async Task<IActionResult> GetEmployeeById([FromRoute] GetEmployeeByIdRequest request)
         {
-            var request = new GetEmployeeByIdRequest
-            {
-                EmployeeId = employeeId
-            };
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
