@@ -15,7 +15,6 @@ namespace TaskManager.DataAccess.CQRS.Queries.Managers
             var managers = await context.Managers
                 .Include(x => x.Company.EmployeesList).ToListAsync();
 
-
             return managers;
         }
     }

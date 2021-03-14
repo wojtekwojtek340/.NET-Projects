@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Companies;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
@@ -31,6 +33,15 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
                 Id = request.CompanyId
             };
             var company = await queryExecutor.Execute(query);
+
+            if(company == null)
+            {
+                return new GetCompanyByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
             var mappedCompany = mapper.Map<CompanyDto>(company);
             return new GetCompanyByIdResponse
             {

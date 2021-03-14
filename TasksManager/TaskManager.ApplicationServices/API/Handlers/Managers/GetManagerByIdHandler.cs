@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess.CQRS;
@@ -31,6 +33,15 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
                 Id = request.ManagerId
             };
             var manager = await queryExecutor.Execute(query);
+
+            if(manager == null)
+            {
+                return new GetManagerByIdResponse
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
             var mappedManager = mapper.Map<ManagerDto>(manager);
             return new GetManagerByIdResponse
             {

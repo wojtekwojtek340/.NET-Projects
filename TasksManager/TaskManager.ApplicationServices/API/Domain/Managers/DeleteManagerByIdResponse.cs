@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
-    public class DeleteManagerByIdResponse : ResponseBase<int>
+    public class DeleteManagerByIdResponse : ResponseBase<bool>
     {
     }
 }

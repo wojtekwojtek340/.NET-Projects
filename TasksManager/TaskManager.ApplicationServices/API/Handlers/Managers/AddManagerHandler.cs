@@ -30,6 +30,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
             var manager = mapper.Map<Manager>(request);
             var command = new AddManagerCommand() { Parameter = manager };
             var managerFromDb = await commandExecutor.Execute(command);
+
             return new AddManagerResponse()
             {
                 Data = mapper.Map<ManagerDto>(managerFromDb)

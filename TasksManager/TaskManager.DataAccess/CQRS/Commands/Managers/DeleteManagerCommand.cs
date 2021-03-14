@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess.CQRS.Commands.Managers
 {
-    public class DeleteManagerCommand : CommandBase<int, int>
+    public class DeleteManagerCommand : CommandBase<Manager, bool>
     {
-        public async override Task<int> Execute(TaskManagerContext context)
+        public async override Task<bool> Execute(TaskManagerContext context)
         {
-            var entity = await context.Managers.FindAsync(Parameter);
-            context.Managers.Remove(entity);
+            context.Managers.Remove(Parameter);
             await context.SaveChangesAsync();
-            return Parameter;
+            return true;
         }
     }
 }
