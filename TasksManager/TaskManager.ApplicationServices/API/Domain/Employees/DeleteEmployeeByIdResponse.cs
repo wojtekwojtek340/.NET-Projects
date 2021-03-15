@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
-    public class DeleteEmployeeByIdResponse : ResponseBase<int>
+    public class DeleteEmployeeByIdResponse : ResponseBase<bool>
     {
     }
 }

@@ -14,7 +14,7 @@ namespace TaskManager.DataAccess
         public TaskManagerContext CreateDbContext(string[] args)
         {
             var optionsBuildier = new DbContextOptionsBuilder<TaskManagerContext>();
-            optionsBuildier.UseSqlServer("Server=DESKTOP-OISLER2;Initial Catalog=TaskManagerDb;User ID=TaskManager;password=adminadmin;Integrated Security=True;Trusted_Connection=True;");
+            optionsBuildier.UseSqlServer("Server=DESKTOP-TH6F0L5;Initial Catalog=TaskManagerDb;User ID=TaskManager;password=adminadmin;Integrated Security=True;Trusted_Connection=True;");
             return new TaskManagerContext(optionsBuildier.Options);
         }
     }       

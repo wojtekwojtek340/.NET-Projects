@@ -16,19 +16,27 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
         {
             if (Name != null && Surname != null)
             {
-                return await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
+                var employees =  await context.Employees.Where(x => x.Name == Name && x.Surname == Surname).Include(x => x.Company).Include(x => x.Board).ToListAsync();
+                employees.ForEach(x => x.Company.EmployeesList = null);
+                return employees;
             }
             else if(Name == null && Surname != null)
             {
-                return  await context.Employees.Where(x => x.Surname == Surname).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
+                var employees = await context.Employees.Where(x => x.Surname == Surname).Include(x => x.Company).Include(x => x.Board).ToListAsync();
+                employees.ForEach(x => x.Company.EmployeesList = null);
+                return employees;
             }
             else if (Name != null && Surname == null)
             {
-                return await context.Employees.Where(x => x.Name == Name).Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
+                var employees = await context.Employees.Where(x => x.Name == Name).Include(x => x.Company).Include(x => x.Board).ToListAsync();
+                employees.ForEach(x => x.Company.EmployeesList = null);
+                return employees;
             }
             else
             {
-                return await context.Employees.Include(x => x.Company.Manager).Include(x => x.Board).ToListAsync();
+                var employees = await context.Employees.Include(x => x.Company).Include(x => x.Board).ToListAsync();
+                employees.ForEach(x => x.Company.EmployeesList = null);
+                return employees;
 
             }
 

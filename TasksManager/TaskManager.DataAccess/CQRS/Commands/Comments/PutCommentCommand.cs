@@ -11,6 +11,7 @@ namespace TaskManager.DataAccess.CQRS.Commands.Comments
     {
         public async override Task<Comment> Execute(TaskManagerContext context)
         {
+            context.ChangeTracker.Clear();
             context.Comments.Update(Parameter);
             await context.SaveChangesAsync();
             return Parameter;

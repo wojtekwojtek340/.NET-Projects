@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Comments;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess.CQRS;
@@ -32,6 +34,15 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
                 Id = request.CommentId
             };
             var comment = await queryExecutor.Execute(query);
+
+            if(comment == null)
+            {
+                return new GetCommentByIdResponse
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
             var mappedComment = mapper.Map<CommentDto>(comment);
             return new GetCommentByIdResponse
             {

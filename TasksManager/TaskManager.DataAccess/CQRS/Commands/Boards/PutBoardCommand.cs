@@ -11,6 +11,7 @@ namespace TaskManager.DataAccess.CQRS.Commands.Boards
     {
         public async override Task<Board> Execute(TaskManagerContext context)
         {
+            context.ChangeTracker.Clear();
             context.Boards.Update(Parameter);
             await context.SaveChangesAsync();
             return Parameter;

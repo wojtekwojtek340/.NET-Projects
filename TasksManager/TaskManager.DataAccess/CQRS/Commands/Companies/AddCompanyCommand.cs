@@ -14,8 +14,7 @@ namespace TaskManager.DataAccess.CQRS.Commands.Companies
         {
             await context.Companies.AddAsync(Parameter);
             await context.SaveChangesAsync();
-            var response = await context.Companies.Include(x => x.Manager).FirstOrDefaultAsync(x => x.Id == Parameter.Id);
-            return response;
+            return Parameter;
         }
     }
 }

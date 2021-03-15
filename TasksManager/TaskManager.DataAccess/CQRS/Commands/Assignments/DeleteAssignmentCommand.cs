@@ -7,14 +7,13 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess.CQRS.Commands.Assignments
 {
-    public class DeleteAssignmentCommand : CommandBase<int, int>
+    public class DeleteAssignmentCommand : CommandBase<Assignment, bool>
     {
-        public override async Task<int> Execute(TaskManagerContext context)
+        public override async Task<bool> Execute(TaskManagerContext context)
         {
-            var entity = await context.Assignments.FindAsync(Parameter);
-            context.Assignments.Remove(entity);
+            context.Assignments.Remove(Parameter);
             await context.SaveChangesAsync();
-            return Parameter;
+            return true;
         }
     }
 }

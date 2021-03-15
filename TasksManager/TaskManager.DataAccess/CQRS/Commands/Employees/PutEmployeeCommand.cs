@@ -11,6 +11,7 @@ namespace TaskManager.DataAccess.CQRS.Commands.Employees
     {
         public async override Task<Employee> Execute(TaskManagerContext context)
         {
+            context.ChangeTracker.Clear();
             context.Employees.Update(Parameter);
             await context.SaveChangesAsync();
             return Parameter;

@@ -5798,23 +5798,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\wojte\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
+      "projectUniqueName": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
       "projectName": "TaskManager.DataAccess",
-      "projectPath": "C:\\Users\\Dell\\Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\obj\\",
+      "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
+      "packagesPath": "C:\\Users\\wojte\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\wojte\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

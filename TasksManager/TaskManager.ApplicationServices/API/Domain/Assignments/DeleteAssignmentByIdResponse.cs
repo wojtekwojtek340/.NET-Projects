@@ -7,7 +7,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class DeleteAssignmentByIdResponse : ResponseBase<int>
+    public class DeleteAssignmentByIdResponse : ResponseBase<bool>
     {
     }
 }

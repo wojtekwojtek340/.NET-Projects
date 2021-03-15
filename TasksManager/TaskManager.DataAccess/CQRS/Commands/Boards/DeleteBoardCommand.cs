@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess.CQRS.Commands.Boards
 {
-    public class DeleteBoardCommand : CommandBase<int, int>
+    public class DeleteBoardCommand : CommandBase<Board, bool>
     {
-        public async override Task<int> Execute(TaskManagerContext context)
+        public async override Task<bool> Execute(TaskManagerContext context)
         {
-            var entity = await context.Boards.FindAsync(Parameter);
-            context.Boards.Remove(entity);
+            context.Boards.Remove(Parameter);
             await context.SaveChangesAsync();
-            return Parameter;
+            return true;
         }
     }
 }

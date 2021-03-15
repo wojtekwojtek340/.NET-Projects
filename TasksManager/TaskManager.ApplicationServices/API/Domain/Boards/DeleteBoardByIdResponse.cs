@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
-    public class DeleteBoardByIdResponse : ResponseBase<int>
+    public class DeleteBoardByIdResponse : ResponseBase<bool>
     {
     }
 }

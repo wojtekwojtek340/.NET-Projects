@@ -12,7 +12,7 @@ namespace TaskManager.DataAccess.CQRS.Commands.Companies
     {
         public async override Task<Company> Execute(TaskManagerContext context)
         {
-            Parameter.Manager = await context.Managers.SingleOrDefaultAsync(x => x.Id == Parameter.ManagerId);
+            context.ChangeTracker.Clear();
             context.Companies.Update(Parameter);
             await context.SaveChangesAsync();
             return Parameter;

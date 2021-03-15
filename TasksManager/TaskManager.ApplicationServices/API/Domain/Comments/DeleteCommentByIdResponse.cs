@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class DeleteCommentByIdResponse : ResponseBase<int>
+    public class DeleteCommentByIdResponse : ResponseBase<bool>
     {
     }
 }

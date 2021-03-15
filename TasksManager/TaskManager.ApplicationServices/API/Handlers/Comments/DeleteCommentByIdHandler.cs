@@ -6,9 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Comments;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Comments;
+using TaskManager.DataAccess.CQRS.Queries.Comments;
 
 namespace TaskManager.ApplicationServices.API.Handlers.Comments
 {
@@ -16,16 +19,32 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
     {
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IQueryExecutor queryExecutor;
 
-        public DeleteCommentByIdHandler(IMapper mapper, ICommandExecutor commandExecutor)
+        public DeleteCommentByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
+            this.queryExecutor = queryExecutor;
         }
 
         public async Task<DeleteCommentByIdResponse> Handle(DeleteCommentByIdRequest request, CancellationToken cancellationToken)
         {
-            var command = new DeleteCommentCommand() { Parameter = request.CommentId };
+            var query = new GetCommentQuery()
+            {
+                Id = request.CommentId
+            };
+            var comment = await queryExecutor.Execute(query);
+
+            if(comment == null)
+            {
+                return new DeleteCommentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            var command = new DeleteCommentCommand() { Parameter = comment };
             var deletedComment = await commandExecutor.Execute(command);
             return new DeleteCommentByIdResponse
             {

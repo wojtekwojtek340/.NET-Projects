@@ -6,10 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Employees;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
+using TaskManager.DataAccess.CQRS.Queries.Companies;
+using TaskManager.DataAccess.CQRS.Queries.Employees;
 using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Handlers.Employees
@@ -18,19 +22,42 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
     {
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IQueryExecutor queryExecutor;
 
-        public PutEmployeeByIdHandler(IMapper mapper, ICommandExecutor commandExecutor)
+        public PutEmployeeByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
+            this.queryExecutor = queryExecutor;
         }
 
         public async Task<PutEmployeeByIdResponse> Handle(PutEmployeeByIdRequest request, CancellationToken cancellationToken)
         {
-            var employee = mapper.Map<Employee>(request);
+            var query = new GetEmployeeQuery()
+            {
+                Id = request.Id
+            };
+
+            var query2 = new GetCompanyQuery()
+            {
+                Id = request.CompanyId
+            };
+
+            var employee = await queryExecutor.Execute(query);
+            var company = await queryExecutor.Execute(query2);
+
+            if(employee == null || company == null)
+            {
+                return new PutEmployeeByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            var updateEmployee = mapper.Map<Employee>(request);
             var command = new PutEmployeeCommand
             {
-                Parameter = employee
+                Parameter = updateEmployee
             };
             var updatedEmployee = await commandExecutor.Execute(command);
             var response = mapper.Map<EmployeeDto>(updatedEmployee);
