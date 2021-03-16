@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace TasksManager.Controllers
     [Route("[controller]")]
     public class ManagersController : ApiControllerBase
     {
-        public ManagersController(IMediator mediator) : base(mediator)
+        public ManagersController(IMediator mediator, ILogger<ManagersController> logger) : base(mediator)
         {
+            logger.LogInformation("We are in manager controller");
         }
 
         [HttpGet]

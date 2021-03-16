@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,9 @@ namespace TasksManager.Controllers
     [Route("[controller]")]
     public class EmployeesController : ApiControllerBase
     {
-        public EmployeesController(IMediator mediator) : base(mediator)
+        public EmployeesController(IMediator mediator, ILogger<EmployeesController> logger) : base(mediator)
         {
+            logger.LogInformation("We are in employee controller");
         }
 
         [HttpGet]

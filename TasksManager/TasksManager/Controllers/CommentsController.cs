@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace TasksManager.Controllers
     [Route("[controller]")]
     public class CommentsController : ApiControllerBase
     {
-        public CommentsController(IMediator mediator) : base(mediator)
+        public CommentsController(IMediator mediator, ILogger<CommentsController> logger) : base(mediator)
         {
+            logger.LogInformation("We are in comment controller");
         }
 
         [HttpGet]

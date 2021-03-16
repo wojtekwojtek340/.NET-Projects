@@ -15,8 +15,9 @@ namespace TasksManager.Controllers
     [Route("[controller]")]
     public class AssignmentsController : ApiControllerBase
     {
-        public AssignmentsController(IMediator mediator) : base(mediator)
+        public AssignmentsController(IMediator mediator, ILogger<AssignmentsController> logger) : base(mediator)
         {
+            logger.LogInformation("We are in assignment controller");
         }
 
         [HttpGet]

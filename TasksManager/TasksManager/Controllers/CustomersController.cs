@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace TasksManager.Controllers
     [Route("[controller]")]
     public class CustomersController : ApiControllerBase
     {
-        public CustomersController(IMediator mediator) : base(mediator)
+        public CustomersController(IMediator mediator, ILogger<CustomersController> logger) : base(mediator)
         {
+            logger.LogInformation("We are in customer controller");
         }
 
         [HttpGet]
