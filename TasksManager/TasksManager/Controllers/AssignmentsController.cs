@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +11,8 @@ using TaskManager.ApplicationServices.API.Domain.Assignments;
 using TaskManager.ApplicationServices.Components.OpenWeather;
 
 namespace TasksManager.Controllers
-{  
+{
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AssignmentsController : ApiControllerBase

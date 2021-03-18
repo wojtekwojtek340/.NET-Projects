@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
-    public class GetManagerByIdRequest : IRequest<GetManagerByIdResponse>
+    public class GetManagerByIdRequest : RequestBase, IRequest<GetManagerByIdResponse>
     {
         public int ManagerId { get; set; }
     }

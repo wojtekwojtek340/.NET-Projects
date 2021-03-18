@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TasksManager.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ManagersController : ApiControllerBase
@@ -20,7 +22,7 @@ namespace TasksManager.Controllers
         {
             logger.LogInformation("We are in manager controller");
         }
-
+        
         [HttpGet]
         [Route("")]
         public Task<IActionResult> GetAllManagers([FromQuery] GetAllManagersRequest request)
@@ -35,6 +37,7 @@ namespace TasksManager.Controllers
             return this.HandleRequest<GetManagerByIdRequest, GetManagerByIdResponse>(request);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("")]
         public Task<IActionResult> AddManager([FromQuery] AddManagerRequest request)

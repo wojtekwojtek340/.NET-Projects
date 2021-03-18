@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TasksManager.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CompaniesController : ApiControllerBase

@@ -26,7 +26,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         }
 
         public async Task<AddManagerResponse> Handle(AddManagerRequest request, CancellationToken cancellationToken)
-        {
+        {           
+
             var manager = mapper.Map<Manager>(request);
             var command = new AddManagerCommand() { Parameter = manager };
             var managerFromDb = await commandExecutor.Execute(command);

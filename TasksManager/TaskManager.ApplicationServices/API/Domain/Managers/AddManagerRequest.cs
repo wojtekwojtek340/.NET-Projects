@@ -10,7 +10,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
-    public class AddManagerRequest :IRequest<AddManagerResponse>
+    public class AddManagerRequest : RequestBase, IRequest<AddManagerResponse>
     {
         public string Login { get; set; }
         public string Password { get; set; }

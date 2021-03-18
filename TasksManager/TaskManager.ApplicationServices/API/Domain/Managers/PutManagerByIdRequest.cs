@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Managers
 {
-    public class PutManagerByIdRequest : IRequest<PutManagerByIdResponse>
+    public class PutManagerByIdRequest : RequestBase, IRequest<PutManagerByIdResponse>
     {
         public int Id { get; set; }
         public string Login { get; set; } 

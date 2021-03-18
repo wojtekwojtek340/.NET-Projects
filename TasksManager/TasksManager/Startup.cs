@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,6 +22,7 @@ using TaskManager.ApplicationServices.API.Validators.Assignments;
 using TaskManager.ApplicationServices.Components.OpenWeather;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
+using TasksManager.Authentication;
 
 namespace TasksManager
 {
@@ -42,6 +44,9 @@ namespace TasksManager
             {
                 opt.SuppressModelStateInvalidFilter = true;
             });
+
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
@@ -74,9 +79,8 @@ namespace TasksManager
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
