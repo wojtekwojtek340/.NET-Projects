@@ -5,12 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.Components.Authorization;
 
-namespace TaskManager.DataAccess.Authorization
+namespace TaskManager.ApplicationServices.Components.Authorization
 {
-    public static class PasswordHasher
+    public  class PasswordHasher : IPasswordHasher
     {
-        public static string Hash(string password)
+        public string Hash(string password)
         {
             // generate a 128-bit salt using a secure PRNG
             byte[] salt = new byte[128 / 8];

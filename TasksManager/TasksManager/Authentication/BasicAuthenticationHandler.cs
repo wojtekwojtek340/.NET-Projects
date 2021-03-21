@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
-using TaskManager.DataAccess.Authorization;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Queries;
 using TaskManager.DataAccess.CQRS.Queries.Managers;
@@ -23,16 +23,19 @@ namespace TasksManager.Authentication
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IQueryExecutor queryExecutor;
+        private readonly IPasswordHasher passwordHasher;
 
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IQueryExecutor queryExecutor)
+            IQueryExecutor queryExecutor,
+            IPasswordHasher passwordHasher)
             : base(options, logger, encoder, clock)
         {
             this.queryExecutor = queryExecutor;
+            this.passwordHasher = passwordHasher;
         }
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -77,7 +80,7 @@ namespace TasksManager.Authentication
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
-                var password = PasswordHasher.Hash(credentials[1]);
+                var password = passwordHasher.Hash(credentials[1]);
 
                 var query = new GetUserQuery<Manager>()
                 {
@@ -118,7 +121,7 @@ namespace TasksManager.Authentication
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
-                var password = PasswordHasher.Hash(credentials[1]);
+                var password = passwordHasher.Hash(credentials[1]);
                 var query = new GetUserQuery<Employee>()
                 {
                     Login = username

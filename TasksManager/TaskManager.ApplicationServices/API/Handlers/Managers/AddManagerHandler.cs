@@ -10,7 +10,7 @@ using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.ApplicationServices.API.Domain.Models;
-using TaskManager.DataAccess.Authorization;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Managers;
 using TaskManager.DataAccess.CQRS.Queries;
@@ -23,12 +23,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IPasswordHasher passwordHasher;
 
-        public AddManagerHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public AddManagerHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IPasswordHasher passwordHasher)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.passwordHasher = passwordHasher;
         }
 
         public async Task<AddManagerResponse> Handle(AddManagerRequest request, CancellationToken cancellationToken)
@@ -47,7 +49,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
                 };
             }
 
-            request.Password = PasswordHasher.Hash(request.Password);
+            request.Password = passwordHasher.Hash(request.Password);
             var manager = mapper.Map<Manager>(request);          
             var command = new AddManagerCommand() { Parameter = manager };
             var managerFromDb = await commandExecutor.Execute(command);

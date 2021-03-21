@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Profiles;
 using TaskManager.ApplicationServices.API.Validators.Assignments;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.ApplicationServices.Components.OpenWeather;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -50,6 +51,8 @@ namespace TasksManager
 
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
+
+            services.AddTransient<IPasswordHasher, PasswordHasher>();
 
             services.AddTransient<IWeatherConnector, WeatherConnector>();
 

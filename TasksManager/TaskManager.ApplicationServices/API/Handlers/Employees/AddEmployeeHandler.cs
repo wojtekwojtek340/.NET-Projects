@@ -10,7 +10,7 @@ using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Employees;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
-using TaskManager.DataAccess.Authorization;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
@@ -23,12 +23,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IPasswordHasher passwordHasher;
 
-        public AddEmployeeHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public AddEmployeeHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IPasswordHasher passwordHasher)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.passwordHasher = passwordHasher;
         }
 
         public async Task<AddEmployeeResponse> Handle(AddEmployeeRequest request, CancellationToken cancellationToken)
@@ -54,7 +56,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
-            request.Password = PasswordHasher.Hash(request.Password);
+            request.Password = passwordHasher.Hash(request.Password);
             var employee = mapper.Map<Employee>(request);
             var command = new AddEmployeeCommand() { Parameter = employee };
             var employeeFromDb = await commandExecutor.Execute(command);
