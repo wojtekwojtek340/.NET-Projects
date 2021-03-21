@@ -32,6 +32,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Boards
 
         public async Task<AddBoardResponse> Handle(AddBoardRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new AddBoardResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetEmployeeQuery()
             {
                 Id = request.EmployeeId

@@ -32,6 +32,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
 
         public async Task<AddCompanyResponse> Handle(AddCompanyRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new AddCompanyResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetManagerQuery() { Id = request.ManagerId };
             var manager = await queryExecutor.Execute(query);
             

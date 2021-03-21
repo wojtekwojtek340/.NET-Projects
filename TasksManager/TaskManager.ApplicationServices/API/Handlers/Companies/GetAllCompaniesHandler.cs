@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Companies;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -26,7 +28,10 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
         }
         public async Task<GetAllCompaniesResponse> Handle(GetAllCompaniesRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetCompaniesQuery();
+            var query = new GetCompaniesQuery()
+            {
+                CompanyId = request.AuthenticatorCompanyId
+            };
             var companies = await queryExecutor.Execute(query);
             var mappedCompanies = mapper.Map<List<CompanyDto>>(companies);
             return new GetAllCompaniesResponse()

@@ -30,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
 
         public async Task<DeleteCustomerByIdResponse> Handle(DeleteCustomerByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteCustomerByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCustomerQuery()
             {
                 Id = request.CustomerId

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Boards;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -28,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Boards
 
         public async Task<GetAllBoardsResponse> Handle(GetAllBoardsRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new GetAllBoardsResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetBoardsQuery();
             var boards = await queryExecutor.Execute(query);
             var mappedBoards = mapper.Map<List<BoardDto>>(boards);

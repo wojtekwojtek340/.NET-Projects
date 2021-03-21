@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
-    public class DeleteEmployeeByIdRequest : IRequest<DeleteEmployeeByIdResponse>
+    public class DeleteEmployeeByIdRequest : RequestBase, IRequest<DeleteEmployeeByIdResponse>
     {
         public int EmployeeId { get; set; }
     }

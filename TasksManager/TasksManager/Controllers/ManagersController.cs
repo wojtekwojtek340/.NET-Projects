@@ -40,7 +40,7 @@ namespace TasksManager.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddManager([FromQuery] AddManagerRequest request)
+        public Task<IActionResult> AddManager([FromBody] AddManagerRequest request)
         {
             return this.HandleRequest<AddManagerRequest, AddManagerResponse>(request);
         }

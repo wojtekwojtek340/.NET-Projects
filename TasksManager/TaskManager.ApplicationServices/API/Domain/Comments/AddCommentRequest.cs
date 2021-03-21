@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class AddCommentRequest : IRequest<AddCommentResponse>
+    public class AddCommentRequest : RequestBase, IRequest<AddCommentResponse>
     {
         public string Description { get; set; }
         public int AssignmentId { get; set; }

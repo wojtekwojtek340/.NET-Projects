@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
-    public class GetBoardByIdRequest : IRequest<GetBoardByIdResponse>
+    public class GetBoardByIdRequest : RequestBase, IRequest<GetBoardByIdResponse>
     {
         public int BoardId { get; set; }
     }

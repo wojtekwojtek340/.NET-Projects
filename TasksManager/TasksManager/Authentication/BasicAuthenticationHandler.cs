@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.DataAccess.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Queries;
 using TaskManager.DataAccess.CQRS.Queries.Managers;
@@ -50,15 +52,15 @@ namespace TasksManager.Authentication
                 return AuthenticateResult.Fail("Missing Authorization");
             }
 
-            var role = Request.Headers.Where(x => x.Key == "Role").Select(x => x.Value).FirstOrDefault().FirstOrDefault();
-
-            if (role == "Manager")
+            AppRole enumRole = (AppRole)Enum.Parse(typeof(AppRole),
+                Request.Headers.Where(x => x.Key == "Role").Select(x => x.Value).FirstOrDefault().FirstOrDefault());
+            if (enumRole == AppRole.Manager)
             {
-                return await ManagerAuthorization();
+                return await ManagerAuthorization(enumRole);
             }
-            else if (role == "Employee")
+            else if (enumRole == AppRole.Employee)
             {
-                return await EmployeeAuthorization();
+                return await EmployeeAuthorization(enumRole);
             }
             else
             {
@@ -66,7 +68,7 @@ namespace TasksManager.Authentication
             }            
         }
 
-        private async Task<AuthenticateResult> ManagerAuthorization()
+        private async Task<AuthenticateResult> ManagerAuthorization(AppRole enumRole)
         {
             Manager user = null;
             try
@@ -75,7 +77,7 @@ namespace TasksManager.Authentication
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
-                var password = credentials[1];
+                var password = PasswordHasher.Hash(credentials[1]);
 
                 var query = new GetUserQuery<Manager>()
                 {
@@ -84,7 +86,6 @@ namespace TasksManager.Authentication
 
                 user = await queryExecutor.Execute(query);
 
-                //TODO : HASH!
                 if (user == null || user.Password != password)
                 {
                     return AuthenticateResult.Fail("Invalid Authorization Header");
@@ -98,7 +99,9 @@ namespace TasksManager.Authentication
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Login)
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Role, enumRole.ToString()),
+                new Claim(ClaimTypes.UserData, user.Company.Id.ToString())
             };
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
@@ -106,7 +109,7 @@ namespace TasksManager.Authentication
             return AuthenticateResult.Success(ticket);
         }
 
-        private async Task<AuthenticateResult> EmployeeAuthorization()
+        private async Task<AuthenticateResult> EmployeeAuthorization(AppRole enumRole)
         {
             Employee user = null;
             try
@@ -115,7 +118,7 @@ namespace TasksManager.Authentication
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
-                var password = credentials[1];
+                var password = PasswordHasher.Hash(credentials[1]);
                 var query = new GetUserQuery<Employee>()
                 {
                     Login = username
@@ -123,7 +126,6 @@ namespace TasksManager.Authentication
 
                 user = await queryExecutor.Execute(query);
 
-                //TODO : HASH!
                 if (user == null || user.Password != password)
                 {
                     return AuthenticateResult.Fail("Invalid Authorization Header");
@@ -137,7 +139,9 @@ namespace TasksManager.Authentication
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Login)
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Role, enumRole.ToString()),
+                new Claim(ClaimTypes.UserData, user.Company.Id.ToString())
             };
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);

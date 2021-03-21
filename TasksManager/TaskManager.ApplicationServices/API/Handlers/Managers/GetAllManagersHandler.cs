@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
@@ -26,7 +28,10 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         }
         public async Task<GetAllManagersResponse> Handle(GetAllManagersRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetManagersQuery();
+            var query = new GetManagersQuery()
+            {
+                CompanyId = request.AuthenticatorCompanyId            
+            };
             var managers = await queryExecutor.Execute(query);
             var mappedManagers = mapper.Map<List<ManagerDto>>(managers);          
             return new GetAllManagersResponse()

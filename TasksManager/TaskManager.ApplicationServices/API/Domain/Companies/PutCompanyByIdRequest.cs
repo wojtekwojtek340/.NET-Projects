@@ -8,7 +8,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 
 namespace TaskManager.ApplicationServices.API.Domain.Companies
 {
-    public class PutCompanyByIdRequest : IRequest<PutCompanyByIdResponse>
+    public class PutCompanyByIdRequest : RequestBase, IRequest<PutCompanyByIdResponse>
     {
         public int Id { get; set; }
         public string Description { get; set; }

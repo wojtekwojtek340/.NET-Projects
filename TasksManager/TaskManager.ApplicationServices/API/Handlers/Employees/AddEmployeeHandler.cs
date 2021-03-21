@@ -10,6 +10,7 @@ using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Employees;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
+using TaskManager.DataAccess.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
@@ -32,6 +33,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
 
         public async Task<AddEmployeeResponse> Handle(AddEmployeeRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new AddEmployeeResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCompanyQuery()
             {
                 Id = request.CompanyId
@@ -45,7 +54,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
-
+            request.Password = PasswordHasher.Hash(request.Password);
             var employee = mapper.Map<Employee>(request);
             var command = new AddEmployeeCommand() { Parameter = employee };
             var employeeFromDb = await commandExecutor.Execute(command);

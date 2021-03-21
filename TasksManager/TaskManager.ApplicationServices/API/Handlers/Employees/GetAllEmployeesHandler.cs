@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Employees;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -26,10 +28,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
         }
         public async Task<GetAllEmployeesResponse> Handle(GetAllEmployeesRequest request, CancellationToken cancellationToken)
         {
+            
+
             var query = new GetEmployeesQuery()
             {
                 Name = request.Name,
-                Surname = request.Surname
+                Surname = request.Surname,
+                CompanyId = request.AuthenticatorCompanyId
+                
             };
             var employes = await queryExecutor.Execute(query);
             var mappedEmployes = mapper.Map<List<EmployeeDto>>(employes);        

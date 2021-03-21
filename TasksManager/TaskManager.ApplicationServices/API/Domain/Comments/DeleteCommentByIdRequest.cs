@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class DeleteCommentByIdRequest : IRequest<DeleteCommentByIdResponse>
+    public class DeleteCommentByIdRequest : RequestBase, IRequest<DeleteCommentByIdResponse>
     {
         public int CommentId { get; set; }
     }

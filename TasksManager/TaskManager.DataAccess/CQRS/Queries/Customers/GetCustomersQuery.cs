@@ -10,9 +10,10 @@ namespace TaskManager.DataAccess.CQRS.Queries.Customers
 {
     public class GetCustomersQuery : QueryBase<List<Customer>>
     {
+        public int CompanyId { get; set; }
         public override async Task<List<Customer>> Execute(TaskManagerContext context)
         {
-            var customers = await context.Customers.Include(x => x.AssignmentList).ToListAsync();
+            var customers = await context.Customers.Where(x => x.AssignmentList.FirstOrDefault().Board.Employee.CompanyId == CompanyId).Include(x => x.AssignmentList).ToListAsync();
             return customers;
         }
     }

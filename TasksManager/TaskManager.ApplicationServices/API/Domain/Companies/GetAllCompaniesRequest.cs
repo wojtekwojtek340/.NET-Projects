@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Companies
 {
-    public class GetAllCompaniesRequest : IRequest<GetAllCompaniesResponse>
+    public class GetAllCompaniesRequest : RequestBase, IRequest<GetAllCompaniesResponse>
     {
     }
 }

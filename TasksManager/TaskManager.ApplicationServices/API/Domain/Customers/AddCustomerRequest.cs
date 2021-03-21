@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Customers
 {
-    public class AddCustomerRequest : IRequest<AddCustomerResponse>
+    public class AddCustomerRequest : RequestBase, IRequest<AddCustomerResponse>
     {
         public string Name { get; set; }
         

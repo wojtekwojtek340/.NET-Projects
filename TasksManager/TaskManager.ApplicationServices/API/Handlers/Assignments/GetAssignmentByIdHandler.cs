@@ -29,6 +29,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
         }
         public async Task<GetAssignmentByIdResponse> Handle(GetAssignmentByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new GetAssignmentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetAssignmentQuery()
             {
                 Id = request.AssignmentId

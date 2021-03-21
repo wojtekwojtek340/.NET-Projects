@@ -25,5 +25,8 @@ namespace TaskManager.ApplicationServices.API.Domain.ErrorHandling
         public const string RequestToLarge = "REQUEST_TO_LARGE";
 
         public const string TooManyRequests = "TOO_MANY_REQUESTS";
+
+        public const string Conflict = "CONFLICT";
+
     }
 }

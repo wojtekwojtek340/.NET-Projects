@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Companies
 {
-    public class DeleteCompanyByIdRequest : IRequest<DeleteCompanyByIdResponse>
+    public class DeleteCompanyByIdRequest : RequestBase, IRequest<DeleteCompanyByIdResponse>
     {
         public int CompanyId { get; set; }
     }

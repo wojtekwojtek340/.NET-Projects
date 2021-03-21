@@ -29,8 +29,17 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
 
         public async Task<GetCommentByIdResponse> Handle(GetCommentByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new GetCommentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCommentQuery()
             {
+                CompanyId = request.AuthenticatorCompanyId,
                 Id = request.CommentId
             };
             var comment = await queryExecutor.Execute(query);

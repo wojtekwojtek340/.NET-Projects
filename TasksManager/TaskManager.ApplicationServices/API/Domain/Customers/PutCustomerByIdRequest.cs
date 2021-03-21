@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Customers
 {
-    public class PutCustomerByIdRequest : IRequest<PutCustomerByIdResponse>
+    public class PutCustomerByIdRequest : RequestBase, IRequest<PutCustomerByIdResponse>
     {
         public int Id { get; set; }
         public string Name { get; set; }

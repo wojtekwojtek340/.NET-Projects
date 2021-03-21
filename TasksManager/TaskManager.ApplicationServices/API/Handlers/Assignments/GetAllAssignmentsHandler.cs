@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Assignments;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -29,7 +31,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
         {
             var query = new GetAssignmentsQuery()
             {
-                customerId = request.customerId
+                CustomerId = request.customerId,
+                CompanyId = request.AuthenticatorCompanyId                
             };
             var assignments = await queryExecutor.Execute(query);
             var mappedAssignments = mapper.Map<List<AssignmentDto>>(assignments);

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Comments;
+using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess;
 using TaskManager.DataAccess.CQRS;
@@ -27,7 +29,10 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
         }
         public async Task<GetAllCommentsResponse> Handle(GetAllCommentsRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetCommentsQuery();
+            var query = new GetCommentsQuery()
+            {
+                CompanyId = request.AuthenticatorCompanyId
+            };
             var comments = await queryExecutor.Execute(query);
             var mappedComments = mapper.Map<List<CommentDto>>(comments);
             return new GetAllCommentsResponse()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Employees
 {
-    public class GetEmployeeByIdRequest : IRequest<GetEmployeeByIdResponse>
+    public class GetEmployeeByIdRequest : RequestBase, IRequest<GetEmployeeByIdResponse>
     {
         public int EmployeeId { get; set; }
     }

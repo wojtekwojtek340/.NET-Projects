@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class GetAllCommentsRequest : IRequest<GetAllCommentsResponse>
+    public class GetAllCommentsRequest : RequestBase, IRequest<GetAllCommentsResponse>
     {
     }
 }

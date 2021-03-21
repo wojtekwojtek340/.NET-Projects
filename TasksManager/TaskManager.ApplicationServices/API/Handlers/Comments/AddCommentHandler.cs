@@ -32,6 +32,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
 
         public async Task<AddCommentResponse> Handle(AddCommentRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new AddCommentResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetAssignmentQuery()
             {
                 Id = request.AssignmentId

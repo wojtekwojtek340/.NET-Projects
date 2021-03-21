@@ -33,6 +33,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
 
         public async Task<PutCompanyByIdResponse> Handle(PutCompanyByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new PutCompanyByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCompanyQuery()
             {
                 Id = request.Id

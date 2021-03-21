@@ -30,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Boards
 
         public async Task<DeleteBoardByIdResponse> Handle(DeleteBoardByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteBoardByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetBoardQuery()
             {
                 Id = request.BoardId

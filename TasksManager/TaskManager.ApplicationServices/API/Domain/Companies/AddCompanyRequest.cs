@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Companies
 {
-    public class AddCompanyRequest : IRequest<AddCompanyResponse>
+    public class AddCompanyRequest : RequestBase, IRequest<AddCompanyResponse>
     {
         public string Description { get; set; }
         //public List<Employee> EmployeesList { get; set; }

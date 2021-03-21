@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class AddAssignmentRequest : IRequest<AddAssignmentResponse>
+    public class AddAssignmentRequest : RequestBase, IRequest<AddAssignmentResponse>
     {
         public string Tilte { get; set; }
         public string Description { get; set; }

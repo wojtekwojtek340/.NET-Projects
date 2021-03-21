@@ -32,7 +32,13 @@ namespace TasksManager.Controllers
                     .Select(x => new { property = x.Key, errors = x.Value.Errors }));
             }
 
-            var userName = this.User.FindFirstValue(ClaimTypes.Name);
+            if(User.Claims.FirstOrDefault() != null)
+            {
+                (request as RequestBase).AuthenticatorName = this.User.FindFirstValue(ClaimTypes.Name);
+                (request as RequestBase).AuthenticatorRole = (AppRole)Enum.Parse(typeof(AppRole), this.User.FindFirstValue(ClaimTypes.Role));
+                (request as RequestBase).AuthenticatorId = Int32.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                (request as RequestBase).AuthenticatorCompanyId = Int32.Parse(this.User.FindFirstValue(ClaimTypes.UserData));
+            }          
 
             var response = await this.metiator.Send(request);
             if(response.Error != null)
@@ -66,6 +72,10 @@ namespace TasksManager.Controllers
                     return HttpStatusCode.MethodNotAllowed;
                 case ErrorType.TooManyRequests:
                     return (HttpStatusCode)429;
+                case ErrorType.NotAuthenticated:
+                    return HttpStatusCode.Forbidden;
+                case ErrorType.Conflict:
+                    return HttpStatusCode.Conflict;
                 default:
                     return HttpStatusCode.BadRequest;
 

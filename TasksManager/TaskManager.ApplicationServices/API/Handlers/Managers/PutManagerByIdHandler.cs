@@ -32,6 +32,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
 
         public async Task<PutManagerByIdResponse> Handle(PutManagerByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new PutManagerByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetManagerQuery() { Id = request.Id };
             var manager = await queryExecutor.Execute(query);
 

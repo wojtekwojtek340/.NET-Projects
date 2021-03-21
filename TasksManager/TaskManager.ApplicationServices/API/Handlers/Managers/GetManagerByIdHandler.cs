@@ -30,7 +30,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         {
             var query = new GetManagerQuery()
             {
-                Id = request.ManagerId
+                Id = request.ManagerId,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var manager = await queryExecutor.Execute(query);
 

@@ -30,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Comments
 
         public async Task<DeleteCommentByIdResponse> Handle(DeleteCommentByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteCommentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCommentQuery()
             {
                 Id = request.CommentId

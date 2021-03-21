@@ -28,8 +28,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
 
         public async Task<GetEmployeeByIdResponse> Handle(GetEmployeeByIdRequest request, CancellationToken cancellationToken)
         {
+ 
+
             var query = new GetEmployeeQuery()
             {
+                CompanyId = request.AuthenticatorCompanyId,
                 Id = request.EmployeeId
             };
             var employee = await queryExecutor.Execute(query);

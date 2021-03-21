@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class GetAllAssignmentsRequest : IRequest<GetAllAssignmentsResponse>
+    public class GetAllAssignmentsRequest : RequestBase, IRequest<GetAllAssignmentsResponse>
     {
         public int? customerId { get; set; }
     }

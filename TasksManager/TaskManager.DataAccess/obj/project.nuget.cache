@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YntVRZTTLvlLainHUAvklwrSsMxQtir167qObwPilH7qPtmXr/P8LJpHb0HYWagKS7/vwwKPANwUu/cxsdXODA==",
+  "dgSpecHash": "frWOEtBvUDKaFfvEbSERg1VCMATFVl8gfDzPsNaJDcOK6nOG2xnFaqmseuX0n40AtkRiu8Fzu2PhLVYTLMHmjw==",
   "success": true,
   "projectFilePath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wojte\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\wojte\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.4\\microsoft.aspnetcore.cryptography.internal.5.0.4.nupkg.sha512",
+    "C:\\Users\\wojte\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.4\\microsoft.aspnetcore.cryptography.keyderivation.5.0.4.nupkg.sha512",
     "C:\\Users\\wojte\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\wojte\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\wojte\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

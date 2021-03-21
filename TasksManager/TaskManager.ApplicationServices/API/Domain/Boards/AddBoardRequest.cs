@@ -8,7 +8,7 @@ using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
-    public class AddBoardRequest : IRequest<AddBoardResponse>
+    public class AddBoardRequest : RequestBase, IRequest<AddBoardResponse>
     {
         //public List<Assignment> AssignmentList { get; set; }          
         public int EmployeeId { get; set; }

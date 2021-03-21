@@ -15,12 +15,12 @@ namespace TaskManager.DataAccess.CQRS.Queries
         {
             if(typeof(T) == typeof(Manager))
             {
-                Manager manager = await context.Managers.Where(x => x.Login == Login).FirstOrDefaultAsync();
+                Manager manager = await context.Managers.Where(x => x.Login == Login).Include(x => x.Company).FirstOrDefaultAsync();
                 return (T) Convert.ChangeType(manager, typeof(T));
             }
             else if(typeof(T) == typeof(Employee))
             {
-                Employee employee = await context.Employees.Where(x => x.Login == Login).FirstOrDefaultAsync();
+                Employee employee = await context.Employees.Where(x => x.Login == Login).Include(x => x.Company).FirstOrDefaultAsync();
                 return (T)Convert.ChangeType(employee, typeof(T));
             }
             return default(T);

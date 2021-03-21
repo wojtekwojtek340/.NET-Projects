@@ -30,6 +30,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
         {
             var query = new GetCompanyQuery()
             {
+                CompanyId = request.AuthenticatorCompanyId,
                 Id = request.CompanyId
             };
             var company = await queryExecutor.Execute(query);

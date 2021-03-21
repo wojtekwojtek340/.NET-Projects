@@ -31,6 +31,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
 
         public async Task<DeleteAssignmentByIdResponse> Handle(DeleteAssignmentByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteAssignmentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetAssignmentQuery()
             {
                 Id = request.AssignmentId

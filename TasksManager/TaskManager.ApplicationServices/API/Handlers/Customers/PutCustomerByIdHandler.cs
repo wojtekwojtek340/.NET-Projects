@@ -32,6 +32,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
 
         public async Task<PutCustomerByIdResponse> Handle(PutCustomerByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new PutCustomerByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCustomerQuery()
             {
                 Id = request.Id

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Assignments
 {
-    public class GetAssignmentByIdRequest : IRequest<GetAssignmentByIdResponse>
+    public class GetAssignmentByIdRequest : RequestBase, IRequest<GetAssignmentByIdResponse>
     {
         public int AssignmentId { get; set; }
     }

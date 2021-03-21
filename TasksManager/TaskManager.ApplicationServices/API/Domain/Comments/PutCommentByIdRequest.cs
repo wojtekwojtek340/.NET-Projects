@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Comments
 {
-    public class PutCommentByIdRequest : IRequest<PutCommentByIdResponse>
+    public class PutCommentByIdRequest : RequestBase, IRequest<PutCommentByIdResponse>
     {
         public int Id { get; set; }
         public string Description { get; set; }

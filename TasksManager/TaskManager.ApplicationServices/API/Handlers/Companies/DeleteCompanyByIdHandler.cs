@@ -30,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
 
         public async Task<DeleteCompanyByIdResponse> Handle(DeleteCompanyByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteCompanyByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetCompanyQuery() { Id = request.CompanyId };
             var company = await queryExecutor.Execute(query);
 

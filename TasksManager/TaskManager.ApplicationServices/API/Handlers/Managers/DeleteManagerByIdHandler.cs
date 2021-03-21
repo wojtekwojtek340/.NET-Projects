@@ -30,6 +30,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
 
         public async Task<DeleteManagerByIdResponse> Handle(DeleteManagerByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new DeleteManagerByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetManagerQuery() { Id = request.ManagerId };
             var manager = await queryExecutor.Execute(query);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.ApplicationServices.API.Domain.Boards
 {
-    public class DeleteBoardByIdRequest : IRequest<DeleteBoardByIdResponse>
+    public class DeleteBoardByIdRequest : RequestBase, IRequest<DeleteBoardByIdResponse>
     {
         public int BoardId { get; set; }
     }

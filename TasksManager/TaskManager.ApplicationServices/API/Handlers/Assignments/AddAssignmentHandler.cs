@@ -33,6 +33,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
 
         public async Task<AddAssignmentResponse> Handle(AddAssignmentRequest request, CancellationToken cancellationToken)
         {
+            if (request.AuthenticatorRole == AppRole.Employee)
+            {
+                return new AddAssignmentResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var query = new GetBoardQuery()
             {
                 Id = request.BoardId
