@@ -28,7 +28,7 @@ namespace TaskManager.ApplicationServices.Components.Authorization
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
 
-            return hashed;
+            return password;
         }
     }
 }

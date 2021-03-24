@@ -39,6 +39,19 @@ namespace TasksManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(buldier =>
+                {
+                    buldier
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+
+
+            });
+
             services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddAssignmentRequestValidator>());
 
             services.Configure<ApiBehaviorOptions>(opt =>
@@ -60,8 +73,8 @@ namespace TasksManager
 
             services.AddMediatR(typeof(ResponseBase<>));
 
-            services.AddDbContext<TaskManagerContext>(opt => opt.UseSqlServer(this.Configuration.GetConnectionString("TaskManagerDbConnection")));           
-            
+            services.AddDbContext<TaskManagerContext>(opt => opt.UseSqlServer(this.Configuration.GetConnectionString("TaskManagerDbConnection")));
+
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -81,6 +94,7 @@ namespace TasksManager
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TasksManager v1"));
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();

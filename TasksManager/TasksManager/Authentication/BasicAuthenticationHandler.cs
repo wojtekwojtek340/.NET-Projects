@@ -55,8 +55,10 @@ namespace TasksManager.Authentication
                 return AuthenticateResult.Fail("Missing Authorization");
             }
 
-            AppRole enumRole = (AppRole)Enum.Parse(typeof(AppRole),
-                Request.Headers.Where(x => x.Key == "Role").Select(x => x.Value).FirstOrDefault().FirstOrDefault());
+            var enumRole = (AppRole)Enum.Parse(typeof(AppRole),
+                Request.Headers.Where(x => x.Key == "role").Select(x => x.Value).FirstOrDefault().FirstOrDefault());
+
+
             if (enumRole == AppRole.Manager)
             {
                 return await ManagerAuthorization(enumRole);
@@ -106,6 +108,7 @@ namespace TasksManager.Authentication
                 new Claim(ClaimTypes.Role, enumRole.ToString()),
                 new Claim(ClaimTypes.UserData, user.Company.Id.ToString())
             };
+
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);

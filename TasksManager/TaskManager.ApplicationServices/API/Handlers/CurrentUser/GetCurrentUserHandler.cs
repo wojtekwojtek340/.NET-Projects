@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain;
-using TaskManager.ApplicationServices.API.Domain.CurrentUser;
+using TaskManager.ApplicationServices.API.Domain.Users;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.DataAccess.CQRS;
@@ -16,7 +16,7 @@ using TaskManager.DataAccess.CQRS.Queries.Managers;
 
 namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
 {
-    public class GetCurrentUserHandler : IRequestHandler<GetCurrentUserRequest, GetCurrentUserResponse>
+    public class GetCurrentUserHandler : IRequestHandler<GetUserRequest, GetUserResponse>
     {
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
@@ -27,7 +27,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
             this.queryExecutor = queryExecutor;
         }
 
-        public async Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
+        public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
             dynamic query;
             object mapTypeObject;
@@ -54,7 +54,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
                 }
                 else
                 {
-                    return new GetCurrentUserResponse()
+                    return new GetUserResponse()
                     {
                         Error = new ErrorModel(ErrorType.Unauthorized)
                     };
@@ -62,7 +62,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
             }
             else
             {
-                return new GetCurrentUserResponse()
+                return new GetUserResponse()
                 {
                     Error = new ErrorModel(ErrorType.UnsupportedMethod)
                 };
@@ -72,7 +72,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
 
             if(resorce == null)
             {
-                return new GetCurrentUserResponse()
+                return new GetUserResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
@@ -80,7 +80,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
 
             var mappedResorce = mapper.Map(resorce, mapTypeObject);
 
-            return new GetCurrentUserResponse()
+            return new GetUserResponse()
             {
                 Data = mappedResorce
             };

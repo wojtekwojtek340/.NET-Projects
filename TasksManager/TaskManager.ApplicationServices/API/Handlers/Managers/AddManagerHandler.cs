@@ -50,7 +50,16 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
             }
 
             request.Password = passwordHasher.Hash(request.Password);
-            var manager = mapper.Map<Manager>(request);          
+            var manager = mapper.Map<Manager>(request);
+            
+            if(manager.Company == null)
+            {
+                Company company = new Company();
+                company.Description = "BasicCompany";
+                company.Manager = manager;
+                manager.Company = company;
+            }
+
             var command = new AddManagerCommand() { Parameter = manager };
             var managerFromDb = await commandExecutor.Execute(command);
 

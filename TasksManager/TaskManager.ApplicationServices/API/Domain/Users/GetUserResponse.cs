@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManager.ApplicationServices.API.Domain.Models;
 
-namespace TaskManager.ApplicationServices.API.Domain.CurrentUser
+namespace TaskManager.ApplicationServices.API.Domain.Users
 {
-    public class GetCurrentUserResponse : ResponseBase<object>
+    public class GetUserResponse : ResponseBase<object>
     {
     }
 }

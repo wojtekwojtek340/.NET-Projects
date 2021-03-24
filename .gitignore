@@ -4,5 +4,7 @@ TasksManager/TaskManager.DataAccess/obj/
 TasksManager/TaskManager.DataAccess/bin/
 TasksManager/TaskManager.ApplicationServices/obj/
 TasksManager/TaskManager.ApplicationServices/bin/
+TasksManager/TaskManager.Blazor/obj/
+TasksManager/TaskManager.Blazor/bin/
 
 

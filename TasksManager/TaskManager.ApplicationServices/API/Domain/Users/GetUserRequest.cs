@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager.ApplicationServices.API.Domain.CurrentUser
+namespace TaskManager.ApplicationServices.API.Domain.Users
 {
-    public class GetCurrentUserRequest : RequestBase, IRequest<GetCurrentUserResponse>
+    public class GetUserRequest : RequestBase, IRequest<GetUserResponse>
     {
         public string Me { get; set; }
     }
