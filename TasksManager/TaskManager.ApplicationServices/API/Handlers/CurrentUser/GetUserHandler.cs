@@ -16,12 +16,12 @@ using TaskManager.DataAccess.CQRS.Queries.Managers;
 
 namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
 {
-    public class GetCurrentUserHandler : IRequestHandler<GetUserRequest, GetUserResponse>
+    public class GetUserHandler : IRequestHandler<GetUserRequest, GetUserResponse>
     {
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
 
-        public GetCurrentUserHandler(IMapper mapper, IQueryExecutor queryExecutor)
+        public GetUserHandler(IMapper mapper, IQueryExecutor queryExecutor)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;

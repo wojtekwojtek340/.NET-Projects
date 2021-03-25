@@ -1,6 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @inject IAuthenticationService AuthenticationService
+@inject ILocalStorageService LocalStorage
 @inject NavigationManager NavigationManager
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 @if (AuthenticationService.User != null)
 {
@@ -8,7 +10,11 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <div class="navbar-nav">
             <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-            <NavLink href="users" class="nav-item nav-link">Users</NavLink>
+            <NavLink href="me" class="nav-item nav-link">Me</NavLink>
+            <NavLink href="users" class="nav-item nav-link">Employees</NavLink>
+            @{ 
+           
+            }
             <NavLink href="bookcases" class="nav-item nav-link">Book Cases</NavLink>
             <NavLink href="counter" class="nav-item nav-link">Counter</NavLink>
             <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
@@ -19,3 +25,13 @@
 <div class="container">
     @Body
 </div>
+
+@code
+{
+    User user = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItem<User>("user");
+    }
+}

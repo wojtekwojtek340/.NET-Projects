@@ -11,7 +11,6 @@ C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.pdb
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TaskManager.DataAccess.runtimeconfig.json
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TaskManager.DataAccess.runtimeconfig.dev.json
-C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.csprojAssemblyReference.cache
 C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.genruntimeconfig.cache
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TaskManager.DataAccess.deps.json
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\bin\Debug\net5.0\TaskManager.DataAccess.runtimeconfig.json
@@ -28,3 +27,4 @@ C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debu
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\ref\TaskManager.DataAccess.dll
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.pdb
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.genruntimeconfig.cache
+C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.DataAccess\obj\Debug\net5.0\TaskManager.DataAccess.csprojAssemblyReference.cache

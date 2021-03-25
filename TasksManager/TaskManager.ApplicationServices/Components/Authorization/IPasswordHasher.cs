@@ -8,6 +8,8 @@ namespace TaskManager.ApplicationServices.Components.Authorization
 {
     public interface IPasswordHasher
     {
-        public string Hash(string password);
+        public string[] Hash(string password);
+
+        public string HashToCheck(string password, string hashedSalt);
     }
 }

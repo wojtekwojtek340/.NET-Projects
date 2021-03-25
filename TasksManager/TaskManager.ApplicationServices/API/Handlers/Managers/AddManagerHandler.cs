@@ -48,8 +48,11 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
                     Error = new ErrorModel(ErrorType.Conflict)
                 };
             }
+            
+            var auth = passwordHasher.Hash(request.Password);
 
-            request.Password = passwordHasher.Hash(request.Password);
+            request.Password = auth[0];
+            request.Salt = auth[1];
             var manager = mapper.Map<Manager>(request);
             
             if(manager.Company == null)

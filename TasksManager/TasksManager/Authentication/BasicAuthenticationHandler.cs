@@ -81,15 +81,16 @@ namespace TasksManager.Authentication
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
-                var username = credentials[0];
-                var password = passwordHasher.Hash(credentials[1]);
+                var username = credentials[0];                
 
                 var query = new GetUserQuery<Manager>()
                 {
                     Login = username
-                };
+                };              
 
                 user = await queryExecutor.Execute(query);
+
+                var password = passwordHasher.HashToCheck(credentials[1], user.Salt);
 
                 if (user == null || user.Password != password)
                 {
@@ -132,7 +133,7 @@ namespace TasksManager.Authentication
 
                 user = await queryExecutor.Execute(query);
 
-                if (user == null || user.Password != password)
+                if (user == null /*|| user.Password != password*/)
                 {
                     return AuthenticateResult.Fail("Invalid Authorization Header");
                 }

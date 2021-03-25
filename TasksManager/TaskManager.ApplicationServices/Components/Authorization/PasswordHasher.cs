@@ -9,18 +9,21 @@ using TaskManager.ApplicationServices.Components.Authorization;
 
 namespace TaskManager.ApplicationServices.Components.Authorization
 {
-    public  class PasswordHasher : IPasswordHasher
+    public class PasswordHasher : IPasswordHasher
     {
-        public string Hash(string password)
+        public string HashToCheck(string password, string hashedSalt)
         {
-            // generate a 128-bit salt using a secure PRNG
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
+            var base64Encode = System.Convert.FromBase64String(hashedSalt);
+            var encodedSalt = System.Text.Encoding.UTF8.GetString(base64Encode);
+
+            var saltString = encodedSalt.Split("|");
+            byte[] salt = new byte[16];
+
+            for (int i = 0; i < 16; i++)
             {
-                rng.GetBytes(salt);
+                salt[i] = Byte.Parse(saltString.ElementAt(i));
             }
 
-            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
@@ -28,7 +31,37 @@ namespace TaskManager.ApplicationServices.Components.Authorization
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
 
-            return password;
+            return hashed;
+
         }
+
+        public string[] Hash(string password)
+        {
+            byte[] salt = new byte[128 / 8];
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            string saltString = "";
+            salt.ToList().ForEach(x => saltString += x.ToString() + "|");
+
+            var base64Code = System.Text.Encoding.UTF8.GetBytes(saltString);
+            string hashedSalt = Convert.ToBase64String(base64Code);
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+
+            string[] response = { hashed, hashedSalt };
+
+            return response;
+        }
+
+
     }
 }

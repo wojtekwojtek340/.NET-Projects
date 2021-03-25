@@ -9,8 +9,11 @@ namespace TaskManager.DataAccess.Entities
         public string Login { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(500)]
         public string Password { get; set; }
+
+        [MaxLength(500)]
+        public string Salt { get; set; }
 
         [Required]
         [MaxLength(200)]

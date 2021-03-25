@@ -56,7 +56,10 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
-            request.Password = passwordHasher.Hash(request.Password);
+
+            var auth = passwordHasher.Hash(request.Password);
+            request.Password = auth[0];
+            request.Salt = auth[1];
             var employee = mapper.Map<Employee>(request);
             var command = new AddEmployeeCommand() { Parameter = employee };
             var employeeFromDb = await commandExecutor.Execute(command);

@@ -1,35 +1,30 @@
-﻿@page "/users"
+﻿@page "/me"
 @attribute [Authorize]
 @inject IUserService UserService
 
 <div class="card mt-4">
-    <h4 class="card-header">Employees in this company</h4>
+    <h4 class="card-header">Informations about my account</h4>
     <div class="card-body">
         <h6>Users from secure api end point</h6>
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
-        @if (users != null)
+        @if (user != null)
         {
-            <ul>
-                @foreach (var user in users)
-                {
-                    <li>@user.Name @user.Surname</li>
-                }
-            </ul>
+            <div>@user.Name @user.Surname</div>
         }
     </div>
 </div>
 
 @code {
     private bool loading;
-    private IEnumerable<User> users;
+    private User user;
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
-        users = await UserService.GetAll();
+        user = await UserService.Get();
         loading = false;
     }
 }

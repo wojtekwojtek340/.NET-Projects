@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace BlazorApp.Models
 {
     public class User
@@ -7,7 +9,6 @@ namespace BlazorApp.Models
         public string Surname { get; set; }
         public object Company { get; set; }
         public object Board { get; set; }
-
-        public string AuthData { get; set; }
+        public int CompanyId { get; set; }
     }
 }

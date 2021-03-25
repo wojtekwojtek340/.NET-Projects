@@ -17,10 +17,6 @@ namespace BlazorApp.Services
         private HttpClient _httpClient;
         private NavigationManager _navigationManager;
         private ILocalStorageService _localStorageService;
-
-        public string AuthData { get; set; }
-        public RoleType RoleType { get; set; }
-
         public HttpService(
             HttpClient httpClient,
             NavigationManager navigationManager,
@@ -59,16 +55,14 @@ namespace BlazorApp.Services
 
         private async Task<T> SendRequest<T>(HttpRequestMessage request)
         {
-            // add basic auth header if user is logged in and request is to the api url
             var isApiUrl = !request.RequestUri.IsAbsoluteUri;
-            //var user = await _localStorageService.GetItem<User>("user");
-            if (isApiUrl)
+            var auth =  await _localStorageService.GetItem<Auth>("auth");
+
+            if (isApiUrl && auth != null)
             {
-                var test = request.Headers;
+                request.Headers.Add("Role", auth.RoleType.ToString());
 
-                request.Headers.Add("Role", RoleType.ToString());
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Basic", AuthData);                
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic", auth.AuthData);                
              }
 
             var response = await _httpClient.SendAsync(request);

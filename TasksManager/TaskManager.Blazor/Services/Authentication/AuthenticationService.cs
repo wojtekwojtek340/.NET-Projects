@@ -13,6 +13,7 @@ namespace BlazorApp.Services
         private ILocalStorageService _localStorageService;
 
         public User User { get; private set; }
+        public Auth Auth { get; private set; }
 
         public AuthenticationService(
             IHttpService httpService,
@@ -31,11 +32,12 @@ namespace BlazorApp.Services
 
         public async Task Login(string username, string password, RoleType roleType)
         {
-            _httpService.RoleType = roleType;
-            _httpService.AuthData = $"{username}:{password}".EncodeBase64();
+            Auth = new Auth();
+            Auth.AuthData = $"{username}:{password}".EncodeBase64();
+            Auth.RoleType = roleType;
 
-            User = await _httpService.Get<User>("/users/Me");
-            
+            await _localStorageService.SetItem("auth", Auth);            
+            User = await _httpService.Get<User>("/users/Me");            
             await _localStorageService.SetItem("user", User);
         }
 
