@@ -90,11 +90,16 @@ namespace TasksManager.Authentication
 
                 user = await queryExecutor.Execute(query);
 
+                if(user == null)
+                {
+                    return AuthenticateResult.Fail("Resource does not exist");
+                }
+
                 var password = passwordHasher.HashToCheck(credentials[1], user.Salt);
 
-                if (user == null || user.Password != password)
+                if (user.Password != password)
                 {
-                    return AuthenticateResult.Fail("Invalid Authorization Header");
+                    return AuthenticateResult.Fail("Wrong password");
                 }
             }
             catch
@@ -125,7 +130,7 @@ namespace TasksManager.Authentication
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
-                var password = passwordHasher.Hash(credentials[1]);
+                
                 var query = new GetUserQuery<Employee>()
                 {
                     Login = username
@@ -133,9 +138,16 @@ namespace TasksManager.Authentication
 
                 user = await queryExecutor.Execute(query);
 
-                if (user == null /*|| user.Password != password*/)
+                if (user == null)
                 {
-                    return AuthenticateResult.Fail("Invalid Authorization Header");
+                    return AuthenticateResult.Fail("Resource does not exist");
+                }
+
+                var password = passwordHasher.HashToCheck(credentials[1], user.Salt);
+
+                if (user.Password != password)
+                {
+                    return AuthenticateResult.Fail("Wrong password");
                 }
             }
             catch

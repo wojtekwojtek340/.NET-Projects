@@ -47,5 +47,15 @@ namespace BlazorApp.Services
             await _localStorageService.RemoveItem("user");
             _navigationManager.NavigateTo("login");
         }
+
+        public async Task Register(string username, string password)
+        {
+            Manager manager = new Manager();
+            manager.Login = username;
+            manager.Password = password;
+            manager.Name = "domyslny";
+            manager.Surname = "domyslny";
+            var test = await _httpService.Post<Manager>("/Managers", manager);
+        }
     }
 }
