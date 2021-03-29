@@ -1,6 +1,6 @@
-﻿@page "/users"
+﻿@page "/employees"
 @attribute [Authorize]
-@inject IUserService UserService
+@inject IEmployeeService EmployeeService
 
 <div class="card mt-4">
     <h4 class="card-header">Employees in this company</h4>
@@ -10,10 +10,10 @@
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
-        @if (users != null)
+        @if (employees != null)
         {
             <ul>
-                @foreach (var user in users)
+                @foreach (var user in employees)
                 {
                     <li>@user.Name @user.Surname</li>
                 }
@@ -24,12 +24,12 @@
 
 @code {
     private bool loading;
-    private IEnumerable<User> users;
+    private IEnumerable<Employee> employees;
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
-        users = await UserService.GetAll();
+        employees = await EmployeeService.GetAll();
         loading = false;
     }
 }

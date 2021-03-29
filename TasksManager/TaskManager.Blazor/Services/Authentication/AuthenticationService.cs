@@ -1,19 +1,19 @@
 using BlazorApp.Helpers;
 using BlazorApp.Models;
+using BlazorApp.Services.Http;
+using BlazorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+
 using static BlazorApp.Pages.Login;
 
-namespace BlazorApp.Services
+namespace BlazorApp.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
         private IHttpService _httpService;
         private NavigationManager _navigationManager;
         private ILocalStorageService _localStorageService;
-
-        public User User { get; private set; }
-        public Auth Auth { get; private set; }
 
         public AuthenticationService(
             IHttpService httpService,
@@ -25,37 +25,43 @@ namespace BlazorApp.Services
             _localStorageService = localStorageService;
         }
 
-        public async Task Initialize()
-        {
-            User = await _localStorageService.GetItem<User>("user");
-        }
+        public Auth Auth { get; private set; }
 
         public async Task Login(string username, string password, RoleType roleType)
         {
             Auth = new Auth();
             Auth.AuthData = $"{username}:{password}".EncodeBase64();
             Auth.RoleType = roleType;
+            await _localStorageService.SetItem("auth", Auth);
 
-            await _localStorageService.SetItem("auth", Auth);            
-            User = await _httpService.Get<User>("/users/Me");            
-            await _localStorageService.SetItem("user", User);
+            if (Auth.RoleType == RoleType.Manager)
+            {
+                Manager manager = await _httpService.Get<Manager>("/users/Me");
+                await _localStorageService.SetItem("user", manager);
+            }
+            else if(Auth.RoleType == RoleType.Employee)
+            {
+                Employee manager = await _httpService.Get<Employee>("/users/Me");
+                await _localStorageService.SetItem("user", manager);
+            }        
         }
 
         public async Task Logout()
         {
-            User = null;
+            Auth = null;
             await _localStorageService.RemoveItem("user");
+            await _localStorageService.RemoveItem("auth");
             _navigationManager.NavigateTo("login");
         }
 
         public async Task Register(string username, string password)
         {
-            Manager manager = new Manager();
-            manager.Login = username;
-            manager.Password = password;
-            manager.Name = "domyslny";
-            manager.Surname = "domyslny";
-            var test = await _httpService.Post<Manager>("/Managers", manager);
+            UserData userData = new UserData();
+            userData.Login = username;
+            userData.Password = password;
+            userData.Name = "domyslny";
+            userData.Surname = "domyslny";
+            await _httpService.Post<UserData>("/Managers", userData);
         }
     }
 }

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace BlazorApp.Models
 {
-    public class Manager
+    public class Customer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public Company Company { get; set; }
+        public List<Assignment> AssignmentList { get; set; }
     }
 }

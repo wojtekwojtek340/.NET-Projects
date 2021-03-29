@@ -19,12 +19,14 @@
 
 @code {
     private bool loading;
-    private User user;
+    private UserData user;
+    private Auth auth;
+    
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
-        user = await UserService.Get();
+        user = await UserService.GetMe();
         loading = false;
     }
 }

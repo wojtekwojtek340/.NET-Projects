@@ -1,4 +1,4 @@
-﻿namespace BlazorApp.Services
+﻿namespace BlazorApp.Services.LocalStorage
 {
     using System.Threading.Tasks;
 

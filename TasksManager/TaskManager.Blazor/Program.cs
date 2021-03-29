@@ -1,5 +1,10 @@
 using BlazorApp.Helpers;
 using BlazorApp.Services;
+using BlazorApp.Services.Authentication;
+using BlazorApp.Services.Employees;
+using BlazorApp.Services.Http;
+using BlazorApp.Services.LocalStorage;
+using BlazorApp.Services.User;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,22 +22,21 @@ namespace BlazorApp
 
             builder.Services
                 .AddScoped<IAuthenticationService, AuthenticationService>()
-                .AddScoped<IUserService, UserService>()
                 .AddScoped<IBookCasesService, BookCasesService>()
                 .AddScoped<IHttpService, HttpService>()
-                .AddScoped<ILocalStorageService, LocalStorageService>();
+                .AddScoped<ILocalStorageService, LocalStorageService>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IEmployeeService, EmployeeService>();
 
             // configure http client
-            builder.Services.AddScoped(x => {
+            builder.Services.AddScoped(x =>
+            {
                 var apiUrl = new Uri(builder.Configuration["apiUrl"]);
                 return new HttpClient() { BaseAddress = apiUrl };
             });
 
             var host = builder.Build();
-
             var authenticationService = host.Services.GetRequiredService<IAuthenticationService>();
-            await authenticationService.Initialize();
-
             await host.RunAsync();
         }
     }

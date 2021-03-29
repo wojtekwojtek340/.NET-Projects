@@ -1,4 +1,4 @@
-﻿namespace BlazorApp.Services
+﻿namespace BlazorApp.Services.Authentication
 {
     using System.Threading.Tasks;
     using BlazorApp.Models;
@@ -6,8 +6,7 @@
 
     public interface IAuthenticationService
     {
-        User User { get; }
-        Task Initialize();
+        Auth Auth { get; }
         Task Login(string username, string password, RoleType roleType);
         Task Register(string username, string password);
         Task Logout();
