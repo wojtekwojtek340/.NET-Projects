@@ -9,7 +9,7 @@ namespace BlazorApp.Services.User
 {
     public class UserService : IUserService
     {
-        private IHttpService _httpService;
+        private readonly IHttpService _httpService;
 
         public UserService(IHttpService httpService)
         {

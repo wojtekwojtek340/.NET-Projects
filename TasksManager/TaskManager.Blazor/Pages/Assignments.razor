@@ -1,0 +1,35 @@
+﻿@page "/assignments"
+@attribute [Authorize]
+@inject IAssignmentService AssignmentService
+
+<div class="card mt-4">
+    <h4 class="card-header">Employees in this company</h4>
+    <div class="card-body">
+        <h6>Users from secure api end point</h6>
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (assignments != null)
+        {
+            <ul>
+                @foreach (var item in assignments)
+                {
+                    <li>Opis: @item.Description Klient: @item.Customer.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private bool loading;
+    private IEnumerable<Assignment> assignments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        assignments = await AssignmentService.GetAll();
+        loading = false;
+    }
+}

@@ -9,5 +9,6 @@ namespace BlazorApp.Services.Employees
     public interface IEmployeeService
     {
         Task<IEnumerable<Employee>> GetAll();
+        Task<UserData> Add(UserData userData);
     }
 }

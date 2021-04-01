@@ -9,7 +9,7 @@ namespace BlazorApp.Services.Employees
 {
     public class EmployeeService : IEmployeeService
     {
-        private IHttpService _httpService;
+        private readonly IHttpService _httpService;
 
         public EmployeeService(IHttpService httpService)
         {
@@ -19,6 +19,11 @@ namespace BlazorApp.Services.Employees
         public async Task<IEnumerable<Employee>> GetAll()
         {
             return await _httpService.Get<IEnumerable<Employee>>("/Employees");
+        }
+        public async Task<UserData> Add(UserData userData)
+        {
+            var result = await _httpService.Post<UserData>("/Employees", userData);
+            return result;
         }
     }
 }

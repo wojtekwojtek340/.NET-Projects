@@ -37,7 +37,7 @@ namespace TasksManager.Controllers
 
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddEmployee([FromQuery] AddEmployeeRequest request)
+        public Task<IActionResult> AddEmployee([FromBody] AddEmployeeRequest request)
         {
             return this.HandleRequest<AddEmployeeRequest, AddEmployeeResponse>(request);
         }

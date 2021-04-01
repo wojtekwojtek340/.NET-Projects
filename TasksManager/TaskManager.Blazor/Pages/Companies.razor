@@ -1,0 +1,35 @@
+﻿@page "/companies"
+@attribute [Authorize]
+@inject ICompanyService CompanyService
+
+<div class="card mt-4">
+    <h4 class="card-header">Employees in this company</h4>
+    <div class="card-body">
+        <h6>Users from secure api end point</h6>
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (company != null)
+        {
+            <ul>
+                @foreach (var item in company)
+                {
+                    <li>Nazwa: @item.Description Menager: @item.Manager.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private bool loading;
+    private IEnumerable<Company> company;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        company = await CompanyService.GetAll();
+        loading = false;
+    }
+}

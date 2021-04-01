@@ -17,6 +17,10 @@ namespace TaskManager.ApplicationServices.Components.Authorization
             var encodedSalt = System.Text.Encoding.UTF8.GetString(base64Encode);
 
             var saltString = encodedSalt.Split("|");
+            if(saltString.Length != 17)
+            {
+                throw new ArgumentNullException("hashed Salt bad format");
+            }
             byte[] salt = new byte[16];
 
             for (int i = 0; i < 16; i++)
@@ -32,7 +36,6 @@ namespace TaskManager.ApplicationServices.Components.Authorization
                 numBytesRequested: 256 / 8));
 
             return hashed;
-
         }
 
         public string[] Hash(string password)

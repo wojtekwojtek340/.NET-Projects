@@ -13,6 +13,7 @@ using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
+using TaskManager.DataAccess.CQRS.Queries;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
 using TaskManager.DataAccess.Entities;
 
@@ -43,9 +44,24 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
                 };
             }
 
+            var employeeQuery = new GetUserQuery<Employee>()
+            {
+                Login = request.Login
+            };
+            var availableManager = await queryExecutor.Execute(employeeQuery);
+
+            if (availableManager != null)
+            {
+                return new AddEmployeeResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Conflict)
+                };
+            }
+
             var query = new GetCompanyQuery()
             {
-                Id = request.CompanyId
+                Id = request.CompanyId,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var company = await queryExecutor.Execute(query);
 

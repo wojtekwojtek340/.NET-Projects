@@ -6,7 +6,7 @@ namespace BlazorApp.Services.LocalStorage
 {
     public class LocalStorageService : ILocalStorageService
     {
-        private IJSRuntime _jsRuntime;
+        private readonly IJSRuntime _jsRuntime;
 
         public LocalStorageService(IJSRuntime jsRuntime)
         {

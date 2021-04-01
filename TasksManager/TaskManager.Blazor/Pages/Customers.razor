@@ -1,0 +1,35 @@
+﻿@page "/customers"
+@attribute [Authorize]
+@inject ICustomerService CustomerService
+
+<div class="card mt-4">
+    <h4 class="card-header">Employees in this company</h4>
+    <div class="card-body">
+        <h6>Users from secure api end point</h6>
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (customers != null)
+        {
+            <ul>
+                @foreach (var item in customers)
+                {
+                    <li>Id: @item.Id Nazwa: @item.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private bool loading;
+    private IEnumerable<Customer> customers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        customers = await CustomerService.GetAll();
+        loading = false;
+    }
+}

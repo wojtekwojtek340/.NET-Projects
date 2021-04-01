@@ -1,6 +1,9 @@
 using BlazorApp.Helpers;
 using BlazorApp.Services;
+using BlazorApp.Services.Assignments;
 using BlazorApp.Services.Authentication;
+using BlazorApp.Services.Companies;
+using BlazorApp.Services.Customers;
 using BlazorApp.Services.Employees;
 using BlazorApp.Services.Http;
 using BlazorApp.Services.LocalStorage;
@@ -26,7 +29,10 @@ namespace BlazorApp
                 .AddScoped<IHttpService, HttpService>()
                 .AddScoped<ILocalStorageService, LocalStorageService>()
                 .AddScoped<IUserService, UserService>()
-                .AddScoped<IEmployeeService, EmployeeService>();
+                .AddScoped<IEmployeeService, EmployeeService>()
+                .AddScoped<ICompanyService, CompanyService>()
+                .AddScoped<ICustomerService, CustomerService>()
+                .AddScoped<IAssignmentService, AssignmentService>();
 
             // configure http client
             builder.Services.AddScoped(x =>
