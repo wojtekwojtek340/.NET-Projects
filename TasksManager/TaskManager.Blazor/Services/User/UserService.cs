@@ -16,6 +16,11 @@ namespace BlazorApp.Services.User
             _httpService = httpService;
         }
 
+        public async Task<UserData> GetById(int id)
+        {
+            return await _httpService.Get<UserData>($"/users/{id}");
+        }
+
         public async Task<UserData> GetMe()
         {
             return await _httpService.Get<UserData>("/users/me");

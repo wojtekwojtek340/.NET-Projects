@@ -2,25 +2,30 @@
 @attribute [Authorize]
 @inject ICompanyService CompanyService
 
+<div class="container">
 <div class="card mt-4">
-    <h4 class="card-header">Employees in this company</h4>
+    <h4 class="card-header">Company Info</h4>
     <div class="card-body">
-        <h6>Users from secure api end point</h6>
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (company != null)
         {
-            <ul>
-                @foreach (var item in company)
-                {
-                    <li>Nazwa: @item.Description Menager: @item.Manager.Name</li>
-                }
-            </ul>
+            @foreach (var item in company)
+             {
+             <div class="card mt-4">
+                 <div style="padding:20px">
+                     <h5>Company Name: @item.Description</h5>
+                     <h5>Company Manager: @item.Manager.Name @item.Manager.Surname</h5>
+                 </div>                  
+             </div>
+             }
         }
     </div>
 </div>
+</div>
+
 
 @code {
     private bool loading;
@@ -28,6 +33,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        
         loading = true;
         company = await CompanyService.GetAll();
         loading = false;

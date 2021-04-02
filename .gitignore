@@ -6,5 +6,7 @@ TasksManager/TaskManager.ApplicationServices/obj/
 TasksManager/TaskManager.ApplicationServices/bin/
 TasksManager/TaskManager.Blazor/obj/
 TasksManager/TaskManager.Blazor/bin/
+TasksManager/TaskManager.Tests/obj/
+TasksManager/TaskManager.Tests/bin/
 
 

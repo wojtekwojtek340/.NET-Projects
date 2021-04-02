@@ -32,8 +32,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
         }
 
         public async Task<PutEmployeeByIdResponse> Handle(PutEmployeeByIdRequest request, CancellationToken cancellationToken)
-        {
-
+        {           
             if (request.AuthenticatorRole == AppRole.Employee)
             {
                 return new PutEmployeeByIdResponse()
@@ -44,18 +43,27 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
 
             var query = new GetEmployeeQuery()
             {
-                Id = request.Id
+                Id = request.Id,
+                CompanyId = request.AuthenticatorCompanyId                
             };
 
             var query2 = new GetCompanyQuery()
             {
-                Id = request.CompanyId
+                Id = request.CompanyId,
+                CompanyId = request.AuthenticatorCompanyId                
             };
 
             var employee = await queryExecutor.Execute(query);
             var company = await queryExecutor.Execute(query2);
 
-            if(employee == null || company == null)
+            if (request.Login == null || request.Password == null)
+            {
+                request.Login = employee.Login;
+                request.Password = employee.Password;
+                request.Salt = employee.Salt;
+            }
+
+            if (employee == null || company == null)
             {
                 return new PutEmployeeByIdResponse()
                 {

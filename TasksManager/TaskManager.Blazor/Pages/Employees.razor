@@ -4,144 +4,181 @@
 @inject ILocalStorageService LocalStorageService
 @using System.ComponentModel.DataAnnotations
 
-<div class="card mt-4">
-    <h4 class="card-header">Employees in this company</h4>
-    <div class="card-body">
-        @if (loading)
+<div class="container">
+
+
+    <div class="card mt-4">
+        <h4 class="card-header">Employees in this company</h4>
+        <div class="card-body">
+            @if (loading == -1)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
-        @if (employees != null)
+            @if (employees != null)
         {
             @foreach (var user in employees)
-            {                
-                <div class="card mt-4" style="margin:8px">
-                    <div>
-                        <div style="float:left; margin:15px">
-                            <h5>Name: @user.Name</h5>
-                            <h5>Surname: @user.Surname</h5>
-                        </div>
-                        <div style="float:right; padding:20px">
-                            <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteEmployee(user.Id)">Delete</button>
-                            <button style="margin:10px" class="btn btn-primary" @onclick="() => UpdateEmployee(user.Id)">Update</button>
-                        </div>
+            {
+            <div class="card mt-4" style="margin:8px">
+                <div>
+                    <div style="float:left; margin:15px">
+                        <h5>Name: @user.Name</h5>
+                        <h5>Surname: @user.Surname</h5>
                     </div>
+                    @if(auth.RoleType == RoleType.Manager)
+                    {
+                    <div style="float:right; padding:20px">
+                        <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteEmployee(user.Id)">
+                            @if (loading == 2)
+                            {
+                            <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
+                        </button>
+                        <a style="margin:10px" class="btn btn-primary" href='/employees/@user.Id'>Edit</a>
+                    </div>
+                    }
+
                 </div>
+
+
+            </div>
             }
          }
+        </div>
     </div>
-</div>
 
-<div class="card-body">
-    <div class="form-group" style="text-align:center">
-        <button type="button" class="btn btn-primary" @onclick="() => ActivateFormula()">Add New</button>
+
+    @if (auth != null)
+  {
+    @if(auth.RoleType == RoleType.Manager)
+  {
+    <div style="text-align:center; margin:15px">
+        <button class="btn btn-primary" @onclick="() => ActivateFormula()">Add New</button>
     </div>
-</div>
+  }
 
-@if (addFormulaVisible)
-{
-<div class="card mt-4">
-    <h4 class="card-header">Add new employee</h4>
-    <div class="card-body">
-        <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
-            <DataAnnotationsValidator />
-            <div class="form-group">
-                <label>Username</label>
-                <InputText @bind-Value="model.Name" class="form-control" />
-                <ValidationMessage For="@(() => model.Name)" />
-            </div>
+}    
+    @if (addFormulaVisible)
+    {
+    <div class="card mt-4">
+        <h4 class="card-header">Add new employee</h4>
+        <div class="card-body">
+            <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="model.Name" class="form-control" />
+                    <ValidationMessage For="@(() => model.Name)" />
+                </div>
 
-            <div class="form-group">
-                <label>Username</label>
-                <InputText @bind-Value="model.Surname" class="form-control" />
-                <ValidationMessage For="@(() => model.Surname)" />
-            </div>
+                <div class="form-group">
+                    <label>Surname</label>
+                    <InputText @bind-Value="model.Surname" class="form-control" />
+                    <ValidationMessage For="@(() => model.Surname)" />
+                </div>
 
-            <div style="text-align:center">
-                <button class="btn btn-primary">
-                    @if (loading)
+                <div style="text-align:center">
+                    <button class="btn btn-primary">
+                        @if (loading == 1)
                     {
                         <span class="spinner-border spinner-border-sm mr-1"></span>}
-                    Add
+                        Add
 
-                </button>
+                    </button>
 
-                @if (!string.IsNullOrEmpty(error))
+                    @if (!string.IsNullOrEmpty(error))
                 {
                     <div class="alert alert-danger mt-3 mb-0">@error</div>}
-            </div>
-        </EditForm>
-    </div>
-</div>}
+                </div>
+            </EditForm>
+        </div>
+    </div>}
+</div>
 
 
-@code { private Model model = new Model();
-    UserData currentUser;
 
-    private bool loading;
-    private IEnumerable<Employee> employees;
-    private bool addFormulaVisible = false;
-    private string error;
+    @code {
+ private Model model = new Model();
+        UserData currentUser;
+        Auth auth;
 
-    protected override async Task OnInitializedAsync()
-    {
-        currentUser = await LocalStorageService.GetItem<UserData>("user");
-        loading = true;
-        employees = await EmployeeService.GetAll();
-        loading = false;
-    }
+        private int loading = 0;
+        private IEnumerable<Employee> employees;
+        private bool addFormulaVisible = false;
+        private bool editFormulaVisible = false;
+        private string error;
 
-    private void ActivateFormula()
-    {
-        addFormulaVisible = true;
-    }
-
-    private void DeleteEmployee(int Id)
-    {
-
-    }
-
-    private void UpdateEmployee(int Id)
-    {
-
-    }
-
-    private async void HandleValidSubmit()
-    {
-
-        string nameAndSurname = model.Name + model.Surname;
-        UserData userData = new UserData();
-        userData.Login = nameAndSurname;
-        userData.Password = nameAndSurname;
-        userData.Name = model.Name;
-        userData.Surname = model.Surname;
-        userData.CompanyId = currentUser.Company.Id;
-
-        loading = true;
-        try
+        protected override async Task OnInitializedAsync()
         {
-
-            await EmployeeService.Add(userData);
-            addFormulaVisible = false;
+            auth = await LocalStorageService.GetItem<Auth>("auth");
+            currentUser = await LocalStorageService.GetItem<UserData>("user");            
+            loading = -1;
             employees = await EmployeeService.GetAll();
-            loading = false;
-            StateHasChanged();
-            //var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
-            //NavigationManager.NavigateTo(returnUrl);
+            loading = 0;
         }
-        catch (Exception ex)
-        {
-            error = ex.Message;
-            loading = false;
-            StateHasChanged();
-        }
-    }
-    private class Model
-    {
-        [Required]
-        public string Name { get; set; }
 
-        [Required]
-        public string Surname { get; set; }
-    }
-    }
+        private void ActivateFormula()
+        {
+            addFormulaVisible = true;
+        }
+
+        private async void DeleteEmployee(int id)
+        {
+            loading = 2;
+            try
+            {
+
+                var result = await EmployeeService.Delete(id);
+                employees = await EmployeeService.GetAll();
+                loading = 0;
+                StateHasChanged();
+                //var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
+                //NavigationManager.NavigateTo(returnUrl);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                loading = 0;
+                StateHasChanged();
+            }
+        }
+
+        private async void HandleValidSubmit()
+        {
+
+            string nameAndSurname = model.Name + model.Surname;
+            UserData userData = new UserData();
+            userData.Login = nameAndSurname;
+            userData.Password = nameAndSurname;
+            userData.Name = model.Name;
+            userData.Surname = model.Surname;
+            userData.CompanyId = currentUser.Company.Id;
+
+            loading = 1;
+            try
+            {
+
+                await EmployeeService.Add(userData);
+                addFormulaVisible = false;
+                employees = await EmployeeService.GetAll();
+                loading = 0;
+                model.Name = null;
+                model.Surname = null;
+                StateHasChanged();
+                //var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
+                //NavigationManager.NavigateTo(returnUrl);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                loading = 0;
+                StateHasChanged();
+            }
+        }
+        private class Model
+        {
+            [Required]
+            public string Name { get; set; }
+
+            [Required]
+            public string Surname { get; set; }
+        } 
+}

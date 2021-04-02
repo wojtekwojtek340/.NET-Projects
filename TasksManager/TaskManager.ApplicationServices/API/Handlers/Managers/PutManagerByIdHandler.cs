@@ -43,7 +43,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
             var query = new GetManagerQuery() { Id = request.Id };
             var manager = await queryExecutor.Execute(query);
 
-            if(manager == null)
+            if (request.Login == null || request.Password == null)
+            {
+                request.Login = manager.Login;
+                request.Password = manager.Password;
+                request.Salt = manager.Salt;
+            }
+
+            if (manager == null)
             {
                 return new PutManagerByIdResponse
                 {

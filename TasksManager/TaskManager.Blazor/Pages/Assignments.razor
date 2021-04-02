@@ -1,35 +1,82 @@
 ﻿@page "/assignments"
 @attribute [Authorize]
 @inject IAssignmentService AssignmentService
+@inject ILocalStorageService LocalStorageService
 
-<div class="card mt-4">
-    <h4 class="card-header">Employees in this company</h4>
-    <div class="card-body">
-        <h6>Users from secure api end point</h6>
-        @if (loading)
+
+@if(auth != null)
+{
+    @if(auth.RoleType == RoleType.Manager)
+    {
+        <div class="container">
+        
+        <div class="card mt-4">
+        <h4 class="card-header">Assignments in this company</h4>
+        <div class="card-body">
+       @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
-        @if (assignments != null)
+       @if (assignments != null)
         {
-            <ul>
-                @foreach (var item in assignments)
-                {
-                    <li>Opis: @item.Description Klient: @item.Customer.Name</li>
+          @foreach (var item in assignments)
+           {                  
+              <div class="card mt-4" style="margin:8px">
+                 <div>
+                    <div style="float:left; margin:15px">
+                            <h5>Employee: @item.Board.Employee.Name @item.Board.Employee.Surname</h5>
+                            <h5>Description: @item.Description</h5>
+                            <h5>Deadline: @item.DeadlineTime</h5>    
+                    </div>
+                    <div style="float:right; padding:20px">
+                        <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteAssignment(item.Id)">
+                                @if (loading)
+                                {
+                            <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
+                        </button>
+                            <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
+                    </div>
+                  </div>
+              </div>
                 }
-            </ul>
         }
-    </div>
-</div>
+        </div>
+        </div>
+        </div>
+    }
+
+    @if(auth.RoleType == RoleType.Employee)
+     {
+        <div style="height:900px; display:flex; justify-content:center;">
+
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala1</div>
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala2</div>
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala3</div>
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala4</div>
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala5</div>
+            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala6</div>
+
+        </div>
+     }
+}
+
+
 
 @code {
     private bool loading;
     private IEnumerable<Assignment> assignments;
+    private Auth auth;
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
         assignments = await AssignmentService.GetAll();
+        auth = await LocalStorageService.GetItem<Auth>("auth");
         loading = false;
     }
+
+    private void DeleteAssignment(int id)
+     {
+
+     }
 }

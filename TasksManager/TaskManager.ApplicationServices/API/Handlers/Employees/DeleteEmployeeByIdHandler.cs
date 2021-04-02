@@ -40,7 +40,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
 
             var query = new GetEmployeeQuery()
             {
-                Id = request.EmployeeId
+                Id = request.EmployeeId,
+                CompanyId = request.AuthenticatorCompanyId
             };
 
             var employee = await queryExecutor.Execute(query);

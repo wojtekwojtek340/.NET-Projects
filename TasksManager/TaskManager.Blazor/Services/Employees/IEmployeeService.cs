@@ -10,5 +10,8 @@ namespace BlazorApp.Services.Employees
     {
         Task<IEnumerable<Employee>> GetAll();
         Task<UserData> Add(UserData userData);
+        Task<bool> Delete(int id);
+        Task<Employee> Update(Employee employee);
+        Task<Employee> GetById(int Id);
     }
 }

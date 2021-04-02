@@ -2,19 +2,26 @@
 @attribute [Authorize]
 @inject IUserService UserService
 
+<div class="container">
+
 <div class="card mt-4">
     <h4 class="card-header">Informations about my account</h4>
     <div class="card-body">
-        <h6>Users from secure api end point</h6>
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (user != null)
         {
-            <div>@user.Name @user.Surname</div>
+            <div class="card mt-4">
+                 <div style="padding:20px">
+                     <h5>Name: @user.Name</h5>
+                     <h5>Surname: @user.Surname</h5>
+                 </div>                  
+             </div>
         }
     </div>
+</div>
 </div>
 
 @code {

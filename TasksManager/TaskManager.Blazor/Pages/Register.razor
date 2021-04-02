@@ -3,97 +3,101 @@
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
-<div class="col-md-6 offset-md-3 mt-5">
-    <div class="alert alert-info">
-        Please fill username and password
-    </div>
-    <div class="card">
-        <h4 class="card-header">Blazor WebAssembly</h4>
-        <div class="card-body">
-            <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
-                <DataAnnotationsValidator />
-                <div class="form-group">
-                    <label>Username</label>
-                    <InputText @bind-Value="model.Username" class="form-control" />
-                    <ValidationMessage For="@(() => model.Username)" />
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <InputText @bind-Value="model.Password" type="password" class="form-control" />
-                    <ValidationMessage For="@(() => model.Password)" />
-                </div>
-                <div class="form-group">
-                    <label>Repeat Password</label>
-                    <InputText @bind-Value="model.RepeatPassword" type="password" class="form-control" />
-                    <ValidationMessage For="@(() => model.RepeatPassword)" />
-                </div>
+    <div class="container">
 
-                <div style="text-align:center">
-                    <button class="btn btn-primary">
-                        @if (loading)
-                        {
-                            <span class="spinner-border spinner-border-sm mr-1"></span>}
-                        Register
 
-                    </button>
+        <div class="col-md-6 offset-md-3 mt-5">
+            <div class="alert alert-info">
+                Please fill username and password
+            </div>
+            <div class="card">
+                <h4 class="card-header">Blazor WebAssembly</h4>
+                <div class="card-body">
+                    <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <div class="form-group">
+                            <label>Username</label>
+                            <InputText @bind-Value="model.Username" class="form-control" />
+                            <ValidationMessage For="@(() => model.Username)" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                            <ValidationMessage For="@(() => model.Password)" />
+                        </div>
+                        <div class="form-group">
+                            <label>Repeat Password</label>
+                            <InputText @bind-Value="model.RepeatPassword" type="password" class="form-control" />
+                            <ValidationMessage For="@(() => model.RepeatPassword)" />
+                        </div>
 
-                    @if (!string.IsNullOrEmpty(error))
-                    {
-                        <div class="alert alert-danger mt-3 mb-0">@error</div>
-                    }
+                        <div style="text-align:center">
+                            <button class="btn btn-primary">
+                                @if (loading)
+                                {
+                                    <span class="spinner-border spinner-border-sm mr-1"></span>}
+                                Register
+
+                            </button>
+
+                            @if (!string.IsNullOrEmpty(error))
+                            {
+                                <div class="alert alert-danger mt-3 mb-0">@error</div>
+                            }
+                        </div>
+
+                    </EditForm>
+                    <div style="text-align:center">
+                        <label>Masz już konto?</label>
+                        <a href="/login">Zaloguj się</a>
+                    </div>
                 </div>
-              
-            </EditForm>
-            <div style="text-align:center">
-                <label>Masz już konto?</label>
-                <a href="/login">Zaloguj się</a>
             </div>
         </div>
     </div>
-</div>
 
-@code {
-    private Model model = new Model();
-    private bool loading;
-    private string error;
+    @code {
+        private Model model = new Model();
+        private bool loading;
+        private string error;
 
-    protected override void OnInitialized()
-    {
-        // redirect to home if already logged in
-        if (AuthenticationService.Auth != null)
+        protected override void OnInitialized()
         {
-            NavigationManager.NavigateTo("");
+            // redirect to home if already logged in
+            if (AuthenticationService.Auth != null)
+            {
+                NavigationManager.NavigateTo("");
+            }
+        }
+
+        private async void HandleValidSubmit()
+        {
+            loading = true;
+            try
+            {
+
+                await AuthenticationService.Register(model.Username, model.Password);
+                var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
+                NavigationManager.NavigateTo(returnUrl);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                loading = false;
+                StateHasChanged();
+            }
+        }
+
+        private class Model
+        {
+            [Required]
+            public string Username { get; set; }
+
+            [Required]
+            public string Password { get; set; }
+
+            [Compare(nameof(Password))]
+            public string RepeatPassword { get; set; }
+
         }
     }
-
-    private async void HandleValidSubmit()
-    {
-        loading = true;
-        try
-        {
-
-            await AuthenticationService.Register(model.Username, model.Password);
-            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
-            NavigationManager.NavigateTo(returnUrl);
-        }
-        catch (Exception ex)
-        {
-            error = ex.Message;
-            loading = false;
-            StateHasChanged();
-        }
-    }
-
-    private class Model
-    {
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Compare(nameof(Password))]
-        public string RepeatPassword { get; set; }
-
-    }
-}

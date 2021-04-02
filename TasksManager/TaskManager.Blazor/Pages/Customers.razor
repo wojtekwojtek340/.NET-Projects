@@ -1,35 +1,65 @@
 ﻿@page "/customers"
 @attribute [Authorize]
 @inject ICustomerService CustomerService
+@inject ILocalStorageService LocalStorageService
+
+<div class="container">
 
 <div class="card mt-4">
-    <h4 class="card-header">Employees in this company</h4>
+    <h4 class="card-header">Customers in this company</h4>
     <div class="card-body">
-        <h6>Users from secure api end point</h6>
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (customers != null)
         {
-            <ul>
+
                 @foreach (var item in customers)
                 {
-                    <li>Id: @item.Id Nazwa: @item.Name</li>
+                    
+                    <div class="card mt-4" style="margin:8px">
+                    <div>
+                        <div style="float:left; margin:15px">
+                            <h5>Customer Name: @item.Name</h5>
+                        </div>
+                        @if (auth.RoleType == RoleType.Manager)
+                        {
+                        <div style="float:right; padding:20px">
+                            <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteCompany(item.Id)">
+                                @if (loading)
+                                {
+                            <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
+                            </button>
+                            <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
+                        </div>
+                        }
+                        
+                    </div>
+                </div>
+
                 }
-            </ul>
+
         }
     </div>
+</div>
 </div>
 
 @code {
     private bool loading;
     private IEnumerable<Customer> customers;
+    private Auth auth;
 
     protected override async Task OnInitializedAsync()
     {
+        auth = await LocalStorageService.GetItem<Auth>("auth");
         loading = true;
         customers = await CustomerService.GetAll();
         loading = false;
+    }
+
+    private void DeleteCompany(int id)
+    {
+
     }
 }

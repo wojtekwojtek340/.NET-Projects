@@ -25,5 +25,21 @@ namespace BlazorApp.Services.Employees
             var result = await _httpService.Post<UserData>("/Employees", userData);
             return result;
         }
+        public async Task<bool> Delete(int id)
+        {
+            await _httpService.Delete($"/Employees/{id}");
+            return true;            
+        }
+
+        public async Task<Employee> Update(Employee employee)
+        {
+            var result = await _httpService.Put<Employee>("/Employees", employee);
+            return result;
+        }
+
+        public Task<Employee> GetById(int id)
+        {
+            return _httpService.Get<Employee>($"/Employees/{id}");
+        }
     }
 }

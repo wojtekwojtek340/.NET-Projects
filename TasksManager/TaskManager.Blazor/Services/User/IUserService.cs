@@ -9,5 +9,6 @@ namespace BlazorApp.Services.User
     public interface IUserService
     {
         Task<UserData> GetMe();
+        Task<UserData> GetById(int id);
     }
 }
