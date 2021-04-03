@@ -4,6 +4,7 @@
 @inject ILocalStorageService LocalStorageService
 
 
+
 @if(auth != null)
 {
     @if(auth.RoleType == RoleType.Manager)
@@ -47,6 +48,10 @@
 
     @if(auth.RoleType == RoleType.Employee)
      {
+        <div style="display:flex; justify-content:center; margin:10px;">
+            <a class="btn btn-primary" href="/AddAssignments">Add Issue</a>
+        </div>
+
         <div style="height:900px; display:flex; justify-content:center;">
 
             <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala1</div>
@@ -66,6 +71,7 @@
     private bool loading;
     private IEnumerable<Assignment> assignments;
     private Auth auth;
+
 
     protected override async Task OnInitializedAsync()
     {

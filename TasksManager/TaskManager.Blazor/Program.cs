@@ -11,6 +11,7 @@ using BlazorApp.Services.User;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Radzen;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,6 +24,9 @@ namespace BlazorApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
+            // configure http client
+            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["apiUrl"]) });
+
             builder.Services
                 .AddScoped<IAuthenticationService, AuthenticationService>()
                 .AddScoped<IBookCasesService, BookCasesService>()
@@ -32,14 +36,16 @@ namespace BlazorApp
                 .AddScoped<IEmployeeService, EmployeeService>()
                 .AddScoped<ICompanyService, CompanyService>()
                 .AddScoped<ICustomerService, CustomerService>()
-                .AddScoped<IAssignmentService, AssignmentService>();
+                .AddScoped<IAssignmentService, AssignmentService>()
+                .AddScoped<DialogService>()
+                .AddScoped<NotificationService>()
+                .AddScoped<TooltipService>()
+                .AddScoped<ContextMenuService>();
 
-            // configure http client
-            builder.Services.AddScoped(x =>
-            {
-                var apiUrl = new Uri(builder.Configuration["apiUrl"]);
-                return new HttpClient() { BaseAddress = apiUrl };
-            });
+
+
+            
+
 
             var host = builder.Build();
             var authenticationService = host.Services.GetRequiredService<IAuthenticationService>();

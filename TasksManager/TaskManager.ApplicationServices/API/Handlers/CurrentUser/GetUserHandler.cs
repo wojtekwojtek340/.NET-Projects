@@ -42,6 +42,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.CurrentUser
                         CompanyId = request.AuthenticatorCompanyId
                     };
                     mapTypeObject = new EmployeeDto();
+                    
                 }
                 else if (request.AuthenticatorRole == AppRole.Manager)
                 {

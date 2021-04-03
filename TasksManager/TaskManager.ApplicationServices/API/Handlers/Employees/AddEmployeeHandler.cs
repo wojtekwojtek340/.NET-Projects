@@ -12,6 +12,7 @@ using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
 using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
+using TaskManager.DataAccess.CQRS.Commands.Boards;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
 using TaskManager.DataAccess.CQRS.Queries;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
@@ -77,6 +78,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
             request.Password = auth[0];
             request.Salt = auth[1];
             var employee = mapper.Map<Employee>(request);
+            employee.Board = new Board();
+
             var command = new AddEmployeeCommand() { Parameter = employee };
             var employeeFromDb = await commandExecutor.Execute(command);
             employeeFromDb.Company.EmployeesList = null;

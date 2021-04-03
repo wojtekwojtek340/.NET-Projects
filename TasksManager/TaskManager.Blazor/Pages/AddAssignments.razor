@@ -1,0 +1,127 @@
+﻿@page "/AddAssignments"
+@attribute [Authorize]
+@inject IAssignmentService AssignmentService
+@inject ILocalStorageService LocalStorageService
+@inject ICustomerService CustomerService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@using System.ComponentModel.DataAnnotations
+
+
+@if (auth != null)
+{
+@if (auth.RoleType == RoleType.Employee)
+{
+<div class="container">
+
+    <div class="row" style="display:flex; justify-content:center; margin:20px">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col">
+                    <RadzenTemplateForm TItem="Assignment" Data=@assignment Submit=@OnSubmit>
+                        <RadzenFieldset Text="Add Issue">
+                            <div class="row" style="margin-bottom: 48px">
+                                <div class="col-md-4 align-right">
+                                    <RadzenLabel Text="Title" />
+                                </div>
+                                <div class="col">
+                                    <RadzenTextBox style="display: block" Name="Title" @bind-Value=@assignment.Tilte />
+                                    <RadzenRequiredValidator Component="Title" Text="Title is required" Popup=@popup Style="position: absolute" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="Description" />
+                                </div>
+                                <div class="col">
+
+                                    <RadzenTextArea Name="Description" style="display: block" @bind-Value=@assignment.Description Cols="30" Rows="3" />
+                                    <RadzenRequiredValidator Component="Description" Text="Description is required" Popup=@popup Style="position: absolute" />
+
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom:48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="Start time" />
+                                </div>
+                                <div class="col">
+                                    <RadzenDatePicker style="display:block" Name="StartTime" @bind-Value=@assignment.StartTime TValue="DateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                                    <RadzenRequiredValidator Component="StartTime" Text="Start Time is required" Popup=@popup Style="position:absolute" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom:48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="End time" />
+                                </div>
+                                <div class="col">
+                                    <RadzenDatePicker style="display:block" Name="EndTime" @bind-Value=@assignment.EndTime TValue="DateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                                    <RadzenRequiredValidator Component="EndTime" Text="End Time is required" Popup=@popup Style="position:absolute" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom:48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="Deadline" />
+                                </div>
+                                <div class="col">
+                                    <RadzenDatePicker style="display:block" Name="Deadline" @bind-Value=@assignment.DeadlineTime TValue="DateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                                    <RadzenRequiredValidator Component="Deadline" Text="Deadline is required" Popup=@popup Style="position:absolute" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom:48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="Customer" />
+                                </div>
+                                <div class="col">
+
+                                    <RadzenDropDown style="display:block" Name="CustomerBox" @bind-Value="@assignment.CustomerId" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                                                    Placeholder="Select Customer..." Data=@customerList TextProperty="Name" ValueProperty="Id" />
+                                    <RadzenNumericRangeValidator Component="CustomerBox" Min="1" Text="Customer is required" Popup=@popup Style="position: absolute" />
+                                </div>
+                            </div>
+
+
+                            <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+                        </RadzenFieldset>
+                    </RadzenTemplateForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}}
+
+
+
+
+@code
+{ bool popup = false;
+    Assignment assignment = new Assignment();
+    Auth auth;
+    UserData userData;
+    IEnumerable<Customer> customerList;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        auth = await LocalStorageService.GetItem<Auth>("auth");
+        userData = await LocalStorageService.GetItem<UserData>("user");
+        customerList = await CustomerService.GetAll();
+    }
+
+    void OnSubmit(Assignment assignment)
+    {
+        assignment.BoardId = userData.Board.Id;
+        //await AssignmentService.Add(assignment);
+        navigationManager.NavigateTo("/Assignments");
+    }
+
+
+
+    void cancel()
+    {
+        navigationManager.NavigateTo("/Assignments");
+    }
+
+    }

@@ -16,6 +16,11 @@ namespace BlazorApp.Services.Assignments
             _httpService = httpService;
         }
 
+        public async Task<Assignment> Add(Assignment assignment)
+        {
+            return await _httpService.Post<Assignment>("/Assignments", assignment);
+        }
+
         public async Task<IEnumerable<Assignment>> GetAll()
         {
             return await _httpService.Get<IEnumerable<Assignment>>("/Assignments");

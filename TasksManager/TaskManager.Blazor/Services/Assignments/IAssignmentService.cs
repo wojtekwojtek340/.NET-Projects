@@ -9,5 +9,6 @@ namespace BlazorApp.Services.Assignments
     public interface IAssignmentService
     {
         public Task<IEnumerable<Assignment>> GetAll();
+        Task<Assignment> Add(Assignment assignment);
     }
 }
