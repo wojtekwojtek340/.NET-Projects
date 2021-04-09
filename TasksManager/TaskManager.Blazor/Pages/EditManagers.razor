@@ -1,0 +1,60 @@
+﻿@page "/managers/{id}"
+@attribute [Authorize]
+@inject IManagerService ManagerService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<div class="container">
+    <div class="row" style="display:flex; justify-content:center; margin:20px">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col">
+                    <RadzenTemplateForm TItem="Manager" Data=@manager Submit=@OnSubmit>
+                        <RadzenFieldset Text="Personal information">
+                            <div class="row" style="margin-bottom: 48px">
+                                <div class="col-md-4 align-right">
+                                    <RadzenLabel Text="Name" />
+                                </div>
+                                <div class="col">
+                                    <RadzenTextBox style="display: block" Name="Name" @bind-Value=@manager.Name />
+                                    <RadzenRequiredValidator Component="Name" Text="Name name is required" Popup=@popup Style="position: absolute" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 48px">
+                                <div class="col-md-4">
+                                    <RadzenLabel Text="Surname" />
+                                </div>
+                                <div class="col">
+                                    <RadzenTextBox style="display: block" Name="Surname" @bind-Value=@manager.Surname />
+                                    <RadzenRequiredValidator Component="Surname" Text="Surname name is required" Popup=@popup Style="position: absolute" />
+                                </div>
+                            </div>
+                            <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+                        </RadzenFieldset>
+                    </RadzenTemplateForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+    [Parameter]
+    public string id { get; set; }
+
+    private bool popup = false;
+
+    private Manager manager = new Manager();
+
+    protected override async Task OnInitializedAsync()
+    {
+        manager = await ManagerService.GetById(Convert.ToInt32(id));
+    }
+
+    private async void OnSubmit()
+    {
+        await ManagerService.Update(manager);
+        navigationManager.NavigateTo("/Me");
+    }
+}

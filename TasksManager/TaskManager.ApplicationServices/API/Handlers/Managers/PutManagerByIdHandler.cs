@@ -40,7 +40,12 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
                 };
             }
 
-            var query = new GetManagerQuery() { Id = request.Id };
+            var query = new GetManagerQuery()
+            { 
+                Id = request.Id,
+                CompanyId = request.AuthenticatorCompanyId                
+            };
+
             var manager = await queryExecutor.Execute(query);
 
             if (request.Login == null || request.Password == null)

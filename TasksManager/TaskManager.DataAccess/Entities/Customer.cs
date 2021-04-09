@@ -11,5 +11,8 @@ namespace TaskManager.DataAccess.Entities
 
         [Required]
         public List<Assignment> AssignmentList { get; set; }
+
+        [Required]
+        public int CompanyId { get; set; }
     }
 }

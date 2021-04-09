@@ -110,10 +110,10 @@
         customerList = await CustomerService.GetAll();
     }
 
-    void OnSubmit(Assignment assignment)
+    async void OnSubmit(Assignment assignment)
     {
         assignment.BoardId = userData.Board.Id;
-        //await AssignmentService.Add(assignment);
+        var test = await AssignmentService.Add(assignment);
         navigationManager.NavigateTo("/Assignments");
     }
 

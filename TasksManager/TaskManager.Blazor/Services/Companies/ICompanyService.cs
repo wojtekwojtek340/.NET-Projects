@@ -9,5 +9,7 @@ namespace BlazorApp.Services.Companies
     public interface ICompanyService
     {
         Task<IEnumerable<Company>> GetAll();
+        Task<Company> Update(Company company);
+        Task<Company> GetById(int id);
     }
 }

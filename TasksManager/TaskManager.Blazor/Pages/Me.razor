@@ -1,23 +1,37 @@
 ﻿@page "/me"
 @attribute [Authorize]
 @inject IUserService UserService
+@inject ILocalStorageService LocalStorageService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div class="container">
 
 <div class="card mt-4">
     <h4 class="card-header">Informations about my account</h4>
     <div class="card-body">
-        @if (loading)
+        @if (loading == 1)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (user != null)
         {
             <div class="card mt-4">
-                 <div style="padding:20px">
-                     <h5>Name: @user.Name</h5>
-                     <h5>Surname: @user.Surname</h5>
-                 </div>                  
+
+                <div style="padding:20px">
+                    <div style="float:left">
+                        <h5>Name: @user.Name</h5>
+                        <h5>Surname: @user.Surname</h5>
+                    </div>
+                    <div style="float:right">
+                        <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(user.Id)) ButtonStyle="ButtonStyle.Warning">
+                            @if (loading == user.Id)
+                             {
+                                <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
+                             }
+                            <label>Edit</label>
+                        </RadzenButton>
+                    </div>
+                </div>                 
              </div>
         }
     </div>
@@ -25,15 +39,33 @@
 </div>
 
 @code {
-    private bool loading;
+    private int loading = 0;
     private UserData user;
     private Auth auth;
-    
+
 
     protected override async Task OnInitializedAsync()
     {
-        loading = true;
+        loading = 1;
         user = await UserService.GetMe();
-        loading = false;
+        auth = await LocalStorageService.GetItem<Auth>("auth");
+        loading = 0;
+    }
+
+    private void Edit(int id)
+    {
+        loading = id;
+
+        if(auth.RoleType == RoleType.Manager)
+        {
+            navigationManager.NavigateTo($"/managers/{id}");
+        }
+
+        if(auth.RoleType == RoleType.Employee)
+        {
+            navigationManager.NavigateTo($"/employees/{id}");
+        }
+
+        loading = 0;
     }
 }

@@ -1,68 +1,85 @@
 ﻿@page "/assignments"
 @attribute [Authorize]
 @inject IAssignmentService AssignmentService
+@inject IEmployeeService EmployeeService
 @inject ILocalStorageService LocalStorageService
+@using BlazorApp.Models
 
 
 
-@if(auth != null)
+@if (auth != null)
 {
-    @if(auth.RoleType == RoleType.Manager)
+    @if (auth.RoleType == RoleType.Manager)
     {
         <div class="container">
-        
-        <div class="card mt-4">
-        <h4 class="card-header">Assignments in this company</h4>
-        <div class="card-body">
-       @if (loading)
-        {
-            <div class="spinner-border spinner-border-sm"></div>
-        }
-       @if (assignments != null)
-        {
-          @foreach (var item in assignments)
-           {                  
-              <div class="card mt-4" style="margin:8px">
-                 <div>
-                    <div style="float:left; margin:15px">
-                            <h5>Employee: @item.Board.Employee.Name @item.Board.Employee.Surname</h5>
-                            <h5>Description: @item.Description</h5>
-                            <h5>Deadline: @item.DeadlineTime</h5>    
-                    </div>
-                    <div style="float:right; padding:20px">
-                        <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteAssignment(item.Id)">
-                                @if (loading)
-                                {
-                            <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
-                        </button>
-                            <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
-                    </div>
-                  </div>
-              </div>
-                }
-        }
-        </div>
-        </div>
+
+            <div class="card mt-4">
+                <h4 class="card-header">Assignments in this company</h4>
+                <div class="card-body">
+                    @if (loading)
+                    {
+                        <div class="spinner-border spinner-border-sm"></div>
+                    }
+                    @if (assignments.Count() != 0)
+                    {
+                        @foreach (var item in assignments)
+                        {
+                            <div class="card mt-4" style="margin:8px">
+                                <div>
+                                    <div style="float:left; margin:15px">
+                                        <h5>Employee: @item.Board.Employee.Name @item.Board.Employee.Surname</h5>
+                                        <h5>Description: @item.Description</h5>
+                                        <h5>Deadline: @item.DeadlineTime</h5>
+                                    </div>
+                                    <div style="float:right; padding:20px">
+                                        <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteAssignment(item.Id)">
+                                            @if (loading)
+                                            {
+                                                <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
+                                        </button>
+                                        <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
     }
 
-    @if(auth.RoleType == RoleType.Employee)
-     {
+    @if (auth.RoleType == RoleType.Employee)
+    {
         <div style="display:flex; justify-content:center; margin:10px;">
             <a class="btn btn-primary" href="/AddAssignments">Add Issue</a>
         </div>
 
-        <div style="height:900px; display:flex; justify-content:center;">
+        @if (employees.Count() > 0)
+        {
+            @foreach (var item in employees)
+            {
+                <div style="border:5px solid black; margin:10px; height:auto">
+                    
+                    <div style="padding:15px">
+                        <div style="text-align: center; background-color:red">
+                            <h1>@item.Name @item.Surname</h1>
+                        </div>
 
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala1</div>
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala2</div>
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala3</div>
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala4</div>
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala5</div>
-            <div style="float:left; width:300px; margin:10px" class="card mt-4"> lala6</div>
-
-        </div>
-     }
+                        <div style="background-color:blue">
+                            <AssignmentsContainer Assignments="item.Board.AssignmentList" OnStatusUpdated="HandleStatusUpdated">
+                                <AssignmentList ListStatus="AssignmentStatus.ToBePlanned" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.Planned, AssignmentStatus.InProgress, AssignmentStatus.Suspended, AssignmentStatus.Completed, AssignmentStatus.Completed, AssignmentStatus.Canceled })"></AssignmentList>
+                                <AssignmentList ListStatus="AssignmentStatus.Planned" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.ToBePlanned})"></AssignmentList>
+                                <AssignmentList ListStatus="AssignmentStatus.InProgress" AllowedStatusses="@(new AssignmentStatus[] { AssignmentStatus.Planned })"></AssignmentList>
+                                <AssignmentList ListStatus="AssignmentStatus.Suspended" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.ToBePlanned, AssignmentStatus.Planned, AssignmentStatus.InProgress})"></AssignmentList>
+                                <AssignmentList ListStatus="AssignmentStatus.Completed" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.InProgress})"></AssignmentList>
+                                <AssignmentList ListStatus="AssignmentStatus.Canceled" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.ToBePlanned, AssignmentStatus.Planned, AssignmentStatus.InProgress, AssignmentStatus.Suspended})"></AssignmentList>
+                            </AssignmentsContainer>
+                        </div>
+                    </div>                
+                </div>                
+            }
+        }
+    }
 }
 
 
@@ -70,19 +87,31 @@
 @code {
     private bool loading;
     private IEnumerable<Assignment> assignments;
+    private IEnumerable<Employee> employees;
+
+    List<Assignment> IssueList = new List<Assignment>();
+    string lastUpdated = "";
+
     private Auth auth;
 
 
     protected override async Task OnInitializedAsync()
     {
-        loading = true;
-        assignments = await AssignmentService.GetAll();
         auth = await LocalStorageService.GetItem<Auth>("auth");
+        loading = true;
+        employees = await EmployeeService.GetAll();
+        assignments = await AssignmentService.GetAll();
+        var test = assignments.Count();
         loading = false;
     }
 
-    private void DeleteAssignment(int id)
-     {
+    void HandleStatusUpdated(Assignment updatedAsignment)
+    {
+        lastUpdated = updatedAsignment.Tilte;
+    }
 
-     }
+    private void DeleteAssignment(int id)
+    {
+    }
+
 }

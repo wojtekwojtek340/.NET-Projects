@@ -1,0 +1,51 @@
+﻿@page "/companies/{id}"
+@attribute [Authorize]
+@inject ICompanyService CompanyService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<div class="container">
+    <div class="row" style="display:flex; justify-content:center; margin:20px">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col">
+                    <RadzenTemplateForm TItem="Company" Data=@company Submit=@OnSubmit>
+                        <RadzenFieldset Text="Personal information">
+                            <div class="row" style="margin-bottom: 48px">
+                                <div class="col-md-4 align-right">
+                                    <RadzenLabel Text="Description" />
+                                </div>
+                                <div class="col">
+                                    <RadzenTextBox style="display: block" Name="Description" @bind-Value=@company.Description />
+                                    <RadzenRequiredValidator Component="Description" Text="Description name is required" Popup=@popup Style="position: absolute" />
+                                </div>
+                            </div>
+                            <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+                        </RadzenFieldset>
+                    </RadzenTemplateForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+    [Parameter]
+    public string id { get; set; }
+
+    private bool popup = false;
+
+    private Company company = new Company();
+
+    protected override async Task OnInitializedAsync()
+    {
+        company = await CompanyService.GetById(Convert.ToInt32(id));
+    }
+
+    private async void OnSubmit()
+    {
+        await CompanyService.Update(company);
+        navigationManager.NavigateTo("/companies");
+    }
+}

@@ -1,12 +1,14 @@
 ﻿@page "/companies"
 @attribute [Authorize]
 @inject ICompanyService CompanyService
+@inject ILocalStorageService LocalStorageService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div class="container">
 <div class="card mt-4">
     <h4 class="card-header">Company Info</h4>
     <div class="card-body">
-        @if (loading)
+        @if (loading == 1)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
@@ -15,10 +17,28 @@
             @foreach (var item in company)
              {
              <div class="card mt-4">
+                 
                  <div style="padding:20px">
-                     <h5>Company Name: @item.Description</h5>
-                     <h5>Company Manager: @item.Manager.Name @item.Manager.Surname</h5>
-                 </div>                  
+                     <div style="float:left">
+                         <h5>Company Name: @item.Description</h5>
+                         <h5>Company Manager: @item.Manager.Name @item.Manager.Surname</h5>
+                     </div>
+
+                     @if(auth.RoleType == RoleType.Manager)
+                    {
+
+                         <div style="float:right">
+                        <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(item.Id, item.GetHashCode())) ButtonStyle="ButtonStyle.Warning">
+                            @if (loading == item.GetHashCode())
+                             {
+                                <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
+                             }
+                            <label>Edit</label>
+                        </RadzenButton>
+                        </div>
+
+                    }                    
+                </div>    
              </div>
              }
         }
@@ -28,14 +48,25 @@
 
 
 @code {
-    private bool loading;
+    private int loading = 0;
     private IEnumerable<Company> company;
+    private Auth auth;
 
     protected override async Task OnInitializedAsync()
     {
-        
-        loading = true;
+
+        loading = 1;
         company = await CompanyService.GetAll();
-        loading = false;
+        auth = await LocalStorageService.GetItem<Auth>("auth");
+        loading = 0;
+    }
+
+    private void Edit(int id, int hash)
+    {
+        loading = hash;
+
+        navigationManager.NavigateTo($"/companies/{id}");
+
+        loading = 0;
     }
 }

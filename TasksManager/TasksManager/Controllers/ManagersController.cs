@@ -55,7 +55,7 @@ namespace TasksManager.Controllers
 
         [HttpPut]
         [Route("")]
-        public Task<IActionResult> PutManagerById([FromQuery] PutManagerByIdRequest request)
+        public Task<IActionResult> PutManagerById([FromBody] PutManagerByIdRequest request)
         {
             return this.HandleRequest<PutManagerByIdRequest, PutManagerByIdResponse>(request);
         }

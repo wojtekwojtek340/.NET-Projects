@@ -15,7 +15,7 @@ namespace TaskManager.DataAccess.CQRS.Queries.Customers
 
         public override async Task<Customer> Execute(TaskManagerContext context)
         {
-            var customer = await context.Customers.Where(x => x.AssignmentList.FirstOrDefault().Board.Employee.CompanyId == CompanyId).Include(x => x.AssignmentList).SingleOrDefaultAsync(x => x.Id == Id);
+            var customer = await context.Customers.Where(x => x.CompanyId == CompanyId).Include(x => x.AssignmentList).SingleOrDefaultAsync(x => x.Id == Id);
             return customer;
         }
     }

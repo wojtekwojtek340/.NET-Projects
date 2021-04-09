@@ -18,5 +18,8 @@ namespace TaskManager.DataAccess.Entities
         [Required]
         public Manager Manager { get; set; }
 
+        [Required]
+        public List<Customer> CustomesrList  { get; set; }
+
     }
 }

@@ -1,0 +1,22 @@
+﻿@using BlazorApp.Models
+
+<div class="container">
+
+    <li class="draggable" draggable="true" title="@Assignment.Tilte" @ondragstart="@(() => HandleDragStart(Assignment))">
+
+        <p class="description">@Assignment.Description</p>
+        <p class="last-updated"><small>Deadline: @Assignment.DeadlineTime.ToString("HH:mm.ss tt")</small></p>
+
+    </li>
+</div>
+
+
+@code {
+    [CascadingParameter] AssignmentsContainer Container { get; set; }
+    [Parameter] public Assignment Assignment { get; set; }
+
+    private void HandleDragStart(Assignment selectedAssignment)
+    {
+        Container.Payload = selectedAssignment;
+    }
+}

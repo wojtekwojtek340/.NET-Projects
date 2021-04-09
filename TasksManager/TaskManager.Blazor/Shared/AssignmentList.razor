@@ -1,0 +1,67 @@
+﻿@using BlazorApp.Models
+
+<div class="container">
+
+    <h3 style="text-align:center">@ListStatus (@AssignmentsCollectionList.Count())</h3>
+
+    <div style="max-height:500px; overflow-y:auto">
+        <ul class="dropzone @dropClass"
+            ondragover="event.preventDefault();"
+            ondragstart="event.dataTransfer.setData('', event.target.id);"
+            @ondrop="HandleDrop"
+            @ondragenter="HandleDragEnter"
+            @ondragleave="HandleDragLeave">
+
+            @foreach (var assignment in AssignmentsCollectionList)
+            {
+                <AssignmentUnit Assignment="assignment"></AssignmentUnit>
+            }
+        </ul>
+    </div>   
+
+</div>
+
+
+@code {
+    [CascadingParameter] AssignmentsContainer Container { get; set; }
+    [Parameter] public AssignmentStatus ListStatus { get; set; }
+    [Parameter] public AssignmentStatus[] AllowedStatusses { get; set; }
+
+    List<Assignment> AssignmentsCollectionList = new List<Assignment>();
+    string dropClass = "";
+
+    protected override void OnParametersSet()
+    {
+        AssignmentsCollectionList.Clear();
+        AssignmentsCollectionList.AddRange(Container.Assignments.Where(x => x.AssignmentStatus == ListStatus));
+    }
+
+    private void HandleDragEnter()
+    { 
+
+        if (ListStatus == Container.Payload.AssignmentStatus) return;
+
+
+
+        if (AllowedStatusses != null && !AllowedStatusses.Contains(Container.Payload.AssignmentStatus))
+        {
+            dropClass = "no-drop";
+        }
+        else
+        {
+            dropClass = "can-drop";
+        }
+    }
+
+    private void HandleDragLeave()
+    {
+        dropClass = "";
+    }
+
+    private async Task HandleDrop()
+    {
+        dropClass = "";
+        if (AllowedStatusses != null && !AllowedStatusses.Contains(Container.Payload.AssignmentStatus)) return;
+        await Container.UpdateAssignmentAsync(ListStatus);
+    }
+}

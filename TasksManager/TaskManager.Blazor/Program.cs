@@ -5,6 +5,7 @@ using BlazorApp.Services.Authentication;
 using BlazorApp.Services.Companies;
 using BlazorApp.Services.Customers;
 using BlazorApp.Services.Employees;
+using BlazorApp.Shared;
 using BlazorApp.Services.Http;
 using BlazorApp.Services.LocalStorage;
 using BlazorApp.Services.User;
@@ -14,6 +15,7 @@ using System;
 using Radzen;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BlazorApp.Services.Managers;
 
 namespace BlazorApp
 {
@@ -37,6 +39,7 @@ namespace BlazorApp
                 .AddScoped<ICompanyService, CompanyService>()
                 .AddScoped<ICustomerService, CustomerService>()
                 .AddScoped<IAssignmentService, AssignmentService>()
+                .AddScoped<IManagerService, ManagerService>()
                 .AddScoped<DialogService>()
                 .AddScoped<NotificationService>()
                 .AddScoped<TooltipService>()
@@ -44,7 +47,7 @@ namespace BlazorApp
 
 
 
-            
+
 
 
             var host = builder.Build();

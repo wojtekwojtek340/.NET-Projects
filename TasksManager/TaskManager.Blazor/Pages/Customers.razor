@@ -8,58 +8,88 @@
 <div class="card mt-4">
     <h4 class="card-header">Customers in this company</h4>
     <div class="card-body">
-        @if (loading)
+        @if (loading == 1)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (customers != null)
         {
+            @foreach (var item in customers)
+             {                    
+                 <div class="card mt-4" style="margin:8px">
+                     <div>
 
-                @foreach (var item in customers)
-                {
-                    
-                    <div class="card mt-4" style="margin:8px">
-                    <div>
-                        <div style="float:left; margin:15px">
-                            <h5>Customer Name: @item.Name</h5>
-                        </div>
-                        @if (auth.RoleType == RoleType.Manager)
-                        {
-                        <div style="float:right; padding:20px">
-                            <button style="margin:10px" class="btn btn-danger" @onclick="() => DeleteCompany(item.Id)">
-                                @if (loading)
-                                {
-                            <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
-                            </button>
-                            <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
-                        </div>
-                        }
-                        
-                    </div>
-                </div>
+                         <div style="float:left; margin:15px">
+                             <h5>Customer Name: @item.Name</h5>
+                         </div>
 
-                }
+                         @if (auth.RoleType == RoleType.Manager)
+                         {
+                             <div style="display:flex;float:right; margin:10px">
+                                 <RadzenButton style="display:block; margin:5px;" Click=@(args => Delete(item.Id, item.GetHashCode()+1)) ButtonStyle="ButtonStyle.Primary">
+                                     @if (loading == item.GetHashCode()+1)
+                                      {
+                                         <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
+                                      }
+                                     <label>Delete</label>
+                                 </RadzenButton>
 
+                                 <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(item.GetHashCode()+2)) ButtonStyle="ButtonStyle.Warning">
+                                     @if (loading == item.GetHashCode()+2)
+                                     {
+                                         <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
+                                      }
+                                     <label>Edit</label>
+                                 </RadzenButton>
+                             </div>
+                         }
+                     </div>
+                 </div>                
+             }
         }
     </div>
+    @if (auth != null)
+     {
+        @if(auth.RoleType == RoleType.Manager && auth != null)
+        {
+            @*Adding new Customer*@
+            <RadzenButton style="display:block" Click=@(args => DisplayFormula()) Text="Add New" ButtonStyle="ButtonStyle.Secondary"/>
+        }
+     }
+
+
+    
+
 </div>
 </div>
 
+
 @code {
-    private bool loading;
+    private int loading = 0;
+    private bool isFormulaVisible = false;
     private IEnumerable<Customer> customers;
     private Auth auth;
 
     protected override async Task OnInitializedAsync()
     {
         auth = await LocalStorageService.GetItem<Auth>("auth");
-        loading = true;
+        loading = 1;
         customers = await CustomerService.GetAll();
-        loading = false;
+        loading = 0;
     }
 
-    private void DeleteCompany(int id)
+    private void DisplayFormula()
     {
+        isFormulaVisible = true;
+    }
 
+    private void Edit(int hash)
+    {
+        loading = hash;
+    }
+
+    private void Delete(int id, int hash)
+    {
+        loading = hash;
     }
 }

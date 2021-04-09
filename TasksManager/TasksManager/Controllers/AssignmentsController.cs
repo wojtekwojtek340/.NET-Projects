@@ -39,7 +39,7 @@ namespace TasksManager.Controllers
 
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddAssignment([FromQuery] AddAssignmentRequest request)
+        public Task<IActionResult> AddAssignment([FromBody] AddAssignmentRequest request)
         {
             return this.HandleRequest<AddAssignmentRequest, AddAssignmentResponse>(request);
         }

@@ -43,11 +43,13 @@ namespace TaskManager.ApplicationServices.API.Handlers.Companies
 
             var query = new GetCompanyQuery()
             {
-                Id = request.Id
+                Id = request.Id,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var query2 = new GetManagerQuery()
             {
-                Id = request.ManagerId
+                Id = request.ManagerId,
+                CompanyId = request.AuthenticatorCompanyId                
             };
 
             var company = await queryExecutor.Execute(query);

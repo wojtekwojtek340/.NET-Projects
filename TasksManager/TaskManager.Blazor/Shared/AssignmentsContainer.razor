@@ -1,0 +1,30 @@
+﻿@using BlazorApp.Models
+
+<div style="width:auto;">
+    <div class="jobs-container">
+        <CascadingValue Value="this">
+            @ChildContent
+        </CascadingValue>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public List<Assignment> Assignments { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public EventCallback<Assignment> OnStatusUpdated { get; set; }
+
+    public Assignment Payload { get; set; }
+
+    public async Task UpdateAssignmentAsync(AssignmentStatus newAssignmentStatus)
+    {
+        var task = Assignments.SingleOrDefault(x => x.Id == Payload.Id);
+        if(task != null)
+        {
+            task.AssignmentStatus = newAssignmentStatus;
+            await OnStatusUpdated.InvokeAsync(Payload);
+        }
+    }
+}
