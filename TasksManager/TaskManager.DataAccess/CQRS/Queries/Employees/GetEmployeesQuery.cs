@@ -39,9 +39,9 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
                 employees.ForEach(x => x.Company.EmployeesList = null);
                 return employees;
 
-            }
-
-            
+            }            
         }
+
+
     }
 }
