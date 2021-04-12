@@ -3,13 +3,18 @@
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
+
+
     <div class="container">
+
+        <RadzenNotification />
+
         <div class="col-md-6 offset-md-3 mt-5">
             <div class="alert alert-info">
                 Please fill username and password
             </div>
             <div class="card">
-                <h4 class="card-header">Blazor WebAssembly</h4>
+                <h4 class="card-header">Blazor Task Manager</h4>
                 <div class="card-body">
                     <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
                         <DataAnnotationsValidator />
@@ -78,7 +83,7 @@
             }
         }
 
-        private async void HandleValidSubmit()
+        private async Task HandleValidSubmit()
         {
             loading = true;
             try

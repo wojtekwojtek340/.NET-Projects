@@ -10,6 +10,7 @@ using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.Employees;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Models;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Employees;
 using TaskManager.DataAccess.CQRS.Queries.Companies;
@@ -23,12 +24,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IPasswordHasher passwordHasher;
 
-        public PutEmployeeByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public PutEmployeeByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IPasswordHasher passwordHasher)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.passwordHasher = passwordHasher;
         }
 
         public async Task<PutEmployeeByIdResponse> Handle(PutEmployeeByIdRequest request, CancellationToken cancellationToken)
@@ -47,6 +50,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Employees
 
             var employee = await queryExecutor.Execute(query);
             var company = await queryExecutor.Execute(query2);
+
+            if (request.Login == null || request.Password != null)
+            {
+                request.Login = employee.Login;
+                var auth = passwordHasher.Hash(request.Password);
+                request.Password = auth[0];
+                request.Salt = auth[1];
+            }
 
             if (request.Login == null || request.Password == null)
             {

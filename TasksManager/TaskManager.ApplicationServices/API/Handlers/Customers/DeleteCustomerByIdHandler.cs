@@ -40,7 +40,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
 
             var query = new GetCustomerQuery()
             {
-                Id = request.CustomerId
+                Id = request.CustomerId,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var customer = await queryExecutor.Execute(query);
             if (customer == null)

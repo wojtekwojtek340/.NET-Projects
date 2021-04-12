@@ -16,9 +16,29 @@ namespace BlazorApp.Services.Customers
             _httpService = httpService;
         }
 
+        public async Task<Customer> Add(Customer customer)
+        {
+            return await _httpService.Post<Customer>("/Customers", customer);
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            await _httpService.Delete($"/Customers/{id}");
+            return true;
+        }
+
         public async Task<IEnumerable<Customer>> GetAll()
         {
             return await _httpService.Get<IEnumerable<Customer>>("/Customers");
+        }
+        public async Task<Customer> GetById(int id)
+        {
+            return await _httpService.Get<Customer>($"/Customers/{id}");
+        }
+        public async Task<Customer> Update(Customer customer)
+        {
+            var result = await _httpService.Put<Customer>("/Customers", customer);
+            return result;
         }
     }
 }

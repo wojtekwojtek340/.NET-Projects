@@ -10,5 +10,8 @@ namespace BlazorApp.Services.Assignments
     {
         public Task<IEnumerable<Assignment>> GetAll();
         Task<Assignment> Add(Assignment assignment);
+        Task<Assignment> Update(Assignment assignment);
+        Task<Assignment> GetById(int id);
+        Task<bool> Delete(int id);
     }
 }

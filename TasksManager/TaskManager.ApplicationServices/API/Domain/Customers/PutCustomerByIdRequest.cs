@@ -11,5 +11,7 @@ namespace TaskManager.ApplicationServices.API.Domain.Customers
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public string CustomerId { get; set; }
     }
 }

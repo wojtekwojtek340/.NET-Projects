@@ -22,13 +22,21 @@
                         <h5>Name: @user.Name</h5>
                         <h5>Surname: @user.Surname</h5>
                     </div>
-                    <div style="float:right">
+                    <div style="float:right; display:flex">
                         <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(user.Id)) ButtonStyle="ButtonStyle.Warning">
                             @if (loading == user.Id)
                              {
                                 <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
                              }
                             <label>Edit</label>
+                        </RadzenButton>
+
+                        <RadzenButton style="display:block; margin:5px" Click=@(args => ChangePassword(user.Id)) ButtonStyle="ButtonStyle.Secondary">
+                            @if (loading == user.Id)
+                             {
+                                <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
+                             }
+                            <label>Change Password</label>
                         </RadzenButton>
                     </div>
                 </div>                 
@@ -67,5 +75,12 @@
         }
 
         loading = 0;
+    }
+
+    private void ChangePassword(int id)
+    {
+        loading = id;
+
+        navigationManager.NavigateTo($"/passwordChange/{id}");
     }
 }

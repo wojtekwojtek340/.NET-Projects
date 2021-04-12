@@ -37,7 +37,7 @@ namespace TasksManager.Controllers
 
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddCustomer([FromQuery] AddCustomerRequest request)
+        public Task<IActionResult> AddCustomer([FromBody] AddCustomerRequest request)
         {
             return this.HandleRequest<AddCustomerRequest, AddCustomerResponse>(request);
         }
@@ -52,7 +52,7 @@ namespace TasksManager.Controllers
 
         [HttpPut]
         [Route("")]
-        public Task<IActionResult> PutCustomerById([FromQuery] PutCustomerByIdRequest request)
+        public Task<IActionResult> PutCustomerById([FromBody] PutCustomerByIdRequest request)
         {
             return this.HandleRequest<PutCustomerByIdRequest, PutCustomerByIdResponse>(request);
         }

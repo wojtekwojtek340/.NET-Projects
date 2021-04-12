@@ -1,24 +1,19 @@
-﻿@page "/AddAssignments"
+﻿@page "/assignments/{id}"
 @attribute [Authorize]
 @inject IAssignmentService AssignmentService
-@inject ILocalStorageService LocalStorageService
 @inject ICustomerService CustomerService
+@inject ILocalStorageService LocalStorageService
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
-@using System.ComponentModel.DataAnnotations
 
-
-@if (auth != null)
-{
-@if (auth.RoleType == RoleType.Employee)
-{
 <div class="container">
-
     <div class="row" style="display:flex; justify-content:center; margin:20px">
         <div class="col-xl-6">
             <div class="row">
                 <div class="col">
                     <RadzenTemplateForm TItem="Assignment" Data=@assignment Submit=@OnSubmit>
-                        <RadzenFieldset Text="Add Issue">
+                        <RadzenFieldset Text="Personal information">
+
+
                             <div class="row" style="margin-bottom: 48px">
                                 <div class="col-md-4 align-right">
                                     <RadzenLabel Text="Title" />
@@ -28,6 +23,7 @@
                                     <RadzenRequiredValidator Component="Title" Text="Title is required" Popup=@popup Style="position: absolute" />
                                 </div>
                             </div>
+
                             <div class="row" style="margin-bottom: 48px">
                                 <div class="col-md-4">
                                     <RadzenLabel Text="Description" />
@@ -82,9 +78,9 @@
                                 </div>
                             </div>
 
-
                             <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
-                            <RadzenButton Click=@Cancel Text="Cancel" ButtonStyle="ButtonStyle.Info" />
+
+                            <RadzenButton Click=@Cancel Text="Cancel" ButtonStyle="ButtonStyle.Info"/>
 
                         </RadzenFieldset>
                     </RadzenTemplateForm>
@@ -92,13 +88,16 @@
             </div>
         </div>
     </div>
-</div>}}
+</div>
 
 
 
 
-@code
-{ 
+@code {
+
+    [Parameter]
+    public string id { get; set; }
+
     bool popup = false;
     Assignment assignment = new Assignment();
     Auth auth;
@@ -111,20 +110,33 @@
         auth = await LocalStorageService.GetItem<Auth>("auth");
         userData = await LocalStorageService.GetItem<UserData>("user");
         customerList = await CustomerService.GetAll();
+        assignment = await AssignmentService.GetById(Int32.Parse(id));
     }
 
-    async void OnSubmit(Assignment assignment)
+
+    private async Task OnSubmit()
     {
-        assignment.BoardId = userData.Board.Id;
-        var test = await AssignmentService.Add(assignment);
-        navigationManager.NavigateTo("/Assignments");
+        await AssignmentService.Update(assignment);
+
+        if(auth.RoleType == RoleType.Manager)
+        {
+            navigationManager.NavigateTo("/assignments");
+        }
+        else if(auth.RoleType == RoleType.Employee)
+        {
+            navigationManager.NavigateTo($"/assignmentsDetail/{assignment.Id}");
+        }
     }
 
-
-
-    void Cancel()
+    private void Cancel()
     {
-        navigationManager.NavigateTo("/Assignments");
+        if (auth.RoleType == RoleType.Manager)
+        {
+            navigationManager.NavigateTo("/assignments");
+        }
+        else if (auth.RoleType == RoleType.Employee)
+        {
+            navigationManager.NavigateTo($"/assignmentsDetail/{assignment.Id}");
+        }
     }
-
-    }
+}

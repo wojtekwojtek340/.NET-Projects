@@ -11,6 +11,7 @@ namespace BlazorApp.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int CompanyId { get; set; }
+        public string Password { get; set; }
         public Company Company { get; set; }
         public Board Board { get; set; }
     }

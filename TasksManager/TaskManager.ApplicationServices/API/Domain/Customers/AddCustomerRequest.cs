@@ -11,7 +11,8 @@ namespace TaskManager.ApplicationServices.API.Domain.Customers
     public class AddCustomerRequest : RequestBase, IRequest<AddCustomerResponse>
     {
         public string Name { get; set; }
-        
+        public int CompanyId { get; set; }
+
         //public List<Assignment> AssignmentList { get; set; }
     }
 }

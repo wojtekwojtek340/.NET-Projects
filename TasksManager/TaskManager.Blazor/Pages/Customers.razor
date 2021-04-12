@@ -2,6 +2,7 @@
 @attribute [Authorize]
 @inject ICustomerService CustomerService
 @inject ILocalStorageService LocalStorageService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div class="container">
 
@@ -34,7 +35,7 @@
                                      <label>Delete</label>
                                  </RadzenButton>
 
-                                 <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(item.GetHashCode()+2)) ButtonStyle="ButtonStyle.Warning">
+                                 <RadzenButton style="display:block; margin:5px" Click=@(args => Edit(item.Id, item.GetHashCode()+2)) ButtonStyle="ButtonStyle.Warning">
                                      @if (loading == item.GetHashCode()+2)
                                      {
                                          <span class="spinner-border spinner-border-sm mr-1" style="vertical-align:middle"></span>
@@ -53,27 +54,50 @@
         @if(auth.RoleType == RoleType.Manager && auth != null)
         {
             @*Adding new Customer*@
-            <RadzenButton style="display:block" Click=@(args => DisplayFormula()) Text="Add New" ButtonStyle="ButtonStyle.Secondary"/>
+            <RadzenButton style="display:block" Click=@DisplayFormula Text="Add New" ButtonStyle="ButtonStyle.Secondary"/>
         }
      }
 
 
-    
+    @if(isFormulaVisible)
+    { 
+<div style="display:flex; justify-content:center; padding:20px">
+
+    <RadzenTemplateForm TItem="Customer" Data=@customer Submit=@OnSubmit>
+        <RadzenFieldset Text="Personal information">
+            <div class="row" style="margin-bottom: 48px">
+                <div class="col-md-4 align-right">
+                    <RadzenLabel Text="Name" />
+                </div>
+                <div class="col">
+                    <RadzenTextBox style="display: block" Name="Name" @bind-Value=@customer.Name />
+                    <RadzenRequiredValidator Component="Name" Text="Name is required" Popup=@popup Style="position: absolute" />
+                </div>
+            </div>
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+        </RadzenFieldset>
+    </RadzenTemplateForm>
+</div> 
+    }   
 
 </div>
 </div>
 
 
 @code {
+    private bool popup = true;
     private int loading = 0;
     private bool isFormulaVisible = false;
     private IEnumerable<Customer> customers;
+    private Customer customer = new Customer();
     private Auth auth;
+    private UserData user;
 
     protected override async Task OnInitializedAsync()
     {
-        auth = await LocalStorageService.GetItem<Auth>("auth");
         loading = 1;
+        auth = await LocalStorageService.GetItem<Auth>("auth");
+        user = await LocalStorageService.GetItem<UserData>("user");
         customers = await CustomerService.GetAll();
         loading = 0;
     }
@@ -83,13 +107,31 @@
         isFormulaVisible = true;
     }
 
-    private void Edit(int hash)
+    private void Edit(int id, int hash)
     {
         loading = hash;
+        navigationManager.NavigateTo($"/customers/{id}");
+        loading = 0;
+
     }
 
-    private void Delete(int id, int hash)
+    private async Task Delete(int id, int hash)
     {
         loading = hash;
+
+        await CustomerService.Delete(id);
+        customers = await CustomerService.GetAll();
+        StateHasChanged();
+
+        loading = 0;
+    }
+
+    private async Task OnSubmit()
+    {
+        customer.CompanyId = user.Company.Id;
+        await CustomerService.Add(customer);
+        customers = await CustomerService.GetAll();
+        isFormulaVisible = false;
+        StateHasChanged();
     }
 }

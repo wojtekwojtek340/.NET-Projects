@@ -29,6 +29,7 @@
                                 </div>
                             </div>
                             <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+                            <RadzenButton Click=@Cancel Text="Cancel" ButtonStyle="ButtonStyle.Info" />
                         </RadzenFieldset>
                     </RadzenTemplateForm>
                 </div>
@@ -52,9 +53,14 @@
         manager = await ManagerService.GetById(Convert.ToInt32(id));
     }
 
-    private async void OnSubmit()
+    private async Task OnSubmit()
     {
         await ManagerService.Update(manager);
+        navigationManager.NavigateTo("/Me");
+    }
+
+    private void Cancel()
+    {
         navigationManager.NavigateTo("/Me");
     }
 }

@@ -10,5 +10,6 @@ namespace BlazorApp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Assignment> AssignmentList { get; set; }
+        public int CompanyId { get; set; }
     }
 }

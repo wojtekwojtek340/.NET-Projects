@@ -53,7 +53,7 @@ namespace TasksManager.Controllers
 
         [HttpPut]
         [Route("")]
-        public Task<IActionResult> PutAssignmentById([FromQuery] PutAssignmentByIdRequest request)
+        public Task<IActionResult> PutAssignmentById([FromBody] PutAssignmentByIdRequest request)
         {
             return this.HandleRequest<PutAssignmentByIdRequest, PutAssignmentByIdResponse>(request);
         }

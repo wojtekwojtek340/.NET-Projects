@@ -42,7 +42,8 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
 
             var query = new GetCustomerQuery()
             {
-                Id = request.Id
+                Id = request.Id,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var customer = await queryExecutor.Execute(query);
             if (customer == null)
@@ -54,6 +55,7 @@ namespace TaskManager.ApplicationServices.API.Handlers.Customers
             }
 
             var updateCustomer = mapper.Map<Customer>(request);
+            updateCustomer.CompanyId = request.AuthenticatorCompanyId;
 
             var command = new PutCustomerCommand
             {

@@ -56,5 +56,15 @@
 
         void cancel()
         {
-            navigationManager.NavigateTo("/employees");
-        } }
+            if (auth.RoleType == RoleType.Manager)
+            {
+                navigationManager.NavigateTo("/employees");
+            }
+
+            if (auth.RoleType == RoleType.Employee)
+            {
+                navigationManager.NavigateTo("/me");
+            }
+        }
+
+        }

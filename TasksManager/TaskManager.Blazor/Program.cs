@@ -16,6 +16,7 @@ using Radzen;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorApp.Services.Managers;
+using BlazorApp.Services.Comments;
 
 namespace BlazorApp
 {
@@ -40,6 +41,7 @@ namespace BlazorApp
                 .AddScoped<ICustomerService, CustomerService>()
                 .AddScoped<IAssignmentService, AssignmentService>()
                 .AddScoped<IManagerService, ManagerService>()
+                .AddScoped<ICommentService, CommentService>()
                 .AddScoped<DialogService>()
                 .AddScoped<NotificationService>()
                 .AddScoped<TooltipService>()

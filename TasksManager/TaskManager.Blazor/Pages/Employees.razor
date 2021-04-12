@@ -58,8 +58,12 @@
 }    
     @if (addFormulaVisible)
     {
-    <div class="card mt-4">
-        <h4 class="card-header">Add new employee</h4>
+    <div class="card mt-4" style="text-align:center">
+        <h4 class="card-header">Add new employee</h4
+        <h4>To first login use Name and Surname:</h4>
+        <h4>Login => Name</h4>
+        <h4>Password => Surname</h4>
+
         <div class="card-body">
             <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
                 <DataAnnotationsValidator />
@@ -120,7 +124,7 @@
             addFormulaVisible = true;
         }
 
-        private async void DeleteEmployee(int id)
+        private async Task DeleteEmployee(int id)
         {
             loading = 2;
             try
@@ -141,13 +145,12 @@
             }
         }
 
-        private async void HandleValidSubmit()
+        private async Task HandleValidSubmit()
         {
 
-            string nameAndSurname = model.Name + model.Surname;
             UserData userData = new UserData();
-            userData.Login = nameAndSurname;
-            userData.Password = nameAndSurname;
+            userData.Login = model.Name;
+            userData.Password = model.Surname;
             userData.Name = model.Name;
             userData.Surname = model.Surname;
             userData.CompanyId = currentUser.Company.Id;

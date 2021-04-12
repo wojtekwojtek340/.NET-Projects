@@ -37,7 +37,7 @@ namespace TasksManager.Controllers
 
         [HttpPost]
         [Route("")]
-        public Task<IActionResult> AddComment([FromQuery] AddCommentRequest request)
+        public Task<IActionResult> AddComment([FromBody] AddCommentRequest request)
         {
             return this.HandleRequest<AddCommentRequest, AddCommentResponse>(request);
         }
@@ -51,7 +51,7 @@ namespace TasksManager.Controllers
 
         [HttpPut]
         [Route("")]
-        public Task<IActionResult> PutCommentById([FromQuery] PutCommentByIdRequest request)
+        public Task<IActionResult> PutCommentById([FromBody] PutCommentByIdRequest request)
         {
             return this.HandleRequest<PutCommentByIdRequest, PutCommentByIdResponse>(request);
         }

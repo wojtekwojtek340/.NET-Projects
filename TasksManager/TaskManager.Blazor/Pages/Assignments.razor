@@ -37,7 +37,7 @@
                                             {
                                                 <span class="spinner-border spinner-border-sm mr-1"></span>}Delete
                                         </button>
-                                        <a style="margin:10px" class="btn btn-primary" href='/employees/@item.Id'>Edit</a>
+                                        <a style="margin:10px" class="btn btn-primary" href='/assignments/@item.Id'>Edit</a>
                                     </div>
                                 </div>
                             </div>
@@ -61,11 +61,11 @@
                 <div style="border:5px solid black; margin:10px; height:auto">
                     
                     <div style="padding:15px">
-                        <div style="text-align: center; background-color:red">
+                        <div style="text-align: center">
                             <h1>@item.Name @item.Surname</h1>
                         </div>
 
-                        <div style="background-color:blue">
+                        <div>
                             <AssignmentsContainer Assignments="item.Board.AssignmentList" OnStatusUpdated="HandleStatusUpdated">
                                 <AssignmentList ListStatus="AssignmentStatus.ToBePlanned" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.Planned, AssignmentStatus.InProgress, AssignmentStatus.Suspended, AssignmentStatus.Completed, AssignmentStatus.Completed, AssignmentStatus.Canceled })"></AssignmentList>
                                 <AssignmentList ListStatus="AssignmentStatus.Planned" AllowedStatusses="@(new AssignmentStatus[] {AssignmentStatus.ToBePlanned})"></AssignmentList>
@@ -97,8 +97,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        auth = await LocalStorageService.GetItem<Auth>("auth");
         loading = true;
+        auth = await LocalStorageService.GetItem<Auth>("auth");
         employees = await EmployeeService.GetAll();
         assignments = await AssignmentService.GetAll();
         var test = assignments.Count();
@@ -110,8 +110,13 @@
         lastUpdated = updatedAsignment.Tilte;
     }
 
-    private void DeleteAssignment(int id)
+    private async Task DeleteAssignment(int id)
     {
+        loading = true;
+        await AssignmentService.Delete(id);
+        assignments = await AssignmentService.GetAll();
+        loading = false;
+        StateHasChanged();
     }
 
 }

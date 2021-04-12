@@ -34,25 +34,18 @@ namespace TaskManager.ApplicationServices.API.Handlers.Assignments
 
         public async Task<PutAssignmentByIdResponse> Handle(PutAssignmentByIdRequest request, CancellationToken cancellationToken)
         {
-            if (request.AuthenticatorRole == AppRole.Employee)
-            {
-                return new PutAssignmentByIdResponse()
-                {
-                    Error = new ErrorModel(ErrorType.Unauthorized)
-                };
-            }
-
             var query = new GetBoardQuery()
             {
-                Id = request.BoardId
+                Id = request.BoardId              
             };
             var query2 = new GetCustomerQuery()
             {
-                Id = request.CustomerId
+                Id = request.CustomerId,
+                CompanyId = request.AuthenticatorCompanyId
             };
             var query3 = new GetAssignmentQuery()
             {
-                Id = request.Id
+                Id = request.Id                
             };
 
             var board = await queryExecutor.Execute(query);

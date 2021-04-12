@@ -10,6 +10,7 @@ using TaskManager.ApplicationServices.API.Domain;
 using TaskManager.ApplicationServices.API.Domain.ErrorHandling;
 using TaskManager.ApplicationServices.API.Domain.Managers;
 using TaskManager.ApplicationServices.API.Domain.Models;
+using TaskManager.ApplicationServices.Components.Authorization;
 using TaskManager.DataAccess.CQRS;
 using TaskManager.DataAccess.CQRS.Commands.Managers;
 using TaskManager.DataAccess.CQRS.Queries.Managers;
@@ -22,12 +23,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IPasswordHasher passwordHasher;
 
-        public PutManagerByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public PutManagerByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IPasswordHasher passwordHasher)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.passwordHasher = passwordHasher;
         }
 
         public async Task<PutManagerByIdResponse> Handle(PutManagerByIdRequest request, CancellationToken cancellationToken)
@@ -47,6 +50,14 @@ namespace TaskManager.ApplicationServices.API.Handlers.Managers
             };
 
             var manager = await queryExecutor.Execute(query);
+
+            if (request.Login == null || request.Password != null)
+            {
+                request.Login = manager.Login;                
+                var auth = passwordHasher.Hash(request.Password);
+                request.Password = auth[0];
+                request.Salt = auth[1];
+            }
 
             if (request.Login == null || request.Password == null)
             {

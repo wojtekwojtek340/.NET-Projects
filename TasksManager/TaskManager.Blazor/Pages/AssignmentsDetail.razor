@@ -1,0 +1,89 @@
+﻿@page "/assignmentsDetail/{id}"
+@attribute [Authorize]
+@inject ILocalStorageService LocalStorageService
+@inject IAssignmentService AssignmentService
+@inject ICommentService CommentService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<div class="container">
+
+    @if (assignment != null)
+    {    
+        <div style="text-align:center">
+
+        <div class="card mt4" style="padding:10px; margin:5px">
+            <h1>Title: @assignment.Tilte</h1>
+        </div>
+        
+        <div class="card mt4" style="padding:10px; margin:5px">
+            <h2>Description: @assignment.Description</h2>
+        </div>
+
+        <div class="card mt4" style="padding:10px; margin:5px">
+            <h4>Start Time: @assignment.StartTime</h4>
+            <h4>End Time: @assignment.EndTime</h4>
+            <h4>Deadline Time: @assignment.DeadlineTime</h4>
+        </div>  
+            
+         <RadzenButton Click=@EditAssignment Text="Edit Assignment" ButtonStyle="ButtonStyle.Secondary" style="margin:5px"/>
+     
+        <div class="card mt4" style="padding:10px; margin:5px">
+
+                @foreach (var item in assignment.CommentsList)
+                {
+                    <div class="card mt4" style="margin:5px; display:flex">
+                        
+                        <div style="text-align:left; margin:5px">
+                            @item.Description
+                        </div>
+
+                    </div>
+                }
+
+                <RadzenTextArea @bind-Value=@comment Cols="30" Rows="5" style="margin:5px"/>
+
+                <RadzenButton Click=@AddComment Text="Add Comment" ButtonStyle="ButtonStyle.Primary" style="margin:5px"/>
+
+         </div>       
+
+
+
+    </div>
+    } 
+
+</div>
+
+
+
+@code 
+{  
+    private bool loading;
+    private string error = "";
+    private string comment = "";
+
+    [Parameter] public string id { get; set; }
+
+    private Assignment assignment;
+
+    protected async override Task OnInitializedAsync()
+    {
+        assignment = await AssignmentService.GetById(Int32.Parse(id));
+    }
+
+    private async Task AddComment()
+    {
+        string name = assignment.Board.Employee.Name + " " + assignment.Board.Employee.Surname + ": ";
+        name += comment;
+        Comment commentToAdd = new Comment() { AssignmentId = assignment.Id, Description = name};
+        await CommentService.Add(commentToAdd);
+        assignment = await AssignmentService.GetById(Int32.Parse(id));
+        comment = "";
+        StateHasChanged();
+    }
+
+    private async Task EditAssignment()
+    {
+        navigationManager.NavigateTo($"/assignments/{assignment.Id}");
+    }
+
+}

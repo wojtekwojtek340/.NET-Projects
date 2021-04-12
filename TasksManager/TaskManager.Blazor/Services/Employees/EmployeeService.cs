@@ -37,9 +37,9 @@ namespace BlazorApp.Services.Employees
             return result;
         }
 
-        public Task<Employee> GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
-            return _httpService.Get<Employee>($"/Employees/{id}");
+            return await _httpService.Get<Employee>($"/Employees/{id}");
         }
     }
 }

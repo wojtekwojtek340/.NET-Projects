@@ -1,6 +1,6 @@
-﻿@page "/companies/{id}"
+﻿@page "/customers/{id}"
 @attribute [Authorize]
-@inject ICompanyService CompanyService
+@inject ICustomerService CustomerService
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div class="container">
@@ -8,15 +8,15 @@
         <div class="col-xl-6">
             <div class="row">
                 <div class="col">
-                    <RadzenTemplateForm TItem="Company" Data=@company Submit=@OnSubmit>
+                    <RadzenTemplateForm TItem="Customer" Data=@customer Submit=@OnSubmit>
                         <RadzenFieldset Text="Personal information">
                             <div class="row" style="margin-bottom: 48px">
                                 <div class="col-md-4 align-right">
-                                    <RadzenLabel Text="Description" />
+                                    <RadzenLabel Text="Name" />
                                 </div>
                                 <div class="col">
-                                    <RadzenTextBox style="display: block" Name="Description" @bind-Value=@company.Description />
-                                    <RadzenRequiredValidator Component="Description" Text="Description name is required" Popup=@popup Style="position: absolute" />
+                                    <RadzenTextBox style="display: block" Name="Name" @bind-Value=@customer.Name />
+                                    <RadzenRequiredValidator Component="Name" Text="Name is required" Popup=@popup Style="position: absolute" />
                                 </div>
                             </div>
                             <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
@@ -32,28 +32,27 @@
 
 
 @code
-{
-    [Parameter]
+{ [Parameter]
+
     public string id { get; set; }
 
     private bool popup = false;
 
-    private Company company = new Company();
+    private Customer customer = new Customer();
 
     protected override async Task OnInitializedAsync()
     {
-        company = await CompanyService.GetById(Convert.ToInt32(id));
+        customer = await CustomerService.GetById(Convert.ToInt32(id));
     }
 
     private async Task OnSubmit()
     {
-        await CompanyService.Update(company);
-        navigationManager.NavigateTo("/companies");
+        await CustomerService.Update(customer);
+        navigationManager.NavigateTo("/customers");
     }
 
     private void Cancel()
     {
-        navigationManager.NavigateTo("/companies");
+        navigationManager.NavigateTo("/customers");
     }
-
 }
