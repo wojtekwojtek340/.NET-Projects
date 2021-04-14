@@ -39,6 +39,8 @@ namespace TaskManager.DataAccess.CQRS.Queries.Assignments
             assignments.ForEach(x => x.Board.AssignmentList = null);
             assignments.ForEach(x => x.Board.Employee.Company.EmployeesList = null);
             return assignments;
+
+
         }
     }
 }

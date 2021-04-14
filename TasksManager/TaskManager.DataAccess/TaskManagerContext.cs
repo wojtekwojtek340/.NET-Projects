@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TaskManager.DataAccess.Entities;
 
 namespace TaskManager.DataAccess

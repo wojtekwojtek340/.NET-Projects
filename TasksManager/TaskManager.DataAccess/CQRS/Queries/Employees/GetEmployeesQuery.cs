@@ -38,10 +38,9 @@ namespace TaskManager.DataAccess.CQRS.Queries.Employees
                 var employees = await context.Employees.Where(x => x.CompanyId == CompanyId).Include(x => x.Company).Include(x => x.Board.AssignmentList).ToListAsync();
                 employees.ForEach(x => x.Company.EmployeesList = null);
                 return employees;
-
             }            
-        }
-
-
+        }        
     }
+
+    
 }
