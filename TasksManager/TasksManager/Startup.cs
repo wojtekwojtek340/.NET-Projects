@@ -37,17 +37,19 @@ namespace TasksManager
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
+        readonly string MyAllowSpecificOrigins = "Politicy";
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(buldier =>
-                {
-                    buldier
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    buldier =>
+                    {
+                        buldier.WithOrigins("https://taskmanagerr.azurewebsites.net")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
 
 
             });
@@ -94,7 +96,7 @@ namespace TasksManager
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TasksManager v1"));
             }
 
-            app.UseCors();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
