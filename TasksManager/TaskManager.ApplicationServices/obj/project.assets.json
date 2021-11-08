@@ -6147,11 +6147,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
+      "projectUniqueName": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
       "projectName": "TaskManager.ApplicationServices",
-      "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
+      "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
       "packagesPath": "C:\\Users\\wojte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\obj\\",
+      "outputPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\wojte\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6168,8 +6168,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj"
+            "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj"
             }
           }
         }
@@ -6232,7 +6232,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

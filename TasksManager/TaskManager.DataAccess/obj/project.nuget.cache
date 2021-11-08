@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lg+j5ifTmJuyK3x8Thci834XdXiMXbAR+5EYLrzEV8GuMDSrkGL5s6Tb981WDOXmyXnEU694PzNY58p08lVDFg==",
+  "dgSpecHash": "z79bEPxfKtPbPVLjpyW8gltIYs5laHzDIC+oCEex/pjxIGkA6WaMT2dCL/kuxuC5s/WDqETHus6BkJ3sFq53ZQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
+  "projectFilePath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wojte\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\wojte\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.4\\microsoft.aspnetcore.cryptography.internal.5.0.4.nupkg.sha512",

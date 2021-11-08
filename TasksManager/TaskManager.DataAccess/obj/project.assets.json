@@ -5863,11 +5863,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
+      "projectUniqueName": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
       "projectName": "TaskManager.DataAccess",
-      "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
+      "projectPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\TaskManager.DataAccess.csproj",
       "packagesPath": "C:\\Users\\wojte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\obj\\",
+      "outputPath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\wojte\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5936,7 +5936,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

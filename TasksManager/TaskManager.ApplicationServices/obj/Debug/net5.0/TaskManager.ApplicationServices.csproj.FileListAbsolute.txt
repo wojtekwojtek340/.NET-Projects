@@ -28,3 +28,18 @@ C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.dll
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\ref\TaskManager.ApplicationServices.dll
 C:\Users\Dell\Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.pdb
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\TaskManager.ApplicationServices.deps.json
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\TaskManager.ApplicationServices.dll
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\ref\TaskManager.ApplicationServices.dll
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\TaskManager.ApplicationServices.pdb
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\TaskManager.DataAccess.dll
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\bin\Debug\net5.0\TaskManager.DataAccess.pdb
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.csproj.AssemblyReference.cache
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.AssemblyInfoInputs.cache
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.AssemblyInfo.cs
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.csproj.CoreCompileInputs.cache
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.csproj.CopyComplete
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.dll
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\ref\TaskManager.ApplicationServices.dll
+C:\Users\wojte\OneDrive\Pulpit\Github Desktop\.NET-Projects\TasksManager\TaskManager.ApplicationServices\obj\Debug\net5.0\TaskManager.ApplicationServices.pdb

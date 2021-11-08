@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9UFDVHsyx4rEybcpj/h31e7TsMRHpoYIP40Y5LpYqlwidqqQu/RTuXVuLJfjzVOALFYMVP8AgbV7m+5UrIW6cQ==",
+  "dgSpecHash": "1TbC9pEzXtE3ZReGyK7mTqdSc+8EVd2jGPCLQDgVvku3BCkzqAFjFPauHg/Jt7lIXV6ZYwUYlE+XOuWLmOjN3w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
+  "projectFilePath": "C:\\Users\\wojte\\OneDrive\\Pulpit\\Github Desktop\\.NET-Projects\\TasksManager\\TaskManager.ApplicationServices\\TaskManager.ApplicationServices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wojte\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\wojte\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
