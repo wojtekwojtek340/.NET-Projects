@@ -2,19 +2,19 @@
   "dependencies": {
     "mssql1": {
       "restored": true,
-      "restoreTime": "2021-03-21T19:24:58.2397998Z"
+      "restoreTime": "2021-05-15T10:54:13.865963Z"
     }
   },
   "parameters": {
     "mssql1.subscriptionId": {
       "Name": "mssql1.subscriptionId",
       "Type": "subscription",
-      "Value": "1ccb6cb5-9e70-4f30-997d-8605bdd7300f"
+      "Value": "08fd0670-eda0-4b9e-abc6-3f19327d8bf7"
     },
     "mssql1.resourceGroupName": {
       "Name": "mssql1.resourceGroupName",
       "Type": "resourceGroup",
-      "Value": "TaskManager"
+      "Value": "TaskManagerResource"
     }
   }
 }

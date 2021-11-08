@@ -46,7 +46,7 @@ namespace TasksManager
                 options.AddPolicy(MyAllowSpecificOrigins,
                     buldier =>
                     {
-                        buldier.WithOrigins("https://taskmanagerr.azurewebsites.net")
+                        buldier.WithOrigins("https://taskmanagerxx.azurewebsites.net")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });

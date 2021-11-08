@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <NameOfLastUsedPublishProfile>C:\Users\wojte\OneDrive\Pulpit\.NET-Projects\TasksManager\TaskManager.Blazor\Properties\PublishProfiles\TaskManagerR - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>TaskManagerXX - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
